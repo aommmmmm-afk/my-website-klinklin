@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlinKlin - Home</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./:assets/logo klinklin.png">
+    <!-- เชื่อมต่อ CSS -->
+    <link rel="stylesheet" href="./:assets/style.css">
+    <!-- Font Awesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Playwrite+IE:wght@100..400&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="top-bg-wrapper">
+        <!-- Header (แถบเมนูด้านบน) -->
+        <header class="header">
+            <div class="header-container">
+                <!-- 1. โลโก้ (ซ้ายสุด) -->
+                <div class="logo">
+                    <a href="index.html"><img src="./:assets/logo klinklin.png" alt="Klin Klin Logo"
+                            class="logo-img"></a>
+                </div>
+
+                <!-- 2. เมนูนำทาง (ตรงกลาง) -->
+                <nav class="nav-links">
+                    <a href="index.html">HOME</a>
+                    <a href="products.html">PRODUCTS</a>
+                    <a href="about.html">ABOUT</a>
+                    <a href="contact.html">CONTACT</a>
+                    <a href="tracking.html">TRACKING</a>
+                </nav>
+
+                <!-- 3. ส่วนตัวช่วย (ขวาสุด) -->
+                <div class="nav-utils">
+                    <div class="search-box">
+
+                        <input type="text" placeholder="ค้นหา..." class="search-input" id="global-search-input"
+                            onkeydown="if(event.key === 'Enter') { window.location.href='products.html?search='+encodeURIComponent(this.value); }">
+
+                        <a href="#" class="search-icon"
+                            onclick="const val = document.getElementById('global-search-input').value; window.location.href='products.html?search='+encodeURIComponent(val); return false;"><i
+                                class="fas fa-search"></i></a>
+
+                    </div>
+                    <a href="favorites.html" class="favorites-link" style="position: relative; margin-right: 5px;"><i
+                            class="far fa-heart"></i><span class="fav-badge" id="fav-badge"
+                            style="position: absolute; top: -8px; right: -8px; background-color: #ff3366; color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+                    <a href="profile.html" class="profile-link"><i class="fas fa-user-circle"></i></a>
+                    <a href="cart.html" class="cart-link" style="position: relative;"><i
+                            class="fas fa-shopping-cart"></i><span class="cart-badge" id="cart-badge"
+                            style="position: absolute; top: -8px; right: -8px; background-color: var(--primary-green); color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+                </div>
+            </div>
+        </header>
+
+        <div class="hero-text-container">
+            <h1 class="hero-main-text">Reimagining the touch of relaxation.</h1>
+        </div>
+        <img src="./:assets/bg-home (9).png" alt="Hero Image" class="hero-bounce-img">
+    </div>
+
+
+    <main class="main-content">
+        <!-- New Arrival Section -->
+        <section class="new-arrival-section">
+            <h2 class="section-title fade-in-on-scroll">New Arrival</h2>
+
+            <div class="slider-wrapper">
+                <div class="new-arrival-slider" id="arrival-slider">
+                    <div class="new-arrival-item fade-in-on-scroll delay-1">
+                        <a href="product-detail.html?id=16" class="arrival-card-link">
+                            <div class="arrival-image-container">
+                                <img src="./:assets/all products/foot massage roller/11.png" alt="Foot Massage Roller">
+                            </div>
+                            <div class="arrival-info">
+                                <h3 id="arrival-title-1">ไม้นวดเท้าลูกกลิ้ง (สีฟ้าอ่อน)</h3>
+                                <span class="price">500 ฿</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="new-arrival-item fade-in-on-scroll delay-2">
+                        <a href="product-detail.html?id=55" class="arrival-card-link">
+                            <div class="arrival-image-container">
+                                <img src="./:assets/all products/4-ball roller massager/8.png"
+                                    alt="4-Ball Roller Massager">
+                            </div>
+                            <div class="arrival-info">
+                                <h3 id="arrival-title-2">ไม้นวดลูกกลิ้ง 4 ลูก (สีม่วงอ่อน)</h3>
+                                <span class="price">450 ฿</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="new-arrival-item fade-in-on-scroll delay-3">
+                        <a href="product-detail.html?id=45" class="arrival-card-link">
+                            <div class="arrival-image-container">
+                                <img src="./:assets/all products/three-leg massager./68.png" alt="Three-Leg Massager">
+                            </div>
+                            <div class="arrival-info">
+                                <h3 id="arrival-title-3">ไม้นวดสามขา (สีเขียวอ่อน)</h3>
+                                <span class="price">250 ฿</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="new-arrival-item fade-in-on-scroll delay-4">
+                        <a href="product-detail.html?id=28" class="arrival-card-link">
+                            <div class="arrival-image-container">
+                                <img src="./:assets/all products/ bird-shaped massager/23.png"
+                                    alt="Bird-Shaped Massager">
+                            </div>
+                            <div class="arrival-info">
+                                <h3 id="arrival-title-4">ไม้นวดรูปนก (สีเหลือง)</h3>
+                                <span class="price">190 ฿</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Premium Box Set Section (Luxury Slider Version) -->
+        <section class="premium-box-section fade-in-on-scroll">
+            <h2 class="section-title" id="premium-box-title">Premium Box Set</h2>
+
+            <div class="premium-slider-wrapper">
+                <!-- Navigation Arrows -->
+                <button class="premium-nav-btn prev-btn" id="prev-premium"><i class="fas fa-chevron-left"></i></button>
+
+                <div class="premium-slides-container" id="premium-slider">
+                    <!-- Slide 1: The Pollen Set -->
+                    <div class="premium-slide active">
+                        <div class="premium-slide-image">
+                            <a href="product-detail.html?id=78" style="display: block; width: 100%; height: 100%;">
+                                <img src="./:assets/Premium Box Set/picfullbox-The Pollen Set.png"
+                                    alt="The Pollen Set">
+                            </a>
+                        </div>
+                        <div class="premium-slide-caption">
+                            <div class="caption-left">
+                                <span class="premium-slogan">-SimplyRelax-</span>
+                                <h3 class="premium-slide-title">
+                                    <span class="title-th">ละอองเกสร</span>
+                                    <span class="title-divider">|</span>
+                                    <span class="title-en">The Pollen Set</span>
+                                </h3>
+                                <p class="premium-slide-desc" id="box-desc-1">สัมผัสที่อ่อนโยนและนุ่มนวล
+                                    ดังความบอบบางของเกสรดอกไม้ที่ช่วยเติมเต็มความสดชื่น</p>
+                            </div>
+                            <div class="caption-right">
+                                <span class="premium-slide-price">690 ฿</span>
+                                <button class="add-to-cart-premium-btn" data-id="78">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: The Wave Set -->
+                    <div class="premium-slide">
+                        <div class="premium-slide-image">
+                            <a href="product-detail.html?id=79" style="display: block; width: 100%; height: 100%;">
+                                <img src="./:assets/Premium Box Set/picfullbox-The Wave Set.png" alt="The Wave Set">
+                            </a>
+                        </div>
+                        <div class="premium-slide-caption">
+                            <div class="caption-left">
+                                <span class="premium-slogan">-SimplyRelax-</span>
+                                <h3 class="premium-slide-title">
+                                    <span class="title-th">ระลอกคลื่น</span>
+                                    <span class="title-divider">|</span>
+                                    <span class="title-en">The Wave Set</span>
+                                </h3>
+                                <p class="premium-slide-desc" id="box-desc-2">
+                                    ให้ความรู้สึกเย็นสบายเหมือนอยู่ท่ามกลางสายน้ำ ช่วยปลอบประโลมผิวและกล้ามเนื้อ</p>
+                            </div>
+                            <div class="caption-right">
+                                <span class="premium-slide-price">690 ฿</span>
+                                <button class="add-to-cart-premium-btn" data-id="79">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: The Soil Set -->
+                    <div class="premium-slide">
+                        <div class="premium-slide-image">
+                            <a href="product-detail.html?id=80" style="display: block; width: 100%; height: 100%;">
+                                <img src="./:assets/Premium Box Set/picfullbox-The Soil Set.png" alt="The Soil Set">
+                            </a>
+                        </div>
+                        <div class="premium-slide-caption">
+                            <div class="caption-left">
+                                <span class="premium-slogan">-SimplyRelax-</span>
+                                <h3 class="premium-slide-title">
+                                    <span class="title-th">อุ่นไอดีน</span>
+                                    <span class="title-divider">|</span>
+                                    <span class="title-en">The Soil Set</span>
+                                </h3>
+                                <p class="premium-slide-desc" id="box-desc-3">
+                                    คืนความสมดุลให้ร่างกายด้วยพลังแห่งธรรมชาติเรียบง่าย มั่นคง และผ่อนคลายอย่างล้ำลึก
+                                </p>
+                            </div>
+                            <div class="caption-right">
+                                <span class="premium-slide-price">690 ฿</span>
+                                <button class="add-to-cart-premium-btn" data-id="80">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="premium-nav-btn next-btn" id="next-premium"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <!-- NEWS & ARTICLES SECTION (KLINKLIN JOURNAL) -->
+        <section class="news-section">
+            <div class="news-section-header">
+                <h2 class="section-title" id="news-section-title">KLINKLIN JOURNAL</h2>
+                <p class="news-section-tagline">เรื่องราว ความรู้ และแรงบันดาลใจจาก klin-klin.</p>
+            </div>
+
+            <div class="news-editorial-grid">
+                <!-- Feature Article (large left) -->
+                <article class="news-feature-card" id="news-card-1">
+                    <a href="about.html#klinklin-journal" class="news-feature-link">
+                        <div class="news-feature-image">
+                            <img src="./:assets/pic-JOURNAL/Water-Based Wood Colors.png" alt="Water-Based Wood Colors">
+                            <div class="news-feature-overlay">
+                                <span class="news-feature-category">SAFETY & CRAFT</span>
+                            </div>
+                        </div>
+                        <div class="news-feature-content">
+                            <span class="news-card-date">10 MAY 2026</span>
+                            <h3 class="news-feature-title" id="news-title-1">ปลอดภัยไหม?
+                                เบื้องหลังสีสันย้อมไม้สูตรน้ำที่เป็นมิตรต่อผิว</h3>
+                            <p class="news-feature-desc" id="news-desc-1">เจาะลึกการเลือกสีสูตรน้ำ (Water-based) มาตรฐาน
+                                EN71-3 ปลอดสารตะกั่วและปรอท และการเคลือบผิวด้วยไขผึ้งธรรมชาติ (Beeswax)
+                                เพื่อความปลอดภัยสูงสุดของคุณ...</p>
+                            <span class="news-card-link"><span class="news-link-text"
+                                    id="news-link-text-1">อ่านเพิ่มเติม</span> <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Secondary Article (right) -->
+                <article class="news-secondary-card" id="news-card-2">
+                    <a href="about.html#klinklin-journal" class="news-secondary-link">
+                        <div class="news-secondary-image">
+                            <img src="./:assets/pic-JOURNAL/Pushing Soft Power and Supporting Local Artisans.png"
+                                alt="Soft Power">
+                            <span class="news-secondary-category">CULTURE & DESIGN</span>
+                        </div>
+                        <div class="news-secondary-content">
+                            <span class="news-card-date">08 MAY 2026</span>
+                            <h3 class="news-secondary-title" id="news-title-2">จากสรีระสู่ดีไซน์น่ารัก:
+                                พลิกโฉมไม้นวดไทยโบราณสู่ Must-have Item</h3>
+                            <p class="news-secondary-desc" id="news-desc-2">เปลี่ยนภาพจำของไม้นวดทรงโบราณให้กลายเป็น
+                                Must-have Item บนโต๊ะทำงานของคนรุ่นใหม่
+                                ด้วยการออกแบบตามศาสตร์นวดกดจุดอย่างง่ายและน่ารัก...</p>
+                            <span class="news-card-link"><span class="news-link-text"
+                                    id="news-link-text-2">อ่านเพิ่มเติม</span> <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer (ส่วนท้าย) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col-brand">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="footer-logo-img">
+                </a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-service">บริการลูกค้า</h4>
+                <ul class="footer-col-list">
+                    <li><a href="contact.html#faq-section" id="footer-link-faq">คำถามที่พบบ่อย</a></li>
+                    <li><a href="404.html" id="footer-link-404">หน้า 404</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-news">รับข่าวสารจากเรา</h4>
+                <ul class="footer-col-list">
+                    <li><a href="privacy-policy.html" id="footer-link-privacy">ความเป็นส่วนตัวและความปลอดภัย</a></li>
+                    <li><a href="terms.html" id="footer-link-terms">ข้อกำหนดและประกาศจากเว็บไซต์</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-contact">ติดต่อเรา</h4>
+                <div class="footer-social-icons">
+                    <a href="#" class="social-icon-btn"><i class="fab fa-line"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fas fa-phone-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./:js/products-data.js"></script>
+    <script src="./:js/script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- ระบบควบคุมและเปลี่ยนภาษา ( BILINGUAL SWITCHER ) ---
+            const currentLang = localStorage.getItem('klinklin_lang') || 'th';
+
+            function initLanguageSwitcher() {
+                const navUtils = document.querySelector('.nav-utils');
+                if (navUtils && !document.getElementById('header-lang-switch')) {
+                    const switchDiv = document.createElement('div');
+                    switchDiv.id = 'header-lang-switch';
+                    switchDiv.style.cssText = 'display: flex; gap: 5px; font-size: 0.82rem; font-weight: 700; color: #111; cursor: pointer; align-items: center; margin-right: 15px; user-select: none; font-family: "Google Sans Flex", sans-serif;';
+                    switchDiv.innerHTML = `
+                        <span id="lang-th" style="color: ${currentLang === 'th' ? 'var(--primary-green)' : '#888'};">TH</span>
+                        <span style="color: #e0dee0; font-weight: 400;">|</span>
+                        <span id="lang-en" style="color: ${currentLang === 'en' ? 'var(--primary-green)' : '#888'};">EN</span>
+                    `;
+
+                    const favLink = navUtils.querySelector('.favorites-link');
+                    if (favLink) {
+                        navUtils.insertBefore(switchDiv, favLink);
+                    } else {
+                        navUtils.appendChild(switchDiv);
+                    }
+
+                    document.getElementById('lang-th').onclick = () => {
+                        if (currentLang !== 'th') {
+                            localStorage.setItem('klinklin_lang', 'th');
+                            window.location.reload();
+                        }
+                    };
+                    document.getElementById('lang-en').onclick = () => {
+                        if (currentLang !== 'en') {
+                            localStorage.setItem('klinklin_lang', 'en');
+                            window.location.reload();
+                        }
+                    };
+                }
+
+                // แปลแถบลิสต์เมนูด้านบน
+                const navLinks = document.querySelectorAll('.nav-links a');
+                if (navLinks.length >= 5) {
+                    if (currentLang === 'en') {
+                        navLinks[0].textContent = 'HOME';
+                        navLinks[1].textContent = 'PRODUCTS';
+                        navLinks[2].textContent = 'ABOUT';
+                        navLinks[3].textContent = 'CONTACT';
+                        navLinks[4].textContent = 'TRACKING';
+                    } else {
+                        navLinks[0].textContent = 'หน้าแรก';
+                        navLinks[1].textContent = 'สินค้า';
+                        navLinks[2].textContent = 'เกี่ยวกับเรา';
+                        navLinks[3].textContent = 'ติดต่อเรา';
+                        navLinks[4].textContent = 'เช็คสถานะพัสดุ';
+                    }
+                } else if (navLinks.length >= 4) {
+                    if (currentLang === 'en') {
+                        navLinks[0].textContent = 'HOME';
+                        navLinks[1].textContent = 'PRODUCTS';
+                        navLinks[2].textContent = 'ABOUT';
+                        navLinks[3].textContent = 'CONTACT';
+                    } else {
+                        navLinks[0].textContent = 'หน้าแรก';
+                        navLinks[1].textContent = 'สินค้า';
+                        navLinks[2].textContent = 'เกี่ยวกับเรา';
+                        navLinks[3].textContent = 'ติดต่อเรา';
+                    }
+                }
+
+
+                // แปลส่วนท้ายของเว็บ Footer โครงสร้างใหม่ตามดีไซน์รูปภาพที่ส่งมา
+                const colService = document.getElementById('footer-col-service');
+                const linkFaq = document.getElementById('footer-link-faq');
+                const link404 = document.getElementById('footer-link-404');
+                const colNews = document.getElementById('footer-col-news');
+                const linkPrivacy = document.getElementById('footer-link-privacy');
+                const linkTerms = document.getElementById('footer-link-terms');
+                const colContact = document.getElementById('footer-col-contact');
+
+                if (currentLang === 'en') {
+                    if (colService) colService.textContent = 'Customer Service';
+                    if (linkFaq) linkFaq.textContent = 'FAQs';
+                    if (link404) link404.textContent = '404 Page';
+                    if (colNews) colNews.textContent = 'Subscribe';
+                    if (linkPrivacy) linkPrivacy.textContent = 'Privacy & Security';
+                    if (linkTerms) linkTerms.textContent = 'Terms & Announcements';
+                    if (colContact) colContact.textContent = 'Contact Us';
+                } else {
+                    if (colService) colService.textContent = 'บริการลูกค้า';
+                    if (linkFaq) linkFaq.textContent = 'คำถามที่พบบ่อย';
+                    if (link404) link404.textContent = 'หน้า 404';
+                    if (colNews) colNews.textContent = 'รับข่าวสารจากเรา';
+                    if (linkPrivacy) linkPrivacy.textContent = 'ความเป็นส่วนตัวและความปลอดภัย';
+                    if (linkTerms) linkTerms.textContent = 'ข้อกำหนดและประกาศจากเว็บไซต์';
+                    if (colContact) colContact.textContent = 'ติดต่อเรา';
+                }
+            }
+
+            function localizeHomePage() {
+                // Search box placeholder
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.placeholder = currentLang === 'en' ? 'Search...' : 'ค้นหา...';
+                }
+
+                // Hero text
+                const heroMainText = document.querySelector('.hero-main-text');
+                if (heroMainText) {
+                    heroMainText.textContent = currentLang === 'en' ? 'Reimagining the touch of relaxation.' : 'นิยามใหม่แห่งสัมผัสการผ่อนคลาย';
+                }
+
+                // New Arrivals
+                const title1 = document.getElementById('arrival-title-1');
+                const title2 = document.getElementById('arrival-title-2');
+                const title3 = document.getElementById('arrival-title-3');
+                const title4 = document.getElementById('arrival-title-4');
+
+                if (currentLang === 'en') {
+                    if (title1) title1.textContent = 'Foot Massage Roller (Light Blue)';
+                    if (title2) title2.textContent = '4-Ball Roller Massager (Light Purple)';
+                    if (title3) title3.textContent = 'Three-Leg Massager (Light Green)';
+                    if (title4) title4.textContent = 'Bird-Shaped Massager (Yellow)';
+                } else {
+                    if (title1) title1.textContent = 'ไม้นวดเท้าลูกกลิ้ง (สีฟ้าอ่อน)';
+                    if (title2) title2.textContent = 'ไม้นวดลูกกลิ้ง 4 ลูก (สีม่วงอ่อน)';
+                    if (title3) title3.textContent = 'ไม้นวดสามขา (สีเขียวอ่อน)';
+                    if (title4) title4.textContent = 'ไม้นวดรูปนก (สีเหลือง)';
+                }
+
+                // Premium Box Set Localization
+                const boxDesc1 = document.getElementById('box-desc-1');
+                const boxDesc2 = document.getElementById('box-desc-2');
+                const boxDesc3 = document.getElementById('box-desc-3');
+                const addBtnPremium = document.querySelectorAll('.add-to-cart-premium-btn');
+
+                // News Section Localization Elements
+                const newsSectionTitle = document.getElementById('news-section-title');
+                const newsTitle1 = document.getElementById('news-title-1');
+                const newsDesc1 = document.getElementById('news-desc-1');
+                const newsLink1 = document.getElementById('news-link-text-1');
+                const newsTitle2 = document.getElementById('news-title-2');
+                const newsDesc2 = document.getElementById('news-desc-2');
+                const newsLink2 = document.getElementById('news-link-text-2');
+
+                if (currentLang === 'en') {
+                    if (boxDesc1) boxDesc1.textContent = 'A gentle and soft touch, like the delicacy of flower pollen that replenishes freshness.';
+                    if (boxDesc2) boxDesc2.textContent = 'Provides a cool and relaxing sensation as if in the midst of flowing water, soothing both skin and muscles.';
+                    if (boxDesc3) boxDesc3.textContent = 'Restores bodily balance with simple, steady natural power for a deep and meditative relaxation.';
+                    addBtnPremium.forEach(btn => btn.textContent = 'ADD TO CART');
+
+                    // News (EN)
+                    if (newsSectionTitle) newsSectionTitle.textContent = 'KlinKlin Journal';
+                    if (newsTitle1) newsTitle1.textContent = 'Is It Safe? Behind Skin-Friendly Water-Based Wood Colors';
+                    if (newsDesc1) newsDesc1.textContent = 'An in-depth look at our EN71-3 certified water-based stains (lead & mercury-free) and natural beeswax finishes for maximum skin safety...';
+                    if (newsLink1) newsLink1.textContent = 'Read More';
+
+                    if (newsTitle2) newsTitle2.textContent = 'From Anatomy to Cute Design: Transforming Traditional Thai Massagers';
+                    if (newsDesc2) newsDesc2.textContent = 'Redefining traditional wooden tools into modern must-have items for the younger generation, blending acupressure science with friendly designs...';
+                    if (newsLink2) newsLink2.textContent = 'Read More';
+                } else {
+                    if (boxDesc1) boxDesc1.textContent = 'สัมผัสที่อ่อนโยนและนุ่มนวล ดังความบอบบางของเกสรดอกไม้ที่ช่วยเติมเต็มความสดชื่น';
+                    if (boxDesc2) boxDesc2.textContent = 'ให้ความรู้สึกเย็นสบายเหมือนอยู่ท่ามกลางสายน้ำ ช่วยปลอบประโลมผิวและกล้ามเนื้อ';
+                    if (boxDesc3) boxDesc3.textContent = 'คืนความสมดุลให้ร่างกายด้วยพลังแห่งธรรมชาติเรียบง่าย มั่นคง และผ่อนคลายอย่างล้ำลึก';
+                    addBtnPremium.forEach(btn => btn.textContent = 'ใส่ตะกร้า');
+
+                    // News (TH)
+                    if (newsSectionTitle) newsSectionTitle.textContent = 'ข่าวสารและบทความ';
+                    if (newsTitle1) newsTitle1.textContent = 'ปลอดภัยไหม? เบื้องหลังสีสันย้อมไม้สูตรน้ำที่เป็นมิตรต่อผิว';
+                    if (newsDesc1) newsDesc1.textContent = 'เจาะลึกการเลือกสีสูตรน้ำ (Water-based) มาตรฐาน EN71-3 ปลอดสารตะกั่วและปรอท และการเคลือบผิวด้วยไขผึ้งธรรมชาติ (Beeswax) เพื่อความปลอดภัยสูงสุดของคุณ...';
+                    if (newsLink1) newsLink1.textContent = 'อ่านเพิ่มเติม';
+
+                    if (newsTitle2) newsTitle2.textContent = 'จากสรีระสู่ดีไซน์น่ารัก: พลิกโฉมไม้นวดไทยโบราณสู่ Must-have Item';
+                    if (newsDesc2) newsDesc2.textContent = 'เปลี่ยนภาพจำของไม้นวดทรงโบราณให้กลายเป็น Must-have Item บนโต๊ะทำงานของคนรุ่นใหม่ ด้วยการออกแบบตามศาสตร์นวดกดจุดอย่างง่ายและน่ารัก...';
+                    if (newsLink2) newsLink2.textContent = 'อ่านเพิ่มเติม';
+                }
+            }
+
+            initLanguageSwitcher();
+            localizeHomePage();
+
+            // Badge numbers sync
+            const favorites = JSON.parse(localStorage.getItem('klinklin_favorites')) || [];
+            let cart = JSON.parse(localStorage.getItem('klinklin_cart')) || [];
+
+            const favBadge = document.getElementById('fav-badge');
+            const cartBadge = document.getElementById('cart-badge');
+
+            function updateCartBadgeLocal() {
+                if (cartBadge) {
+                    const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+                    cartBadge.textContent = totalQty;
+                    if (totalQty > 0) {
+                        cartBadge.style.opacity = '1';
+                        cartBadge.style.transform = 'scale(1)';
+                    } else {
+                        cartBadge.style.opacity = '0';
+                        cartBadge.style.transform = 'scale(0)';
+                    }
+                }
+            }
+
+            if (favBadge) {
+                favBadge.textContent = favorites.length;
+                favBadge.style.opacity = favorites.length > 0 ? '1' : '0';
+                favBadge.style.transform = favorites.length > 0 ? 'scale(1)' : 'scale(0)';
+            }
+            updateCartBadgeLocal();
+
+            // --- Premium Box Set Add to Cart & Toast Logic ---
+            // Create global toast-container if not exists
+            let toastContainer = document.getElementById('toast-container');
+            if (!toastContainer) {
+                toastContainer = document.createElement('div');
+                toastContainer.id = 'toast-container';
+                document.body.appendChild(toastContainer);
+            }
+
+            function showToastLocal(message) {
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.innerHTML = `
+                    <i class="fas fa-check-circle toast-icon"></i>
+                    <span>${message}</span>
+                `;
+                toastContainer.appendChild(toast);
+                void toast.offsetWidth; // Force reflow
+                toast.classList.add('show');
+
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 400);
+                }, 2500);
+            }
+
+            const premiumBtns = document.querySelectorAll('.add-to-cart-premium-btn');
+            premiumBtns.forEach(btn => {
+                btn.onclick = (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const isLoggedIn = localStorage.getItem('klinklin_logged_in') === 'true';
+                    if (!isLoggedIn) {
+                        showLoginPromptModal('cart');
+                        return;
+                    }
+
+                    const id = parseInt(btn.getAttribute('data-id'));
+
+                    const product = products.find(p => p.id === id);
+                    const productName = product ? (currentLang === 'en' ? product.nameEN : product.name) : 'สินค้า';
+
+                    const existingItem = cart.find(item => item.id === id);
+                    if (existingItem) {
+                        existingItem.quantity += 1;
+                    } else {
+                        cart.push({ id: id, quantity: 1 });
+                    }
+
+                    localStorage.setItem('klinklin_cart', JSON.stringify(cart));
+                    updateCartBadgeLocal();
+
+                    if (currentLang === 'en') {
+                        showToastLocal(`Added ${productName} to cart!`);
+                    } else {
+                        showToastLocal(`เพิ่ม ${productName} ลงตะกร้าแล้ว!`);
+                    }
+                };
+            });
+
+            // ฟังก์ชันสร้างป๊อปอัปสไตล์โมดอลสวยงามกรณีลืมล็อกอินตามขอ
+            function showLoginPromptModal(context = 'favorite') {
+                if (document.getElementById('login-prompt-modal')) return;
+
+                const styleId = 'login-prompt-style';
+                if (!document.getElementById(styleId)) {
+                    const style = document.createElement('style');
+                    style.id = styleId;
+                    style.innerHTML = `
+                        .login-prompt-overlay {
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100vw;
+                            height: 100vh;
+                            background-color: rgba(17, 17, 17, 0.6);
+                            backdrop-filter: blur(8px);
+                            -webkit-backdrop-filter: blur(8px);
+                            z-index: 1000000;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            opacity: 0;
+                            pointer-events: none;
+                            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+                        }
+                        .login-prompt-overlay.active {
+                            opacity: 1;
+                            pointer-events: auto;
+                        }
+                        .login-prompt-card {
+                            background-color: #ffffff;
+                            width: 100%;
+                            max-width: 400px;
+                            padding: 40px;
+                            border-radius: 12px;
+                            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+                            position: relative;
+                            text-align: center;
+                            transform: scale(0.92);
+                            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+                            margin: 20px;
+                        }
+                        .login-prompt-overlay.active .login-prompt-card {
+                            transform: scale(1);
+                        }
+                        .login-prompt-close {
+                            position: absolute;
+                            top: 15px;
+                            right: 15px;
+                            background-color: #f5f4f0;
+                            border: none;
+                            color: #555555;
+                            font-size: 0.9rem;
+                            cursor: pointer;
+                            width: 32px;
+                            height: 32px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            border-radius: 50%;
+                            transition: all 0.25s;
+                        }
+                        .login-prompt-close:hover {
+                            background-color: #ff3366;
+                            color: #ffffff;
+                            transform: rotate(90deg);
+                        }
+                        .login-prompt-icon {
+                            width: 64px;
+                            height: 64px;
+                            font-size: 1.6rem;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            border-radius: 50%;
+                            margin: 0 auto 20px auto;
+                        }
+                        .login-prompt-title {
+                            font-family: 'Google Sans Flex', sans-serif;
+                            font-size: 1.4rem;
+                            font-weight: 600;
+                            color: #111111;
+                            margin-bottom: 12px;
+                        }
+                        .login-prompt-desc {
+                            font-size: 0.92rem;
+                            color: #666666;
+                            line-height: 1.6;
+                            margin-bottom: 30px;
+                        }
+                        .login-prompt-btn {
+                            display: block;
+                            width: 100%;
+                            background-color: var(--primary-green, #7cc954);
+                            color: #ffffff;
+                            text-decoration: none;
+                            font-size: 0.95rem;
+                            font-weight: 600;
+                            padding: 14px 0;
+                            border-radius: 6px;
+                            box-shadow: 0 4px 15px rgba(124, 201, 84, 0.3);
+                            transition: all 0.25s;
+                            border: none;
+                            cursor: pointer;
+                            text-align: center;
+                        }
+                        .login-prompt-btn:hover {
+                            background-color: #111111;
+                            box-shadow: 0 4px 15px rgba(17, 17, 17, 0.25);
+                        }
+                        .login-prompt-cancel {
+                            display: inline-block;
+                            margin-top: 15px;
+                            font-size: 0.88rem;
+                            color: #888888;
+                            text-decoration: none;
+                            cursor: pointer;
+                            transition: color 0.2s;
+                        }
+                        .login-prompt-cancel:hover {
+                            color: #111111;
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+
+                const overlay = document.createElement('div');
+                overlay.id = 'login-prompt-modal';
+                overlay.className = 'login-prompt-overlay';
+                
+                const isCart = context === 'cart';
+                const iconClass = isCart ? 'fas fa-shopping-basket' : 'fas fa-heart';
+                const iconBg = isCart ? '#f0fff4' : '#fff0f3';
+                const iconColor = isCart ? 'var(--primary-green, #7cc954)' : '#ff3366';
+                const iconShadow = isCart ? '0 8px 20px rgba(124, 201, 84, 0.15)' : '0 8px 20px rgba(255, 51, 102, 0.15)';
+
+                const modalTitle = currentLang === 'en' ? 'Please Sign In' : 'กรุณาลงชื่อเข้าใช้งาน';
+                const modalDesc = isCart
+                    ? (currentLang === 'en' ? 'Please sign in to your account before adding items to your shopping cart.' : 'กรุณาลงชื่อเข้าสู่ระบบก่อนทำการหยิบสินค้าใส่ตะกร้า')
+                    : (currentLang === 'en' ? 'Please sign in to your account before adding items to your favorites.' : 'กรุณาลงชื่อเข้าสู่ระบบก่อนทำการกดเพิ่มสินค้าในรายการโปรด');
+                const modalBtn = currentLang === 'en' ? 'Go to Sign-In Page' : 'ไปหน้าลงชื่อเข้าใช้งาน';
+                const modalCancel = currentLang === 'en' ? 'Maybe Later' : 'ไว้ทีหลัง';
+
+                overlay.innerHTML = `
+                    <div class="login-prompt-card">
+                        <div class="login-prompt-icon" style="background-color: ${iconBg}; color: ${iconColor}; box-shadow: ${iconShadow};">
+                            <i class="${iconClass}"></i>
+                        </div>
+                        <h3 class="login-prompt-title">${modalTitle}</h3>
+                        <p class="login-prompt-desc">${modalDesc}</p>
+                        <a href="profile.html" class="login-prompt-btn">${modalBtn}</a>
+                        <span class="login-prompt-cancel" id="login-prompt-cancel-btn">${modalCancel}</span>
+                    </div>
+                `;
+
+                document.body.appendChild(overlay);
+
+                setTimeout(() => {
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }, 10);
+
+                const dismissModal = () => {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                    setTimeout(() => {
+                        overlay.remove();
+                    }, 350);
+                };
+
+                document.getElementById('login-prompt-cancel-btn').onclick = dismissModal;
+                overlay.onclick = (e) => {
+                    if (e.target === overlay) dismissModal();
+                };
+                
+                const handleEsc = (e) => {
+                    if (e.key === 'Escape') {
+                        dismissModal();
+                        document.removeEventListener('keydown', handleEsc);
+                    }
+                };
+                document.addEventListener('keydown', handleEsc);
+            }
+
+            // --- Premium Box Set Slider Controls ---
+            const premiumSlides = document.querySelectorAll('.premium-slide');
+            const prevPremiumBtn = document.getElementById('prev-premium');
+            const nextPremiumBtn = document.getElementById('next-premium');
+            let currentPremiumIdx = 0;
+
+            function showPremiumSlide(idx) {
+                premiumSlides.forEach((slide, i) => {
+                    if (i === idx) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                });
+            }
+
+            if (prevPremiumBtn && nextPremiumBtn && premiumSlides.length > 0) {
+                prevPremiumBtn.onclick = (e) => {
+                    e.preventDefault();
+                    currentPremiumIdx = (currentPremiumIdx - 1 + premiumSlides.length) % premiumSlides.length;
+                    showPremiumSlide(currentPremiumIdx);
+                };
+
+                nextPremiumBtn.onclick = (e) => {
+                    e.preventDefault();
+                    currentPremiumIdx = (currentPremiumIdx + 1) % premiumSlides.length;
+                    showPremiumSlide(currentPremiumIdx);
+                };
+            }
+        });
+    </script>
+</body>
+
+</html>

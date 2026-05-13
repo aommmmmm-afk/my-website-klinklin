@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlinKlin - Privacy Policy</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./:assets/logo klinklin.png">
+    <!-- เชื่อมต่อ CSS -->
+    <link rel="stylesheet" href="./:assets/style.css">
+    <!-- Font Awesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Playwrite+IE:wght@100..400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Header (แถบเมนูด้านบน) -->
+    <header class="header">
+        <div class="header-container">
+            <!-- 1. โลโก้ (ซ้ายสุด) -->
+            <div class="logo">
+                <a href="index.html"><img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="logo-img"></a>
+            </div>
+
+            <!-- 2. เมนูนำทาง (ตรงกลาง) -->
+            <nav class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="products.html">PRODUCTS</a>
+                <a href="about.html">ABOUT</a>
+                <a href="contact.html">CONTACT</a>
+                <a href="tracking.html">TRACKING</a>
+            </nav>
+
+            <!-- 3. ส่วนตัวช่วย (ขวาสุด) -->
+            <div class="nav-utils">
+                <div class="search-box">
+
+                    <input type="text" placeholder="ค้นหา..." class="search-input" id="global-search-input" onkeydown="if(event.key === 'Enter') { window.location.href='products.html?search='+encodeURIComponent(this.value); }">
+
+                    <a href="#" class="search-icon" onclick="const val = document.getElementById('global-search-input').value; window.location.href='products.html?search='+encodeURIComponent(val); return false;"><i class="fas fa-search"></i></a>
+
+                </div>
+                <a href="favorites.html" class="favorites-link" style="position: relative; margin-right: 5px;"><i class="far fa-heart"></i><span class="fav-badge" id="fav-badge" style="position: absolute; top: -8px; right: -8px; background-color: #ff3366; color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+                <a href="profile.html" class="profile-link"><i class="fas fa-user-circle"></i></a>
+                <a href="cart.html" class="cart-link" style="position: relative;"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cart-badge" style="position: absolute; top: -8px; right: -8px; background-color: var(--primary-green); color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container (ปรับดีไซน์ให้โปร่งหรูหรากึ่งกลางหน้าจอพอดี) -->
+    <main class="main-content" style="padding: 120px 0 80px 0; min-height: calc(100vh - 460px); background-color: #fcfbf7; font-family: 'Google Sans Flex', sans-serif;">
+        <div style="max-width: 900px; margin: 0 auto; padding: 0 24px;">
+            
+            <!-- Breadcrumbs -->
+            <div style="margin-bottom: 25px; font-size: 0.88rem; color: #8c9690; display: flex; gap: 8px;">
+                <a href="index.html" style="color: #8c9690; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--primary-green)'" onmouseout="this.style.color='#8c9690'" id="breadcrumb-home">หน้าแรก</a>
+                <span>/</span>
+                <span style="color: var(--primary-green); font-weight: 500;" id="breadcrumb-current">นโยบายความเป็นส่วนตัว</span>
+            </div>
+
+            <!-- Content Card -->
+            <div style="background: #ffffff; border: 1px solid #e5e0da; border-radius: 16px; padding: 50px; box-shadow: 0 10px 35px rgba(44, 92, 61, 0.03);">
+                <h1 style="font-family: 'Google Sans Flex', sans-serif; font-size: 2rem; font-weight: 700; color: #1b3c25; margin: 0 0 10px 0; text-align: center;" id="policy-title-main">Privacy Policy</h1>
+                <h2 style="font-family: 'Google Sans Flex', sans-serif; font-size: 1.3rem; font-weight: 500; color: #4a544e; margin: 0 0 30px 0; text-align: center;" id="policy-title-sub">นโยบายความเป็นส่วนตัว</h2>
+                
+                <div style="border-bottom: 1px solid #f3efea; padding-bottom: 15px; margin-bottom: 30px; font-size: 0.88rem; color: #8c9690; text-align: center;" id="policy-updated">
+                    ปรับปรุงล่าสุดเมื่อวันที่: 7 พ.ค. 2569
+                </div>
+
+                <div class="policy-content-text" style="color: #4a544e; font-size: 0.98rem; line-height: 1.8; display: flex; flex-direction: column; gap: 24px;" id="policy-body">
+                    <!-- จะถูกเติมแบบ Dynamic โดย JavaScript ตามภาษาที่เลือก -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer (ส่วนท้าย) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col-brand">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="footer-logo-img">
+                </a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-service">บริการลูกค้า</h4>
+                <ul class="footer-col-list">
+                    <li><a href="contact.html#faq-section" id="footer-link-faq">คำถามที่พบบ่อย</a></li>
+                    <li><a href="404.html" id="footer-link-404">หน้า 404</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-news">รับข่าวสารจากเรา</h4>
+                <ul class="footer-col-list">
+                    <li><a href="privacy-policy.html" id="footer-link-privacy">ความเป็นส่วนตัวและความปลอดภัย</a></li>
+                    <li><a href="terms.html" id="footer-link-terms">ข้อกำหนดและประกาศจากเว็บไซต์</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-contact">ติดต่อเรา</h4>
+                <div class="footer-social-icons">
+                    <a href="#" class="social-icon-btn"><i class="fab fa-line"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fas fa-phone-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./:js/script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- ระบบควบคุมและเปลี่ยนภาษา ( BILINGUAL SWITCHER ) ---
+            const currentLang = localStorage.getItem('klinklin_lang') || 'th';
+
+            function initLanguageSwitcher() {
+                const navUtils = document.querySelector('.nav-utils');
+                if (navUtils && !document.getElementById('header-lang-switch')) {
+                    const switchDiv = document.createElement('div');
+                    switchDiv.id = 'header-lang-switch';
+                    switchDiv.style.cssText = 'display: flex; gap: 5px; font-size: 0.82rem; font-weight: 700; color: #111; cursor: pointer; align-items: center; margin-right: 15px; user-select: none; font-family: "Google Sans Flex", sans-serif;';
+                    switchDiv.innerHTML = `
+                        <span id="lang-th" style="color: ${currentLang === 'th' ? 'var(--primary-green)' : '#888'};">TH</span>
+                        <span style="color: #e0dee0; font-weight: 400;">|</span>
+                        <span id="lang-en" style="color: ${currentLang === 'en' ? 'var(--primary-green)' : '#888'};">EN</span>
+                    `;
+                    
+                    const favLink = navUtils.querySelector('.favorites-link');
+                    if (favLink) {
+                        navUtils.insertBefore(switchDiv, favLink);
+                    } else {
+                        navUtils.appendChild(switchDiv);
+                    }
+
+                    document.getElementById('lang-th').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (localStorage.getItem('klinklin_lang') !== 'th') {
+                            localStorage.setItem('klinklin_lang', 'th');
+                            window.location.reload();
+                        }
+                    });
+
+                    document.getElementById('lang-en').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (localStorage.getItem('klinklin_lang') !== 'en') {
+                            localStorage.setItem('klinklin_lang', 'en');
+                            window.location.reload();
+                        }
+                    });
+                }
+            }
+
+            const pageData = {
+                th: {
+                    breadcrumbHome: "หน้าแรก",
+                    breadcrumbCurrent: "นโยบายความเป็นส่วนตัว",
+                    titleMain: "Privacy Policy",
+                    titleSub: "นโยบายความเป็นส่วนตัว",
+                    updated: "ปรับปรุงล่าสุดเมื่อวันที่: 7 พ.ค. 2569",
+                    navHome: "หน้าแรก",
+                    navProducts: "สินค้า",
+                    navAbout: "เกี่ยวกับเรา",
+                    navContact: "ติดต่อเรา",
+                    colService: "บริการลูกค้า",
+                    linkFaq: "คำถามที่พบบ่อย",
+                    link404: "หน้า 404",
+                    colNews: "รับข่าวสารจากเรา",
+                    linkPrivacy: "ความเป็นส่วนตัวและความปลอดภัย",
+                    linkTerms: "ข้อกำหนดและประกาศจากเว็บไซต์",
+                    colContact: "ติดต่อเรา",
+                    searchPlaceholder: "ค้นหา...",
+                    content: `
+                        <p>Klin Klin (“เรา”) ตระหนักถึงความสำคัญของการคุ้มครองข้อมูลส่วนบุคคลของคุณ ในฐานะผู้ใช้งานเว็บไซต์ นโยบายความเป็นส่วนตัวฉบับนี้จึงจัดทำขึ้นเพื่อแจ้งรายละเอียดเกี่ยวกับการเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลของคุณ ตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 (PDPA)</p>
+                        
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">1. ข้อมูลส่วนบุคคลที่เราเก็บรวบรวม</h3>
+                            <p>เราจะเก็บรวบรวมข้อมูลส่วนบุคคลที่ได้รับจากคุณโดยตรงผ่านการใช้บริการบนเว็บไซต์ ดังนี้:</p>
+                            <ul style="margin: 8px 0 0 20px; padding: 0; list-style-type: disc;">
+                                <li><strong>ข้อมูลส่วนตัว:</strong> ชื่อ - นามสกุล, ที่อยู่จัดส่งสินค้า, เบอร์โทรศัพท์ และอีเมล</li>
+                                <li><strong>ข้อมูลการเข้าสู่ระบบ:</strong> ข้อมูลการยืนยันตัวตนผ่านบัญชี Google (Google Login)</li>
+                                <li><strong>ข้อมูลทางเทคนิค:</strong> หมายเลขไอพี (IP Address), ประเภทของเบราว์เซอร์ และพฤติกรรมการใช้งานบนเว็บไซต์</li>
+                                <li><strong>คุกกี้ (Cookies):</strong> เราใช้คุกกี้เพื่อจัดเก็บข้อมูลการเข้าชมเพื่อปรับปรุงประสบการณ์การใช้งานของคุณ</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">2. วัตถุประสงค์ในการเก็บรวบรวมและใช้ข้อมูล</h3>
+                            <p>เราจะใช้ข้อมูลของคุณภายใต้ฐานความจำเป็นและผลประโยชน์อันชอบธรรม เพื่อวัตถุประสงค์ดังต่อไปนี้:</p>
+                            <ul style="margin: 8px 0 0 20px; padding: 0; list-style-type: disc;">
+                                <li>เพื่อดำเนินการจัดส่งสินค้าให้ถึงมือคุณอย่างถูกต้อง</li>
+                                <li>เพื่อให้บริการหลังการขาย การตอบคำถาม และการแก้ไขปัญหาการใช้งาน</li>
+                                <li>เพื่อวิเคราะห์พฤติกรรมผู้ใช้งาน (Analytics) นำมาพัฒนาประสิทธิภาพของเว็บไซต์ให้ดียิ่งขึ้น</li>
+                                <li>เพื่อการตลาดและการประชาสัมพันธ์ เช่น การแจ้งโปรโมชัน หรือสิทธิพิเศษต่างๆ (เฉพาะในกรณีที่คุณให้ความยินยอม)</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">3. การเปิดเผยข้อมูลส่วนบุคคลต่อบุคคลภายนอก</h3>
+                            <p>เรามีความจำเป็นต้องส่งต่อข้อมูลบางส่วนของคุณให้แก่ผู้ให้บริการภายนอก เพื่อให้บรรลุวัตถุประสงค์ข้างต้น ได้แก่:</p>
+                            <ul style="margin: 8px 0 0 20px; padding: 0; list-style-type: disc;">
+                                <li><strong>บริษัทขนส่งสินค้า:</strong> เพื่อดำเนินการส่งสินค้าตามที่อยู่ที่คุณระบุ</li>
+                                <li><strong>ผู้ให้บริการชำระเงิน (Payment Gateway):</strong> เพื่อความปลอดภัยในการทำธุรกรรมทางการเงิน</li>
+                                <li><strong>เครื่องมือวิเคราะห์ข้อมูล:</strong> เช่น Google Analytics เพื่อวิเคราะห์การใช้งานเว็บไซต์</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">4. การเก็บรักษาและระยะเวลาในการจัดเก็บข้อมูล</h3>
+                            <p>เราจะเก็บรักษาข้อมูลส่วนบุคคลของคุณไว้ตามระยะเวลาที่จำเป็นเพื่อให้บรรลุวัตถุประสงค์ที่ระบุไว้ในนโยบายนี้ หรือตามระยะเวลาที่กฎหมายที่เกี่ยวข้องกำหนด (เช่น กฎหมายบัญชีหรือกฎหมายภาษีอากร) เมื่อพ้นกำหนดระยะเวลาดังกล่าว เราจะดำเนินการลบหรือทำให้ข้อมูลนั้นไม่สามารถระบุตัวบุคคลได้</p>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">5. สิทธิของเจ้าของข้อมูลส่วนบุคคล</h3>
+                            <p>ภายใต้กฎหมาย PDPA คุณมีสิทธิดังต่อไปนี้:</p>
+                            <ul style="margin: 8px 0 0 20px; padding: 0; list-style-type: disc;">
+                                <li>สิทธิในการเข้าถึงและขอรับสำเนาข้อมูลส่วนบุคคล</li>
+                                <li>สิทธิในการขอแก้ไขข้อมูลให้เป็นปัจจุบันและถูกต้อง</li>
+                                <li>สิทธิในการขอให้ลบหรือทำลายข้อมูล</li>
+                                <li>สิทธิในการถอนความยินยอม (สำหรับการตลาด)</li>
+                                <li>สิทธิในการคัดค้านการเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูล</li>
+                            </ul>
+                        </div>
+
+                        <div style="background-color: #fcfbf7; border: 1px solid #e5e0da; border-radius: 8px; padding: 20px; margin-top: 10px;">
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">6. ช่องทางการติดต่อ</h3>
+                            <p>หากคุณมีข้อสงสัยเกี่ยวกับนโยบายความเป็นส่วนตัวนี้ หรือต้องการใช้สิทธิเกี่ยวกับข้อมูลส่วนบุคคล สามารถติดต่อเราได้ที่:</p>
+                            <p style="margin-top: 10px; line-height: 1.6;">
+                                <strong>Klin Klin</strong><br>
+                                ที่อยู่: 114 ซอยสุขุมวิท 23 แขวงคลองเตยเหนือ เขตวัฒนา กรุงเทพมหานคร 10110<br>
+                                อีเมล: <a href="mailto:patsaporn.aom@g.swu.ac.th" style="color: var(--primary-green); text-decoration: none; font-weight: 500;">patsaporn.aom@g.swu.ac.th</a>
+                            </p>
+                        </div>
+                    `
+                },
+                en: {
+                    breadcrumbHome: "Home",
+                    breadcrumbCurrent: "Privacy Policy",
+                    titleMain: "Privacy Policy",
+                    titleSub: "Privacy Policy",
+                    updated: "Last updated: May 7, 2026",
+                    navHome: "HOME",
+                    navProducts: "PRODUCTS",
+                    navAbout: "ABOUT",
+                    navContact: "CONTACT",
+                    colService: "Customer Service",
+                    linkFaq: "FAQs",
+                    link404: "404 Page",
+                    colNews: "Subscribe",
+                    linkPrivacy: "Privacy & Security",
+                    linkTerms: "Terms & Announcements",
+                    colContact: "Contact Us",
+                    searchPlaceholder: "Search...",
+                    content: `
+                        <p>Klin Klin (“we”, “us”, or “our”) recognizes the importance of protecting your personal data as a user of our website. This Privacy Policy is prepared to inform you of the details regarding the collection, use, or disclosure of your personal data in accordance with the Personal Data Protection Act B.E. 2562 (2019) (PDPA).</p>
+                        
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">1. Personal Data We Collect</h3>
+                            <p>We collect personal data directly from your use of services on our website as follows:</p>
+                            <ul style="margin: 8px 0 0 20px; padding: 0; list-style-type: disc;">
+                                <li><strong>Personal Information:</strong> First and last name, shipping address, telephone number, and email.</li>
+                                <li><strong>Login Information:</strong> Authentication data via Google Account (Google Login).</li>
+                                <li><strong>Technical Information:</strong> IP Address, browser type, and user behavior on the website.</li>
+                                <li><strong>Cookies:</strong> We use cookies to store your visit information to improve your user experience.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">2. Objectives of Collection and Use of Data</h3>
+                            <p>We will use your data under the basis of necessity and legitimate interests for the following purposes:</p>
+                            <ul style="margin: 8px 0 0 20px; padding: 0; list-style-type: disc;">
+                                <li>To process and deliver goods to your address accurately.</li>
+                                <li>To provide after-sales service, answer questions, and solve website usage problems.</li>
+                                <li>To analyze user behavior (Analytics) for improving website performance and user experience.</li>
+                                <li>For marketing and public relations, such as notifying promotions or special privileges (only if you give consent).</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">3. Disclosure of Personal Data to Third Parties</h3>
+                            <p>We may need to share some of your data with external service providers to fulfill the above purposes, including:</p>
+                            <ul style="margin: 8px 0 0 20px; padding: 0; list-style-type: disc;">
+                                <li><strong>Delivery Companies:</strong> To deliver goods to your specified address.</li>
+                                <li><strong>Payment Gateways:</strong> For secure financial transactions.</li>
+                                <li><strong>Data Analytics Tools:</strong> Such as Google Analytics to analyze website usage.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">4. Data Retention and Retention Period</h3>
+                            <p>We will retain your personal data for the period necessary to fulfill the purposes specified in this policy or as required by applicable laws (such as accounting or tax laws). After the expiration of such period, we will delete or anonymize your data.</p>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">5. Rights of the Data Subject</h3>
+                            <p>Under the PDPA, you have the following rights:</p>
+                            <ul style="margin: 8px 0 0 20px; padding: 0; list-style-type: disc;">
+                                <li>Right to access and request a copy of your personal data.</li>
+                                <li>Right to request correction of your data to be current and accurate.</li>
+                                <li>Right to request erasure or destruction of your data.</li>
+                                <li>Right to withdraw consent (for marketing).</li>
+                                <li>Right to object to the collection, use, or disclosure of your data.</li>
+                            </ul>
+                        </div>
+
+                        <div style="background-color: #fcfbf7; border: 1px solid #e5e0da; border-radius: 8px; padding: 20px; margin-top: 10px;">
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">6. Contact Channels</h3>
+                            <p>If you have any questions regarding this Privacy Policy or wish to exercise your rights regarding personal data, you can contact us at:</p>
+                            <p style="margin-top: 10px; line-height: 1.6;">
+                                <strong>Klin Klin</strong><br>
+                                Address: 114 Soi Sukhumvit 23, Khlong Toei Nuea, Watthana, Bangkok 10110<br>
+                                Email: <a href="mailto:patsaporn.aom@g.swu.ac.th" style="color: var(--primary-green); text-decoration: none; font-weight: 500;">patsaporn.aom@g.swu.ac.th</a>
+                            </p>
+                        </div>
+                    `
+                }
+            };
+
+            function localizePage() {
+                const data = pageData[currentLang] || pageData.th;
+
+                // Breadcrumbs & Title
+                const bHome = document.getElementById('breadcrumb-home');
+                const bCurrent = document.getElementById('breadcrumb-current');
+                const tMain = document.getElementById('policy-title-main');
+                const tSub = document.getElementById('policy-title-sub');
+                const uTime = document.getElementById('policy-updated');
+                const pBody = document.getElementById('policy-body');
+
+                if (bHome) bHome.textContent = data.breadcrumbHome;
+                if (bCurrent) bCurrent.textContent = data.breadcrumbCurrent;
+                if (tMain) tMain.textContent = data.titleMain;
+                if (tSub) tSub.textContent = data.titleSub;
+                if (uTime) uTime.textContent = data.updated;
+                if (pBody) pBody.innerHTML = data.content;
+
+                // Navigation Links
+                const navLinks = document.querySelectorAll('.nav-links a');
+                if (navLinks.length >= 5) {
+                    navLinks[0].textContent = data.navHome;
+                    navLinks[1].textContent = data.navProducts;
+                    navLinks[2].textContent = data.navAbout;
+                    navLinks[3].textContent = data.navContact;
+                    navLinks[4].textContent = currentLang === 'en' ? 'TRACKING' : 'เช็คสถานะพัสดุ';
+                } else if (navLinks.length >= 4) {
+                    navLinks[0].textContent = data.navHome;
+                    navLinks[1].textContent = data.navProducts;
+                    navLinks[2].textContent = data.navAbout;
+                    navLinks[3].textContent = data.navContact;
+                }
+
+                // Footer Translations
+                const colService = document.getElementById('footer-col-service');
+                const linkFaq = document.getElementById('footer-link-faq');
+                const link404 = document.getElementById('footer-link-404');
+                const colNews = document.getElementById('footer-col-news');
+                const linkPrivacy = document.getElementById('footer-link-privacy');
+                const linkTerms = document.getElementById('footer-link-terms');
+                const colContact = document.getElementById('footer-col-contact');
+
+                if (colService) colService.textContent = data.colService;
+                if (linkFaq) linkFaq.textContent = data.linkFaq;
+                if (link404) link404.textContent = data.link404;
+                if (colNews) colNews.textContent = data.colNews;
+                if (linkPrivacy) linkPrivacy.textContent = data.linkPrivacy;
+                if (linkTerms) linkTerms.textContent = data.linkTerms;
+                if (colContact) colContact.textContent = data.colContact;
+
+                // Search Input
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.placeholder = data.searchPlaceholder;
+                }
+            }
+
+            initLanguageSwitcher();
+            localizePage();
+
+            // Badge System update
+            function updateBadges() {
+                const cart = JSON.parse(localStorage.getItem('klinklin_cart')) || [];
+                const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+                const cartBadge = document.getElementById('cart-badge');
+                if (cartBadge) {
+                    if (cartCount > 0) {
+                        cartBadge.textContent = cartCount;
+                        cartBadge.style.opacity = '1';
+                    } else {
+                        cartBadge.style.opacity = '0';
+                    }
+                }
+
+                const favorites = JSON.parse(localStorage.getItem('klinklin_favorites')) || [];
+                const favCount = favorites.length;
+                const favBadge = document.getElementById('fav-badge');
+                if (favBadge) {
+                    if (favCount > 0) {
+                        favBadge.textContent = favCount;
+                        favBadge.style.opacity = '1';
+                    } else {
+                        favBadge.style.opacity = '0';
+                    }
+                }
+            }
+            updateBadges();
+        });
+    </script>
+</body>
+
+</html>

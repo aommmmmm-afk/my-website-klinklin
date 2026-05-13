@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlinKlin - Contact Us</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./:assets/logo klinklin.png">
+    <!-- เชื่อมต่อ CSS -->
+    <link rel="stylesheet" href="./:assets/style.css">
+    <!-- Font Awesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Playwrite+IE:wght@100..400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Contact Page Custom Styles */
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px 80px 24px;
+            font-family: 'Google Sans Flex', sans-serif;
+        }
+
+        /* ── Contact Form Section ── */
+        .contact-card {
+            margin-bottom: 140px;
+            background: #ffffff;
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 20px 60px rgba(44, 92, 61, 0.07);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .contact-card-inner {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            min-height: 520px;
+        }
+
+        @media (max-width: 860px) {
+            .contact-card-inner { grid-template-columns: 1fr; }
+        }
+
+        /* Left Image Panel */
+        .contact-card-left {
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-right: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .contact-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .contact-card-left:hover .contact-card-img {
+            transform: scale(1.03);
+        }
+
+        @media (max-width: 860px) {
+            .contact-card-left {
+                min-height: 350px;
+                border-right: none;
+                border-bottom: 1px solid rgba(0,0,0,0.03);
+            }
+        }
+
+        /* Right form panel */
+        .contact-form-col {
+            padding: 56px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #fdfcf8;
+        }
+
+        @media (max-width: 768px) {
+            .contact-form-col { padding: 40px 32px; }
+        }
+
+        @media (max-width: 480px) {
+            .contact-form-col { padding: 32px 20px; }
+        }
+
+        .contact-form-eyebrow {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            color: var(--primary-green, #2c5c3d);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            opacity: 0.75;
+        }
+
+        .contact-form-heading {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #111;
+            margin: 0 0 6px;
+            letter-spacing: -0.3px;
+            line-height: 1.25;
+        }
+
+        .contact-subtitle {
+            font-size: 0.85rem;
+            color: #888;
+            margin: 0 0 30px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .contact-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 20px;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 480px) {
+            .contact-form-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Underline-style input fields */
+        .contact-input-wrap {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .contact-input-field {
+            width: 100%;
+            padding: 12px 0 10px;
+            background: transparent;
+            border: none;
+            border-bottom: 1.5px solid #ddd;
+            border-radius: 0;
+            font-size: 0.9rem;
+            color: #111;
+            box-sizing: border-box;
+            transition: border-color 0.25s ease;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .contact-input-field::placeholder { color: #bbb; font-size: 0.85rem; }
+
+        .contact-input-field:focus {
+            border-bottom-color: var(--primary-green, #2c5c3d);
+        }
+
+        .contact-textarea-field {
+            width: 100%;
+            min-height: 110px;
+            padding: 12px 0 10px;
+            background: transparent;
+            border: none;
+            border-bottom: 1.5px solid #ddd;
+            border-radius: 0;
+            font-size: 0.9rem;
+            color: #111;
+            box-sizing: border-box;
+            resize: none;
+            transition: border-color 0.25s ease;
+            font-family: inherit;
+            outline: none;
+            display: block;
+            width: 100%;
+            margin-bottom: 32px;
+        }
+
+        .contact-textarea-field::placeholder { color: #bbb; font-size: 0.85rem; }
+
+        .contact-textarea-field:focus {
+            border-bottom-color: var(--primary-green, #2c5c3d);
+        }
+
+        .contact-submit-btn-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .contact-submit-btn {
+            padding: 14px 48px;
+            background-color: #111111;
+            color: #ffffff !important;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .contact-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(83, 161, 229, 0.4);
+            background-color: #53a1e5;
+            color: #ffffff !important;
+        }
+
+        .contact-submit-btn:active { transform: translateY(0); }
+
+
+
+        .contact-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .contact-image-col:hover .contact-image {
+            transform: scale(1.04);
+        }
+
+        .contact-image-badge {
+            position: absolute;
+            bottom: 28px;
+            left: 28px;
+            background: rgba(255,255,255,0.88);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 14px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .contact-image-badge-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: #1b3c25;
+            text-transform: uppercase;
+        }
+
+        .contact-image-badge-sub {
+            font-size: 0.75rem;
+            color: #555;
+            font-weight: 400;
+        }
+
+        /* Right Form Panel */
+        .contact-form-col {
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #ffffff;
+            max-width: 780px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .contact-form-col { padding: 40px 32px; }
+        }
+
+        @media (max-width: 480px) {
+            .contact-form-col { padding: 32px 20px; }
+        }
+
+        .contact-form-eyebrow {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            color: var(--primary-green, #2c5c3d);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .contact-form-heading {
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: #111;
+            margin: 0 0 10px;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .contact-subtitle {
+            font-size: 0.9rem;
+            color: #777;
+            margin: 0 0 32px;
+            line-height: 1.65;
+            font-weight: 400;
+        }
+
+        .contact-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        @media (max-width: 576px) {
+            .contact-form-grid { grid-template-columns: 1fr; }
+        }
+
+        .contact-input-field {
+            width: 100%;
+            padding: 14px 18px;
+            background-color: #f9f7f2;
+            border: 1.5px solid transparent;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #111;
+            box-sizing: border-box;
+            transition: all 0.25s ease;
+            font-family: inherit;
+        }
+
+        .contact-input-field::placeholder { color: #aaa; }
+
+        .contact-input-field:focus {
+            outline: none;
+            background: #ffffff;
+            border-color: var(--primary-green, #2c5c3d);
+            box-shadow: 0 0 0 4px rgba(44, 92, 61, 0.06);
+        }
+
+        .contact-textarea-field {
+            width: 100%;
+            min-height: 140px;
+            padding: 14px 18px;
+            background-color: #f9f7f2;
+            border: 1.5px solid transparent;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #111;
+            box-sizing: border-box;
+            resize: none;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            margin-bottom: 22px;
+        }
+
+        .contact-textarea-field::placeholder { color: #aaa; }
+
+        .contact-textarea-field:focus {
+            outline: none;
+            background: #ffffff;
+            border-color: var(--primary-green, #2c5c3d);
+            box-shadow: 0 0 0 4px rgba(44, 92, 61, 0.06);
+        }
+
+        .contact-submit-btn-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .contact-submit-btn {
+            padding: 13px 40px;
+            background-color: #111111;
+            color: #ffffff !important;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .contact-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(83, 161, 229, 0.4);
+            background-color: #53a1e5;
+            color: #ffffff !important;
+        }
+
+        .contact-submit-btn:active { transform: translateY(0); }
+
+        /* Bottom Section - More Ways to Contact */
+        .more-contact-section {
+            text-align: center;
+            margin-top: 80px;
+            border-top: 1px solid #e5e0da;
+            padding-top: 120px;
+        }
+
+        .more-contact-title {
+            font-family: 'Google Sans Flex', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 300; /* ตัวบางพรีเมียม */
+            color: #111111;
+            margin: 0 0 45px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .more-contact-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            justify-content: center;
+        }
+
+        @media (max-width: 992px) {
+            .more-contact-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .more-contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .more-contact-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        .more-contact-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            text-decoration: none !important;
+            color: inherit;
+        }
+
+        .more-contact-circle {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background-color: #e5e0da;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 2px solid transparent;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.01);
+            color: #111111;
+        }
+
+        .more-contact-circle i {
+            font-size: 2.2rem;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Hover states with brand color matching */
+        .more-contact-card:hover .more-contact-circle {
+            background-color: #ffffff;
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(27, 60, 37, 0.08);
+        }
+
+        /* Custom brand hover coloring */
+        .more-contact-card:nth-child(1):hover .more-contact-circle {
+            border-color: #1877F2;
+            color: #1877F2;
+        }
+        .more-contact-card:nth-child(2):hover .more-contact-circle {
+            border-color: #E1306C;
+            color: #E1306C;
+        }
+        .more-contact-card:nth-child(3):hover .more-contact-circle {
+            border-color: #06C755;
+            color: #06C755;
+        }
+        .more-contact-card:nth-child(4):hover .more-contact-circle {
+            border-color: #010101;
+            color: #fe2c55; /* TikTok Brand Red-Pink */
+            box-shadow: 0 10px 25px rgba(254, 44, 85, 0.15);
+        }
+        .more-contact-card:nth-child(5):hover .more-contact-circle {
+            border-color: #1b3c25;
+            color: #1b3c25;
+        }
+
+        .more-contact-card:hover .more-contact-circle i {
+            transform: scale(1.1);
+        }
+
+        .more-contact-label {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #111111;
+            margin-bottom: 6px;
+        }
+
+        .more-contact-value {
+            font-size: 0.92rem;
+            color: #555555;
+            font-weight: 400;
+        }
+
+        /* FAQ Accordion Section */
+        .faq-section {
+            margin-bottom: 140px;
+            font-family: 'Google Sans Flex', sans-serif;
+        }
+
+        .faq-section-title {
+            font-family: 'Google Sans Flex', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 300; /* ตัวบางพรีเมียม */
+            color: #111111;
+            text-align: center;
+            margin-bottom: 50px;
+            letter-spacing: -0.5px;
+            text-transform: none; /* Sentence case according to image */
+        }
+
+        .faq-list {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .faq-item {
+            background-color: #edf6fd; /* Light sky-blue capsule */
+            border: 1px solid transparent;
+            border-radius: 100px; /* capsule shape */
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: none;
+        }
+
+        .faq-item:hover {
+            background-color: #dbeeff; /* Slightly deeper soft blue on hover */
+        }
+
+        .faq-item.active {
+            background-color: #ffffff; /* White background when active */
+            border-color: #e1f0fc;
+            border-radius: 28px; /* Standard rounded card shape */
+            box-shadow: 0 15px 40px rgba(210, 230, 248, 0.35);
+        }
+
+        .faq-question-btn {
+            width: 100%;
+            padding: 16px 20px 16px 36px;
+            background: none;
+            border: none;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #1a233a; /* Deep blueish gray contrast */
+            transition: color 0.3s ease;
+        }
+
+        .faq-question-btn:focus {
+            outline: none;
+        }
+
+        .faq-icon-toggle {
+            font-size: 0.9rem; /* Slightly smaller for arrow sizing */
+            color: #1a233a;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-icon-toggle {
+            transform: rotate(180deg); /* Flips the chevron arrow upwards! */
+            background-color: #edf6fd;
+            color: #1a233a;
+        }
+
+        .faq-answer-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .faq-answer-content {
+            padding: 0 44px 30px 36px; /* Align nicely with the left indentation of the question text */
+            font-size: 0.95rem;
+            color: #4a5468;
+            line-height: 1.7;
+        }
+
+        /* Scroll Animation Styles */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-element.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <div class="top-bg-wrapper">
+        <!-- Header (แถบเมนูด้านบน) -->
+        <header class="header">
+            <div class="header-container">
+                <!-- 1. โลโก้ (ซ้ายสุด) -->
+                <div class="logo">
+                    <a href="profile.html"><img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="logo-img"></a>
+                </div>
+
+                <!-- 2. เมนูนำทาง (ตรงกลาง) -->
+                <nav class="nav-links">
+                    <a href="index.html">HOME</a>
+                    <a href="products.html">PRODUCTS</a>
+                    <a href="about.html">ABOUT</a>
+                    <a href="contact.html" style="font-weight: 700; color: var(--primary-green);">CONTACT</a>
+                    <a href="tracking.html">TRACKING</a>
+                </nav>
+
+                <!-- 3. ส่วนตัวช่วย (ขวาสุด) -->
+                <div class="nav-utils">
+                    <div class="search-box">
+                        <input type="text" placeholder="ค้นหา..." class="search-input" id="global-search-input" onkeydown="if(event.key === 'Enter') { window.location.href='products.html?search='+encodeURIComponent(this.value); }">
+                        <a href="#" class="search-icon" onclick="const val = document.getElementById('global-search-input').value; window.location.href='products.html?search='+encodeURIComponent(val); return false;"><i class="fas fa-search"></i></a>
+                    </div>
+                    <a href="favorites.html" class="favorites-link" style="position: relative; margin-right: 5px;"><i class="far fa-heart"></i><span class="fav-badge" id="fav-badge" style="position: absolute; top: -8px; right: -8px; background-color: #ff3366; color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+                    <a href="profile.html" class="profile-link"><i class="fas fa-user-circle"></i></a>
+                    <a href="cart.html" class="cart-link" style="position: relative;"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cart-badge" style="position: absolute; top: -8px; right: -8px; background-color: var(--primary-green); color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+                </div>
+            </div>
+        </header>
+
+        <div class="hero-text-container" style="margin: 0; display: flex; justify-content: center; align-items: center; position: relative; z-index: 2;">
+            <h1 class="hero-main-text" id="contact-banner-title" style="margin: 0;">CONTACT US</h1>
+        </div>
+
+        <!-- Decorative Background Hands (Separated Elements) -->
+        <img src="./:assets/bg-contact us/14.png" alt="Hand Left" class="contact-hand-left">
+        <img src="./:assets/bg-contact us/13.png" alt="Hand Right" class="contact-hand-right">
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="main-content" style="padding: 60px 0; background-color: #fcfbf7;">
+        
+        <div class="contact-container">
+            <!-- FAQ Section (Accordions) -->
+            <div class="faq-section" id="faq-section">
+                <h2 class="faq-section-title" id="faq-section-title">คำถามที่พบบ่อย</h2>
+                <div class="faq-list">
+                    <!-- FAQ 1 -->
+                    <div class="faq-item reveal-element">
+                        <button class="faq-question-btn">
+                            <span class="faq-q-text" id="faq-q1">ผลิตภัณฑ์ไม้นวดทำมาจากวัสดุอะไร?</span>
+                            <span class="faq-icon-toggle"><i class="fas fa-chevron-down"></i></span>
+                        </button>
+                        <div class="faq-answer-wrapper">
+                            <div class="faq-answer-content" id="faq-a1">
+                                ผลิตภัณฑ์ไม้นวดของ KlinKlin ผลิตจากไม้ธรรมชาติแท้ 100% คุณภาพสูง ผ่านการลบมุม ขัดผิวจนเรียกเนียนละเอียด และไม่ใช้สารเคมีอันตรายในการเคลือบผิว เพื่อให้ปลอดภัยและเป็นมิตรต่อผิวสัมผัสของคุณมากที่สุดครับ
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 2 -->
+                    <div class="faq-item reveal-element">
+                        <button class="faq-question-btn">
+                            <span class="faq-q-text" id="faq-q2">กล่องพรีเมียมบ็อกซ์เซ็ตสามารถส่งเป็นของขวัญโดยตรงได้หรือไม่?</span>
+                            <span class="faq-icon-toggle"><i class="fas fa-chevron-down"></i></span>
+                        </button>
+                        <div class="faq-answer-wrapper">
+                            <div class="faq-answer-content" id="faq-a2">
+                                ได้แน่นอนครับ! คุณสามารถระบุชื่อและที่อยู่ของผู้รับในขั้นตอนการจัดส่ง และเลือกบริการห่อของขวัญหรือฝากข้อความพิเศษได้ โดยเราจะแพ็กสินค้าอย่างสวยงามพรีเมียมและแนบการ์ดอวยพรให้โดยไม่แสดงราคาบนกล่องครับ
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 3 -->
+                    <div class="faq-item reveal-element">
+                        <button class="faq-question-btn">
+                            <span class="faq-q-text" id="faq-q3">วิธีการดูแลรักษาไม้นวดให้ใช้งานได้ยาวนาน?</span>
+                            <span class="faq-icon-toggle"><i class="fas fa-chevron-down"></i></span>
+                        </button>
+                        <div class="faq-answer-wrapper">
+                            <div class="faq-answer-content" id="faq-a3">
+                                ควรเช็ดทำความสะอาดด้วยผ้าแห้งหรือผ้าชุบน้ำหมาดๆ หลังใช้งาน หลีกเลี่ยงการแช่น้ำหรือวางในที่เปียกชื้น และแนะนำให้ผึ่งลมในที่ร่มให้แห้งสนิทเพื่อป้องกันความชื้นสะสมครับ
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 4 -->
+                    <div class="faq-item reveal-element">
+                        <button class="faq-question-btn">
+                            <span class="faq-q-text" id="faq-q4">มีบริการจัดส่งด่วนหรือไม่ และใช้เวลากี่วัน?</span>
+                            <span class="faq-icon-toggle"><i class="fas fa-chevron-down"></i></span>
+                        </button>
+                        <div class="faq-answer-wrapper">
+                            <div class="faq-answer-content" id="faq-a4">
+                                เราจัดส่งสินค้าผ่านขนส่งเอกชนชั้นนำ โดยปกติสินค้าจะจัดส่งถึงมือผู้รับภายใน 1-3 วันทำการสำหรับกรุงเทพฯ-ปริมณฑล และ 2-4 วันทำการสำหรับต่างจังหวัดครับ คุณสามารถเช็คสถานะพัสดุได้ที่เมนู TRACKING เสมอครับ
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form Card -->
+            <div class="contact-card reveal-element">
+                <div class="contact-card-inner">
+                    <!-- Left: Image Panel -->
+                    <div class="contact-card-left">
+                        <img src="./:assets/contact-card-image.png" alt="KlinKlin Wood Card" class="contact-card-img">
+                    </div>
+
+                    <!-- Right: Form Panel -->
+                    <div class="contact-form-col">
+                        <div class="contact-form-eyebrow" id="contact-form-eyebrow">GET IN TOUCH</div>
+                        <h2 class="contact-form-heading" id="contact-form-heading">ส่งข้อความหาเรา</h2>
+                        <p class="contact-subtitle" id="contact-subtitle">ส่งข้อความหาเราเพื่อรับคำแนะนำเกี่ยวกับความหอมและการดูแลสุขภาพที่ดีที่สุดในทุกๆ วัน</p>
+
+                        <form class="contact-form">
+                            <div class="contact-form-grid">
+                                <div class="contact-input-wrap">
+                                    <input type="text" id="form-name" name="name" placeholder="ชื่อของคุณ" required class="contact-input-field">
+                                </div>
+                                <div class="contact-input-wrap">
+                                    <input type="email" id="form-email" name="email" placeholder="อีเมลของคุณ" required class="contact-input-field">
+                                </div>
+                            </div>
+                            <div class="contact-input-wrap">
+                                <textarea id="form-message" name="message" placeholder="ข้อความของคุณ" required class="contact-textarea-field"></textarea>
+                            </div>
+
+                            <div class="contact-submit-btn-container">
+                                <button type="submit" class="contact-submit-btn">
+                                    <span id="form-submit-text">ส่งข้อความ</span>
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Section: More Ways to Contact -->
+            <div class="more-contact-section">
+                <h2 class="more-contact-title" id="more-contact-title">more ways to contact</h2>
+                
+                <div class="more-contact-grid">
+                    <!-- Facebook -->
+                    <a href="#" onclick="return false;" class="more-contact-card reveal-element">
+                        <div class="more-contact-circle">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <div class="more-contact-label" id="label-fb">Facebook</div>
+                        <div class="more-contact-value" id="val-fb">KlinKlin Official</div>
+                    </a>
+                    
+                    <!-- Instagram -->
+                    <a href="#" onclick="return false;" class="more-contact-card reveal-element">
+                        <div class="more-contact-circle">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <div class="more-contact-label" id="label-ig">Instagram</div>
+                        <div class="more-contact-value" id="val-ig">@klinklin.official</div>
+                    </a>
+                    
+                    <!-- LINE -->
+                    <a href="#" onclick="return false;" class="more-contact-card reveal-element">
+                        <div class="more-contact-circle">
+                            <i class="fab fa-line"></i>
+                        </div>
+                        <div class="more-contact-label" id="label-line">LINE Official</div>
+                        <div class="more-contact-value" id="val-line">@klinklin</div>
+                    </a>
+
+                    <!-- TikTok -->
+                    <a href="#" onclick="return false;" class="more-contact-card reveal-element">
+                        <div class="more-contact-circle">
+                            <i class="fab fa-tiktok"></i>
+                        </div>
+                        <div class="more-contact-label" id="label-tiktok">TikTok</div>
+                        <div class="more-contact-value" id="val-tiktok">@klinklin.official</div>
+                    </a>
+                    
+                    <!-- Phone -->
+                    <a href="#" onclick="return false;" class="more-contact-card reveal-element">
+                        <div class="more-contact-circle">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="more-contact-label" id="label-phone">เบอร์โทรศัพท์</div>
+                        <div class="more-contact-value" id="val-phone">098-123-4567</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer (ส่วนท้าย) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col-brand">
+                <a href="profile.html" class="footer-logo-link">
+                    <img src="./:assets/logo klinklin.png" alt="KlinKlin Logo" class="footer-logo-img">
+                </a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-service">บริการลูกค้า</h4>
+                <ul class="footer-col-list">
+                    <li><a href="contact.html#faq-section" id="footer-link-faq">คำถามที่พบบ่อย</a></li>
+                    <li><a href="404.html" id="footer-link-404">หน้า 404</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-news">รับข่าวสารจากเรา</h4>
+                <ul class="footer-col-list">
+                    <li><a href="privacy-policy.html" id="footer-link-privacy">ความเป็นส่วนตัวและความปลอดภัย</a></li>
+                    <li><a href="terms.html" id="footer-link-terms">ข้อกำหนดและประกาศจากเว็บไซต์</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-contact">ติดต่อเรา</h4>
+                <div class="footer-social-icons">
+                    <a href="#" class="social-icon-btn"><i class="fab fa-line"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fas fa-phone-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./:js/script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- ระบบควบคุมและเปลี่ยนภาษา ( BILINGUAL SWITCHER ) ---
+            const currentLang = localStorage.getItem('klinklin_lang') || 'th';
+
+            function initLanguageSwitcher() {
+                const navUtils = document.querySelector('.nav-utils');
+                if (navUtils && !document.getElementById('header-lang-switch')) {
+                    const switchDiv = document.createElement('div');
+                    switchDiv.id = 'header-lang-switch';
+                    switchDiv.style.cssText = 'display: flex; gap: 5px; font-size: 0.82rem; font-weight: 700; color: #111; cursor: pointer; align-items: center; margin-right: 15px; user-select: none; font-family: "Google Sans Flex", sans-serif;';
+                    switchDiv.innerHTML = `
+                        <span id="lang-th" style="color: ${currentLang === 'th' ? 'var(--primary-green)' : '#888'};">TH</span>
+                        <span style="color: #e0dee0; font-weight: 400;">|</span>
+                        <span id="lang-en" style="color: ${currentLang === 'en' ? 'var(--primary-green)' : '#888'};">EN</span>
+                    `;
+                    
+                    const favLink = navUtils.querySelector('.favorites-link');
+                    if (favLink) {
+                        navUtils.insertBefore(switchDiv, favLink);
+                    } else {
+                        navUtils.appendChild(switchDiv);
+                    }
+
+                    document.getElementById('lang-th').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (localStorage.getItem('klinklin_lang') !== 'th') {
+                            localStorage.setItem('klinklin_lang', 'th');
+                            window.location.reload();
+                        }
+                    });
+
+                    document.getElementById('lang-en').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (localStorage.getItem('klinklin_lang') !== 'en') {
+                            localStorage.setItem('klinklin_lang', 'en');
+                            window.location.reload();
+                        }
+                    });
+                }
+            }
+
+            function localizeContactPage() {
+                // แปลเมนูนำทาง
+                const navLinks = document.querySelectorAll('.nav-links a');
+                if (navLinks.length >= 5) {
+                    if (currentLang === 'en') {
+                        navLinks[0].textContent = 'HOME';
+                        navLinks[1].textContent = 'PRODUCTS';
+                        navLinks[2].textContent = 'ABOUT';
+                        navLinks[3].textContent = 'CONTACT';
+                        navLinks[4].textContent = 'TRACKING';
+                    } else {
+                        navLinks[0].textContent = 'หน้าแรก';
+                        navLinks[1].textContent = 'สินค้า';
+                        navLinks[2].textContent = 'เกี่ยวกับเรา';
+                        navLinks[3].textContent = 'ติดต่อเรา';
+                        navLinks[4].textContent = 'เช็คสถานะพัสดุ';
+                    }
+                }
+
+                // แปลส่วนท้าย (Footer)
+                const colService = document.getElementById('footer-col-service');
+                const linkFaq = document.getElementById('footer-link-faq');
+                const link404 = document.getElementById('footer-link-404');
+                const colNews = document.getElementById('footer-col-news');
+                const linkPrivacy = document.getElementById('footer-link-privacy');
+                const linkTerms = document.getElementById('footer-link-terms');
+                const colContact = document.getElementById('footer-col-contact');
+
+                if (currentLang === 'en') {
+                    if (colService) colService.textContent = 'Customer Service';
+                    if (linkFaq) linkFaq.textContent = 'FAQs';
+                    if (link404) link404.textContent = '404 Page';
+                    if (colNews) colNews.textContent = 'Subscribe';
+                    if (linkPrivacy) linkPrivacy.textContent = 'Privacy & Security';
+                    if (linkTerms) linkTerms.textContent = 'Terms & Announcements';
+                    if (colContact) colContact.textContent = 'Contact Us';
+                } else {
+                    if (colService) colService.textContent = 'บริการลูกค้า';
+                    if (linkFaq) linkFaq.textContent = 'คำถามที่พบบ่อย';
+                    if (link404) link404.textContent = 'หน้า 404';
+                    if (colNews) colNews.textContent = 'รับข่าวสารจากเรา';
+                    if (linkPrivacy) linkPrivacy.textContent = 'ความเป็นส่วนตัวและความปลอดภัย';
+                    if (linkTerms) linkTerms.textContent = 'ข้อกำหนดและประกาศจากเว็บไซต์';
+                    if (colContact) colContact.textContent = 'ติดต่อเรา';
+                }
+
+                // Placeholder ช่องค้นหา
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.placeholder = currentLang === 'en' ? 'Search...' : 'ค้นหา...';
+                }
+
+                // ข้อความหัวเรื่องและฟอร์มติดต่อ
+                const contactTitle = document.getElementById('contact-title-main');
+                const contactDesc = document.getElementById('contact-subtitle');
+                const bannerTitle = document.getElementById('contact-banner-title');
+                
+                const formNameInput = document.getElementById('form-name');
+                const formEmailInput = document.getElementById('form-email');
+                const formMessageInput = document.getElementById('form-message');
+                const formSubmitText = document.getElementById('form-submit-text');
+
+                // Left panel elements
+                const leftStrong = document.getElementById('contact-left-strong');
+                const leftBottom = document.getElementById('contact-left-bottom');
+
+                // ส่วนช่องทางติดต่อด้านล่าง
+                const moreContactTitle = document.getElementById('more-contact-title');
+                const labelFb = document.getElementById('label-fb');
+                const labelIg = document.getElementById('label-ig');
+                const labelLine = document.getElementById('label-line');
+                const labelTiktok = document.getElementById('label-tiktok');
+                const labelPhone = document.getElementById('label-phone');
+
+                // ส่วนคำถามที่พบบ่อย (FAQs)
+                const faqSectionTitle = document.getElementById('faq-section-title');
+                const faqQ1 = document.getElementById('faq-q1');
+                const faqA1 = document.getElementById('faq-a1');
+                const faqQ2 = document.getElementById('faq-q2');
+                const faqA2 = document.getElementById('faq-a2');
+                const faqQ3 = document.getElementById('faq-q3');
+                const faqA3 = document.getElementById('faq-a3');
+                const faqQ4 = document.getElementById('faq-q4');
+                const faqA4 = document.getElementById('faq-a4');
+
+                if (currentLang === 'en') {
+                    if (bannerTitle) bannerTitle.textContent = 'CONTACT US';
+                    if (contactTitle) contactTitle.textContent = 'CONTACT US';
+                    if (contactDesc) contactDesc.textContent = 'Send us a message to get the best advice on scents and wellness for your everyday life.';
+                    
+                    const formEyebrow = document.getElementById('contact-form-eyebrow');
+                    const formHeading = document.getElementById('contact-form-heading');
+                    if (formEyebrow) formEyebrow.textContent = 'GET IN TOUCH';
+                    if (formHeading) formHeading.textContent = 'Send us a message';
+                    if (leftStrong) leftStrong.textContent = 'We\'re listening';
+                    if (leftBottom) leftBottom.innerHTML = 'klin-klin. · Simply comfy. Simply natural.<br>Reply within 24 hours';
+                    
+                    if (formNameInput) formNameInput.placeholder = 'Name';
+                    if (formEmailInput) formEmailInput.placeholder = 'Email';
+                    if (formMessageInput) formMessageInput.placeholder = 'Message';
+                    if (formSubmitText) formSubmitText.textContent = 'SEND';
+
+                    if (moreContactTitle) moreContactTitle.textContent = 'More Ways to Contact';
+                    if (labelFb) labelFb.textContent = 'Facebook';
+                    if (labelIg) labelIg.textContent = 'Instagram';
+                    if (labelLine) labelLine.textContent = 'LINE Official';
+                    if (labelTiktok) labelTiktok.textContent = 'TikTok';
+                    if (labelPhone) labelPhone.textContent = 'Phone Number';
+
+                    // FAQs (EN)
+                    if (faqSectionTitle) faqSectionTitle.textContent = 'Frequently Asked Questions';
+                    if (faqQ1) faqQ1.textContent = 'What materials are the massagers made from?';
+                    if (faqA1) faqA1.textContent = 'KlinKlin massagers are crafted from 100% premium, solid natural wood. Each piece is meticulously sanded and smoothed without the use of harsh chemical coatings, ensuring they are perfectly safe and gentle on your skin.';
+                    if (faqQ2) faqQ2.textContent = 'Can the Premium Box Set be shipped directly as a gift?';
+                    if (faqA2) faqA2.textContent = 'Absolutely! You can specify the recipient\'s name and address during checkout. We offer elegant gift packaging and personalized gift greeting cards. Prices will be hidden on the receipt for direct gift deliveries.';
+                    if (faqQ3) faqQ3.textContent = 'How should I care for my wooden massagers?';
+                    if (faqA3) faqA3.textContent = 'After use, simply wipe with a dry or slightly damp cloth. Avoid soaking in water or storing in highly humid environments. It is recommended to air-dry in a shaded spot to keep the wood in pristine condition.';
+                    if (faqQ4) faqQ4.textContent = 'Do you offer express shipping, and how long does delivery take?';
+                    if (faqA4) faqA4.textContent = 'Yes, we ship via leading express couriers. Standard delivery takes 1-3 business days for Bangkok and metropolitan areas, and 2-4 business days for other provinces. You can always track your order status in our TRACKING tab.';
+                } else {
+                    if (bannerTitle) bannerTitle.textContent = 'ติดต่อเรา';
+                    if (contactTitle) contactTitle.textContent = 'CONTACT US';
+                    if (contactDesc) contactDesc.textContent = 'ส่งข้อความหาเราเพื่อรับคำแนะนำเกี่ยวกับความหอมและการดูแลสุขภาพที่ดีที่สุดในทุกๆ วัน';
+                    
+                    const formEyebrowTh = document.getElementById('contact-form-eyebrow');
+                    const formHeadingTh = document.getElementById('contact-form-heading');
+                    if (formEyebrowTh) formEyebrowTh.textContent = 'ติดต่อเรา';
+                    if (formHeadingTh) formHeadingTh.textContent = 'ส่งข้อความหาเรา';
+                    if (leftStrong) leftStrong.textContent = 'ยินดีรับฟัง';
+                    if (leftBottom) leftBottom.innerHTML = 'klin-klin. · Simply comfy. Simply natural.<br>ตอบกลับภายใน 24 ชั่วโมง';
+                    
+                    if (formNameInput) formNameInput.placeholder = 'ชื่อของคุณ';
+                    if (formEmailInput) formEmailInput.placeholder = 'อีเมลของคุณ';
+                    if (formMessageInput) formMessageInput.placeholder = 'ข้อความของคุณ';
+                    if (formSubmitText) formSubmitText.textContent = 'ส่งข้อความ';
+
+                    if (moreContactTitle) moreContactTitle.textContent = 'ช่องทางการติดต่ออื่นๆ';
+                    if (labelFb) labelFb.textContent = 'Facebook';
+                    if (labelIg) labelIg.textContent = 'Instagram';
+                    if (labelLine) labelLine.textContent = 'LINE Official';
+                    if (labelTiktok) labelTiktok.textContent = 'TikTok';
+                    if (labelPhone) labelPhone.textContent = 'เบอร์โทรศัพท์';
+
+                    // FAQs (TH)
+                    if (faqSectionTitle) faqSectionTitle.textContent = 'คำถามที่พบบ่อย';
+                    if (faqQ1) faqQ1.textContent = 'ผลิตภัณฑ์ไม้นวดทำมาจากวัสดุอะไร?';
+                    if (faqA1) faqA1.textContent = 'ผลิตภัณฑ์ไม้นวดของ KlinKlin ผลิตจากไม้ธรรมชาติแท้ 100% คุณภาพสูง ผ่านการลบมุม ขัดผิวจนเรียบเนียนละเอียด และไม่ใช้สารเคมีอันตรายในการเคลือบผิว เพื่อให้ปลอดภัยและเป็นมิตรต่อผิวสัมผัสของคุณมากที่สุดครับ';
+                    if (faqQ2) faqQ2.textContent = 'กล่องพรีเมียมบ็อกซ์เซ็ตสามารถส่งเป็นของขวัญโดยตรงได้หรือไม่?';
+                    if (faqA2) faqA2.textContent = 'ได้แน่นอนครับ! คุณสามารถระบุชื่อและที่อยู่ของผู้รับในขั้นตอนการจัดส่ง และเลือกบริการห่อของขวัญหรือฝากข้อความพิเศษได้ โดยเราจะแพ็กสินค้าอย่างสวยงามพรีเมียมและแนบการ์ดอวยพรให้โดยไม่แสดงราคาบนกล่องครับ';
+                    if (faqQ3) faqQ3.textContent = 'วิธีการดูแลรักษาไม้นวดให้ใช้งานได้ยาวนาน?';
+                    if (faqA3) faqA3.textContent = 'ควรเช็ดทำความสะอาดด้วยผ้าแห้งหรือผ้าชุบน้ำหมาดๆ หลังใช้งาน หลีกเลี่ยงการแช่น้ำหรือวางในที่เปียกชื้น และแนะนำให้ผึ่งลมในที่ร่มให้แห้งสนิทเพื่อป้องกันความชื้นสะสมครับ';
+                    if (faqQ4) faqQ4.textContent = 'มีบริการจัดส่งด่วนหรือไม่ และใช้เวลากี่วัน?';
+                    if (faqA4) faqA4.textContent = 'เราจัดส่งสินค้าผ่านขนส่งเอกชนชั้นนำ โดยปกติสินค้าจะจัดส่งถึงมือผู้รับภายใน 1-3 วันทำการสำหรับกรุงเทพฯ-ปริมณฑล และ 2-4 วันทำการสำหรับต่างจังหวัดครับ คุณสามารถเช็คสถานะพัสดุได้ที่เมนู TRACKING เสมอครับ';
+                }
+            }
+
+            initLanguageSwitcher();
+            localizeContactPage();
+
+            function showToast(message) {
+                const toastContainer = document.getElementById('toast-container');
+                if (!toastContainer) return;
+                
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.innerHTML = `
+                    <i class="fas fa-check-circle toast-icon"></i>
+                    <span>${message}</span>
+                `;
+                
+                toastContainer.appendChild(toast);
+                
+                // Trigger reflow
+                void toast.offsetWidth;
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 400);
+                }, 3500);
+            }
+
+            // จัดการเมื่อกดส่งฟอร์มข้อมูลติดต่อ ส่งไปยัง patsaporn.aom@g.swu.ac.th โดยใช้ FormSubmit AJAX
+            const form = document.querySelector('.contact-form');
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('form-name').value;
+                    const email = document.getElementById('form-email').value;
+                    const message = document.getElementById('form-message').value;
+                    
+                    const submitBtn = form.querySelector('.contact-submit-btn');
+                    const originalBtnHTML = submitBtn.innerHTML;
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = currentLang === 'en' 
+                        ? 'Sending... <i class="fas fa-spinner fa-spin"></i>' 
+                        : 'กำลังส่ง... <i class="fas fa-spinner fa-spin"></i>';
+
+                    fetch("https://formsubmit.co/ajax/patsaporn.aom@g.swu.ac.th", {
+                        method: "POST",
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            email: email,
+                            message: message
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalBtnHTML;
+                        
+                        if (currentLang === 'en') {
+                            showToast('Thank you! Your message has been sent successfully.');
+                        } else {
+                            showToast('ส่งข้อความสำเร็จแล้ว! ขอบคุณที่ติดต่อเราค่ะ');
+                        }
+                        form.reset();
+                    })
+                    .catch(error => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalBtnHTML;
+                        console.error(error);
+                        if (currentLang === 'en') {
+                            showToast('Oops! There was a problem sending your message. Please try again.');
+                        } else {
+                            showToast('ขออภัยค่ะ! เกิดข้อผิดพลาดในการส่งข้อความ กรุณาลองใหม่อีกครั้ง');
+                        }
+                    });
+                });
+            }
+
+            // ฟังก์ชันคุมไอคอนตราประทับจำนวนสินค้า
+            function updateBadges() {
+                const cart = JSON.parse(localStorage.getItem('klinklin_cart')) || [];
+                const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+                const cartBadge = document.getElementById('cart-badge');
+                if (cartBadge) {
+                    if (cartCount > 0) {
+                        cartBadge.textContent = cartCount;
+                        cartBadge.style.opacity = '1';
+                    } else {
+                        cartBadge.style.opacity = '0';
+                    }
+                }
+
+                const favorites = JSON.parse(localStorage.getItem('klinklin_favorites')) || [];
+                const favCount = favorites.length;
+                const favBadge = document.getElementById('fav-badge');
+                if (favBadge) {
+                    if (favCount > 0) {
+                        favBadge.textContent = favCount;
+                        favBadge.style.opacity = '1';
+                    } else {
+                        favBadge.style.opacity = '0';
+                    }
+                }
+            }
+            // FAQ Accordion Toggle Interaction
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const btn = item.querySelector('.faq-question-btn');
+                const wrapper = item.querySelector('.faq-answer-wrapper');
+                
+                btn.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all other FAQ items for a clean accordion effect
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-answer-wrapper').style.maxHeight = '0px';
+                    });
+                    
+                    if (!isActive) {
+                        item.classList.add('active');
+                        wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+                    }
+                });
+            });
+
+            updateBadges();
+
+            // Scroll reveal animation observer
+            const revealElements = document.querySelectorAll('.reveal-element');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -60px 0px',
+                threshold: 0.05
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                let delay = 0;
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        
+                        // If they are more-contact-cards, stagger them
+                        if (el.classList.contains('more-contact-card')) {
+                            el.style.transitionDelay = `${delay}s`;
+                            delay += 0.08;
+                        }
+                        
+                        el.classList.add('revealed');
+                        observer.unobserve(el);
+                    }
+                });
+            }, observerOptions);
+
+            revealElements.forEach(el => {
+                revealObserver.observe(el);
+            });
+        });
+    </script>
+</body>
+
+</html>

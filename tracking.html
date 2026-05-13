@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlinKlin - Track Your Order</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./:assets/logo klinklin.png">
+    <!-- เชื่อมต่อ CSS -->
+    <link rel="stylesheet" href="./:assets/style.css">
+    <!-- Font Awesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Playwrite+IE:wght@100..400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Custom Tracking Styles */
+        .main-content {
+            background-color: #fcfbf7;
+        }
+
+        .tracking-card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 45px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f1ece1;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeUpSmooth 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.1s;
+        }
+
+        .tracking-header-title {
+            font-family: 'Google Sans Flex', sans-serif;
+            font-weight: 500;
+            color: #111;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .tracking-subtitle {
+            text-align: center;
+            color: #7c8880;
+            font-size: 1rem;
+            margin-bottom: 35px;
+        }
+
+        .tracking-search-box {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .tracking-input {
+            flex: 1;
+            height: 54px;
+            border-radius: 8px;
+            border: 1px solid #e2ded8;
+            background-color: #faf9f6;
+            padding: 0 20px;
+            font-size: 1rem;
+            color: #1b3c25;
+            font-family: 'Google Sans Flex', sans-serif;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tracking-input:focus {
+            background-color: #ffffff;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 4px rgba(44, 92, 61, 0.1);
+        }
+
+        .tracking-btn {
+            height: 54px;
+            padding: 0 35px;
+            background-color: #111111;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: 'Google Sans Flex', sans-serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(17, 17, 17, 0.08);
+        }
+
+        .tracking-btn:hover {
+            background-color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(83, 161, 229, 0.3);
+        }
+
+        .tracking-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Timeline Styles */
+        .timeline-container {
+            border-top: 1px dashed #e2ded8;
+            padding-top: 40px;
+            display: none;
+            /* เริ่มต้นซ่อน */
+            animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .parcel-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            background-color: #faf9f6;
+            border-radius: 10px;
+            padding: 20px 25px;
+            margin-bottom: 40px;
+            border: 1px solid #f1ece1;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: #7c8880;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            color: #111;
+            font-weight: 500;
+        }
+
+        .timeline-flow {
+            position: relative;
+            padding-left: 45px;
+            margin-top: 20px;
+        }
+
+        .timeline-flow::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 5px;
+            bottom: 5px;
+            width: 2px;
+            background-color: #e2ded8;
+        }
+
+        .timeline-step {
+            position: relative;
+            margin-bottom: 35px;
+        }
+
+        .timeline-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-icon-wrapper {
+            position: absolute;
+            left: -37px;
+            top: 2px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 2px solid #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: all 0.4s ease;
+        }
+
+        .step-icon-wrapper i {
+            font-size: 0.65rem;
+            color: #cbd5e1;
+            transition: all 0.4s ease;
+        }
+
+        .timeline-step.completed .step-icon-wrapper {
+            background-color: var(--primary-green);
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 5px rgba(44, 92, 61, 0.12);
+        }
+
+        .timeline-step.completed .step-icon-wrapper i {
+            color: #ffffff;
+        }
+
+        .timeline-step.active-step .step-icon-wrapper {
+            background-color: #fff;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 5px rgba(44, 92, 61, 0.15);
+        }
+
+        .timeline-step.active-step .step-icon-wrapper i {
+            color: var(--primary-green);
+        }
+
+        .step-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .step-title-desc {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .step-title {
+            font-size: 1.05rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .timeline-step.completed .step-title,
+        .timeline-step.active-step .step-title {
+            color: #111;
+            font-weight: 600;
+        }
+
+        .step-desc {
+            font-size: 0.88rem;
+            color: #888;
+        }
+
+        .step-time {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-family: 'Google Sans Flex', sans-serif;
+            text-align: right;
+            min-width: 120px;
+        }
+
+        @media (max-width: 768px) {
+            .tracking-card {
+                padding: 30px 20px;
+            }
+
+            .tracking-search-box {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .parcel-info-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .step-content {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .step-time {
+                text-align: left;
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+
+<body class="tracking-page">
+
+    <!-- Header (แถบเมนูด้านบน) -->
+    <header class="header">
+        <div class="header-container">
+            <!-- 1. โลโก้ (ซ้ายสุด) -->
+            <div class="logo">
+                <a href="index.html"><img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="logo-img"></a>
+            </div>
+
+            <!-- 2. เมนูนำทาง (ตรงกลาง) -->
+            <nav class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="products.html">PRODUCTS</a>
+                <a href="about.html">ABOUT</a>
+                <a href="contact.html">CONTACT</a>
+                <a href="tracking.html" style="font-weight: 700; color: var(--primary-green);">TRACKING</a>
+            </nav>
+
+            <!-- 3. ส่วนตัวช่วย (ขวาสุด) -->
+            <div class="nav-utils">
+                <div class="search-box">
+
+                    <input type="text" placeholder="ค้นหา..." class="search-input" id="global-search-input"
+                        onkeydown="if(event.key === 'Enter') { window.location.href='products.html?search='+encodeURIComponent(this.value); }">
+
+                    <a href="#" class="search-icon"
+                        onclick="const val = document.getElementById('global-search-input').value; window.location.href='products.html?search='+encodeURIComponent(val); return false;"><i
+                            class="fas fa-search"></i></a>
+
+                </div>
+                <a href="favorites.html" class="favorites-link" style="position: relative; margin-right: 5px;"><i
+                        class="far fa-heart"></i><span class="fav-badge" id="fav-badge"
+                        style="position: absolute; top: -8px; right: -8px; background-color: #ff3366; color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+                <a href="profile.html" class="profile-link"><i class="fas fa-user-circle"></i></a>
+                <a href="cart.html" class="cart-link" style="position: relative;"><i
+                        class="fas fa-shopping-cart"></i><span class="cart-badge" id="cart-badge"
+                        style="position: absolute; top: -8px; right: -8px; background-color: var(--primary-green); color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="main-content"
+        style="padding: 140px 0; min-height: calc(100vh - 460px); display: flex; align-items: center; justify-content: center;">
+
+        <div class="container" style="width: 100%; padding: 0 20px; box-sizing: border-box;">
+            <!-- Tracking Card -->
+            <div class="tracking-card">
+                <h2 class="tracking-header-title" id="track-title">ตรวจสอบสถานะพัสดุ</h2>
+                <p class="tracking-subtitle" id="track-subtitle">กรอกรหัสคำสั่งซื้อหรือเลขพัสดุเพื่อตรวจสอบพัสดุของคุณ
+                </p>
+
+                <form id="tracking-form" onsubmit="event.preventDefault(); trackOrder();">
+                    <div class="tracking-search-box">
+                        <input type="text" id="tracking-id-input" class="tracking-input"
+                            placeholder="your Order Number">
+                        <button type="submit" class="tracking-btn" id="track-btn">
+                            <i class="fas fa-search-location"></i>
+                            <span id="track-btn-text">ติดตามพัสดุ</span>
+                        </button>
+                    </div>
+                    <!-- Warning message, initially hidden -->
+                    <div id="tracking-warning"
+                        style="display: none; color: #ff3366; font-size: 0.88rem; font-weight: 500; margin-top: 10px; text-align: left; animation: fadeIn 0.3s ease; font-family: 'Google Sans Flex', sans-serif;">
+                        <i class="fas fa-exclamation-circle" style="margin-right: 5px;"></i>
+                        <span id="warning-text">กรุณากรอกรหัสคำสั่งซื้อก่อนค้นหา</span>
+                    </div>
+                </form>
+
+                <!-- Shipping Status Timeline (เริ่มต้นซ่อนไว้) -->
+                <div class="timeline-container" id="timeline-container">
+                    <div class="parcel-info-grid">
+                        <div class="info-item">
+                            <span class="info-label" id="lbl-tracking-no">เลขพัสดุ</span>
+                            <span class="info-value" id="val-tracking-no">KLN-2026-89542</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label" id="lbl-carrier">ผู้จัดส่ง</span>
+                            <span class="info-value">Klin Klin Express (คลิ่น คลิ่น เอ็กซ์เพรส)</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label" id="lbl-recipient">ผู้รับพัสดุ</span>
+                            <span class="info-value" id="val-recipient">คุณภัทรพล ส. (Phatsaphon S.)</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label" id="lbl-est">ประมาณการจัดส่งสำเร็จ</span>
+                            <span class="info-value" id="val-est-date">วันนี้ (Today) - 07 พ.ค. 2026</span>
+                        </div>
+                        <div class="info-item" style="grid-column: span 2;">
+                            <span class="info-label" id="lbl-address">ที่อยู่จัดส่งพัสดุ</span>
+                            <span class="info-value" id="val-address">123 แขวงคลองเตยเหนือ เขตวัฒนา กรุงเทพมหานคร 10110</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-flow">
+                        <!-- Step 1: Placed -->
+                        <div class="timeline-step completed">
+                            <div class="step-icon-wrapper">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-title-desc">
+                                    <span class="step-title" id="step1-title">รับคำสั่งซื้อเรียบร้อย</span>
+                                    <span class="step-desc"
+                                        id="step1-desc">ร้านค้าได้รับคำสั่งซื้อและยอดชำระของคุณเรียบร้อยแล้ว</span>
+                                </div>
+                                <span class="step-time">05 พ.ค. 2026 - 10:30 น.</span>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Preparing -->
+                        <div class="timeline-step completed">
+                            <div class="step-icon-wrapper">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-title-desc">
+                                    <span class="step-title" id="step2-title">จัดเตรียมพัสดุและผ่านการตรวจ QC</span>
+                                    <span class="step-desc"
+                                        id="step2-desc">งานไม้และน้ำมันนวดสปาออร์แกนิกได้รับการห่ออย่างดี</span>
+                                </div>
+                                <span class="step-time">06 พ.ค. 2026 - 14:15 น.</span>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Courier Received -->
+                        <div class="timeline-step completed">
+                            <div class="step-icon-wrapper">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-title-desc">
+                                    <span class="step-title" id="step3-title">บริษัทขนส่งเข้ารับพัสดุ</span>
+                                    <span class="step-desc"
+                                        id="step3-desc">ศูนย์กระจายสินค้าปลายทางได้รับพัสดุเข้าสู่ระบบเรียบร้อยแล้ว</span>
+                                </div>
+                                <span class="step-time">06 พ.ค. 2026 - 17:40 น.</span>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Out for Delivery -->
+                        <div class="timeline-step active-step">
+                            <div class="step-icon-wrapper">
+                                <i class="fas fa-truck-ramp-box"></i>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-title-desc">
+                                    <span class="step-title" id="step4-title">อยู่ระหว่างการจัดส่ง / นำจ่ายพัสดุ</span>
+                                    <span class="step-desc"
+                                        id="step4-desc">เจ้าหน้าที่กำลังเดินทางไปส่งสินค้าตามที่อยู่จัดส่งของคุณ</span>
+                                </div>
+                                <span class="step-time" id="step4-time">วันนี้ - 09:00 น.</span>
+                            </div>
+                        </div>
+
+                        <!-- Step 5: Delivered -->
+                        <div class="timeline-step">
+                            <div class="step-icon-wrapper">
+                                <i class="fas fa-circle"></i>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-title-desc">
+                                    <span class="step-title" id="step5-title">จัดส่งพัสดุสำเร็จ</span>
+                                    <span class="step-desc"
+                                        id="step5-desc">พัสดุส่งถึงผู้รับและมีลายเซ็นลงรับเป็นที่เรียบร้อย</span>
+                                </div>
+                                <span class="step-time">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer (ส่วนท้าย) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col-brand">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="footer-logo-img">
+                </a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-service">บริการลูกค้า</h4>
+                <ul class="footer-col-list">
+                    <li><a href="contact.html#faq-section" id="footer-link-faq">คำถามที่พบบ่อย</a></li>
+                    <li><a href="404.html" id="footer-link-404">หน้า 404</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-news">รับข่าวสารจากเรา</h4>
+                <ul class="footer-col-list">
+                    <li><a href="privacy-policy.html" id="footer-link-privacy">ความเป็นส่วนตัวและความปลอดภัย</a></li>
+                    <li><a href="terms.html" id="footer-link-terms">ข้อกำหนดและประกาศจากเว็บไซต์</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-contact">ติดต่อเรา</h4>
+                <div class="footer-social-icons">
+                    <a href="#" class="social-icon-btn"><i class="fab fa-line"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fas fa-phone-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./:js/script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- ระบบควบคุมและเปลี่ยนภาษา ( BILINGUAL SWITCHER ) ---
+            const currentLang = localStorage.getItem('klinklin_lang') || 'th';
+
+            function initLanguageSwitcher() {
+                const navUtils = document.querySelector('.nav-utils');
+                if (navUtils && !document.getElementById('header-lang-switch')) {
+                    const switchDiv = document.createElement('div');
+                    switchDiv.id = 'header-lang-switch';
+                    switchDiv.style.cssText = 'display: flex; gap: 5px; font-size: 0.82rem; font-weight: 700; color: #111; cursor: pointer; align-items: center; margin-right: 15px; user-select: none; font-family: "Google Sans Flex", sans-serif;';
+                    switchDiv.innerHTML = `
+                        <span id="lang-th" style="color: ${currentLang === 'th' ? 'var(--primary-green)' : '#888'};">TH</span>
+                        <span style="color: #e0dee0; font-weight: 400;">|</span>
+                        <span id="lang-en" style="color: ${currentLang === 'en' ? 'var(--primary-green)' : '#888'};">EN</span>
+                    `;
+
+                    const favLink = navUtils.querySelector('.favorites-link');
+                    if (favLink) {
+                        navUtils.insertBefore(switchDiv, favLink);
+                    } else {
+                        navUtils.appendChild(switchDiv);
+                    }
+
+                    document.getElementById('lang-th').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (localStorage.getItem('klinklin_lang') !== 'th') {
+                            localStorage.setItem('klinklin_lang', 'th');
+                            window.location.reload();
+                        }
+                    });
+
+                    document.getElementById('lang-en').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (localStorage.getItem('klinklin_lang') !== 'en') {
+                            localStorage.setItem('klinklin_lang', 'en');
+                            window.location.reload();
+                        }
+                    });
+                }
+            }
+
+            function localizeTrackingPage() {
+                // แปลเมนูนำทาง (5 แท็บหลัก)
+                const navLinks = document.querySelectorAll('.nav-links a');
+                if (navLinks.length >= 5) {
+                    if (currentLang === 'en') {
+                        navLinks[0].textContent = 'HOME';
+                        navLinks[1].textContent = 'PRODUCTS';
+                        navLinks[2].textContent = 'ABOUT';
+                        navLinks[3].textContent = 'CONTACT';
+                        navLinks[4].textContent = 'TRACKING';
+                    } else {
+                        navLinks[0].textContent = 'หน้าแรก';
+                        navLinks[1].textContent = 'สินค้า';
+                        navLinks[2].textContent = 'เกี่ยวกับเรา';
+                        navLinks[3].textContent = 'ติดต่อเรา';
+                        navLinks[4].textContent = 'เช็คสถานะพัสดุ';
+                    }
+                }
+
+                // แปลส่วนท้าย (Footer)
+                const colService = document.getElementById('footer-col-service');
+                const linkFaq = document.getElementById('footer-link-faq');
+                const link404 = document.getElementById('footer-link-404');
+                const colNews = document.getElementById('footer-col-news');
+                const linkPrivacy = document.getElementById('footer-link-privacy');
+                const linkTerms = document.getElementById('footer-link-terms');
+                const colContact = document.getElementById('footer-col-contact');
+
+                if (currentLang === 'en') {
+                    if (colService) colService.textContent = 'Customer Service';
+                    if (linkFaq) linkFaq.textContent = 'FAQs';
+                    if (link404) link404.textContent = '404 Page';
+                    if (colNews) colNews.textContent = 'Subscribe';
+                    if (linkPrivacy) linkPrivacy.textContent = 'Privacy & Security';
+                    if (linkTerms) linkTerms.textContent = 'Terms & Announcements';
+                    if (colContact) colContact.textContent = 'Contact Us';
+                } else {
+                    if (colService) colService.textContent = 'บริการลูกค้า';
+                    if (linkFaq) linkFaq.textContent = 'คำถามที่พบบ่อย';
+                    if (link404) link404.textContent = 'หน้า 404';
+                    if (colNews) colNews.textContent = 'รับข่าวสารจากเรา';
+                    if (linkPrivacy) linkPrivacy.textContent = 'ความเป็นส่วนตัวและความปลอดภัย';
+                    if (linkTerms) linkTerms.textContent = 'ข้อกำหนดและประกาศจากเว็บไซต์';
+                    if (colContact) colContact.textContent = 'ติดต่อเรา';
+                }
+
+                // Placeholder ช่องค้นหา
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.placeholder = currentLang === 'en' ? 'Search...' : 'ค้นหา...';
+                }
+
+                // แปลเนื้อหาหลักหน้าระบบติดตามพัสดุ
+                const trackTitle = document.getElementById('track-title');
+                const trackSubtitle = document.getElementById('track-subtitle');
+                const trackInput = document.getElementById('tracking-id-input');
+                const trackBtnText = document.getElementById('track-btn-text');
+
+                const lblTrackingNo = document.getElementById('lbl-tracking-no');
+                const lblCarrier = document.getElementById('lbl-carrier');
+                const lblRecipient = document.getElementById('lbl-recipient');
+                const lblEst = document.getElementById('lbl-est');
+                const lblAddress = document.getElementById('lbl-address');
+
+                const step1Title = document.getElementById('step1-title');
+                const step1Desc = document.getElementById('step1-desc');
+                const step2Title = document.getElementById('step2-title');
+                const step2Desc = document.getElementById('step2-desc');
+                const step3Title = document.getElementById('step3-title');
+                const step3Desc = document.getElementById('step3-desc');
+                const step4Title = document.getElementById('step4-title');
+                const step4Desc = document.getElementById('step4-desc');
+                const step5Title = document.getElementById('step5-title');
+                const step5Desc = document.getElementById('step5-desc');
+
+                const valEstDate = document.getElementById('val-est-date');
+                const step4Time = document.getElementById('step4-time');
+
+                if (currentLang === 'en') {
+                    if (trackTitle) trackTitle.textContent = 'Track Your Order';
+                    if (trackSubtitle) trackSubtitle.textContent = 'Enter your Order ID or tracking code to verify shipment';
+                    if (trackInput) trackInput.placeholder = 'your Order Number';
+                    if (trackBtnText) trackBtnText.textContent = 'Track Order';
+
+                    if (lblTrackingNo) lblTrackingNo.textContent = 'Tracking Number';
+                    if (lblCarrier) lblCarrier.textContent = 'Courier Service';
+                    if (lblRecipient) lblRecipient.textContent = 'Recipient Name';
+                    if (lblEst) lblEst.textContent = 'Estimated Delivery';
+                    if (lblAddress) lblAddress.textContent = 'Shipping Address';
+
+                    if (valEstDate) valEstDate.textContent = 'Today - May 07, 2026';
+                    if (step4Time) step4Time.textContent = 'Today - 09:00 AM';
+
+                    // Steps
+                    if (step1Title) step1Title.textContent = 'Order Placed';
+                    if (step1Desc) step1Desc.textContent = 'Your order and payment have been confirmed successfully.';
+                    if (step2Title) step2Title.textContent = 'Packaged & Checked';
+                    if (step2Desc) step2Desc.textContent = 'Handcrafted wood products and organic massage oil have passed QC.';
+                    if (step3Title) step3Title.textContent = 'Received by Courier';
+                    if (step3Desc) step3Desc.textContent = 'The parcel was sorted and reached the hub center.';
+                    if (step4Title) step4Title.textContent = 'Out for Delivery';
+                    if (step4Desc) step4Desc.textContent = 'Courier agent is currently on the way to your delivery address.';
+                    if (step5Title) step5Title.textContent = 'Delivered Successfully';
+                    if (step5Desc) step5Desc.textContent = 'Parcel has been delivered with proof of signature.';
+                } else {
+                    if (trackTitle) trackTitle.textContent = 'ตรวจสอบสถานะพัสดุ';
+                    if (trackSubtitle) trackSubtitle.textContent = 'กรอกรหัสคำสั่งซื้อหรือเลขพัสดุเพื่อตรวจสอบพัสดุของคุณ';
+                    if (trackInput) trackInput.placeholder = 'หมายเลขคำสั่งซื้อของคุณ (your Order Number)';
+                    if (trackBtnText) trackBtnText.textContent = 'ติดตามพัสดุ';
+
+                    if (lblTrackingNo) lblTrackingNo.textContent = 'เลขพัสดุ';
+                    if (lblCarrier) lblCarrier.textContent = 'ผู้จัดส่ง';
+                    if (lblRecipient) lblRecipient.textContent = 'ผู้รับพัสดุ';
+                    if (lblEst) lblEst.textContent = 'ประมาณการจัดส่งสำเร็จ';
+                    if (lblAddress) lblAddress.textContent = 'ที่อยู่จัดส่งพัสดุ';
+
+                    if (valEstDate) valEstDate.textContent = 'วันนี้ - 07 พ.ค. 2026';
+                    if (step4Time) step4Time.textContent = 'วันนี้ - 09:00 น.';
+
+                    // Steps
+                    if (step1Title) step1Title.textContent = 'รับคำสั่งซื้อเรียบร้อย';
+                    if (step1Desc) step1Desc.textContent = 'ร้านค้าได้รับคำสั่งซื้อและยอดชำระของคุณเรียบร้อยแล้ว';
+                    if (step2Title) step2Title.textContent = 'จัดเตรียมพัสดุและผ่านการตรวจ QC';
+                    if (step2Desc) step2Desc.textContent = 'งานไม้และน้ำมันนวดสปาออร์แกนิกได้รับการห่ออย่างดี';
+                    if (step3Title) step3Title.textContent = 'บริษัทขนส่งเข้ารับพัสดุ';
+                    if (step3Desc) step3Desc.textContent = 'ศูนย์กระจายสินค้าปลายทางได้รับพัสดุเข้าสู่ระบบเรียบร้อยแล้ว';
+                    if (step4Title) step4Title.textContent = 'อยู่ระหว่างการจัดส่ง / นำจ่ายพัสดุ';
+                    if (step4Desc) step4Desc.textContent = 'เจ้าหน้าที่กำลังเดินทางไปส่งสินค้าตามที่อยู่จัดส่งของคุณ';
+                    if (step5Title) step5Title.textContent = 'จัดส่งพัสดุสำเร็จ';
+                    if (step5Desc) step5Desc.textContent = 'พัสดุส่งถึงผู้รับและมีลายเซ็นลงรับเป็นที่เรียบร้อย';
+                }
+            }
+
+            initLanguageSwitcher();
+            localizeTrackingPage();
+        });
+
+        // ฟังก์ชันค้นหาสถานะพัสดุ
+        function trackOrder() {
+            const inputVal = document.getElementById('tracking-id-input').value.trim();
+            const warningEl = document.getElementById('tracking-warning');
+            const warningTextEl = document.getElementById('warning-text');
+            const container = document.getElementById('timeline-container');
+            const numDisplay = document.getElementById('val-tracking-no');
+
+            if (!inputVal) {
+                // แสดงข้อความแจ้งเตือนแปลภาษา
+                const currentLang = localStorage.getItem('klinklin_lang') || 'th';
+                warningTextEl.textContent = currentLang === 'en'
+                    ? 'Please enter your order number before tracking.'
+                    : 'กรุณากรอกรหัสคำสั่งซื้อหรือเลขพัสดุก่อนติดตาม';
+                warningEl.style.display = 'block';
+                container.style.display = 'none';
+                return;
+            }
+
+            // ซ่อนกล่องแจ้งเตือนเมื่อข้อมูลถูกต้อง
+            warningEl.style.display = 'none';
+
+            // ดึงข้อมูลผู้รับและที่อยู่จัดส่งจริงแบบไดนามิกจากประวัติการสั่งซื้อล่าสุด
+            const lastOrder = JSON.parse(localStorage.getItem('klinklin_last_order'));
+            const valRecipient = document.getElementById('val-recipient');
+            const valAddress = document.getElementById('val-address');
+
+            if (lastOrder && (inputVal.toUpperCase() === lastOrder.orderId.toUpperCase() || inputVal.toUpperCase().startsWith('KLN-'))) {
+                if (valRecipient) valRecipient.textContent = lastOrder.receiver || 'คุณกลิ่นกลิ่น นวดแผนไทย';
+                if (valAddress) valAddress.textContent = lastOrder.address || '123 แขวงคลองเตยเหนือ เขตวัฒนา กรุงเทพมหานคร 10110 (ประเทศไทย)';
+            } else {
+                // หากไม่ตรง ให้ดึงจากข้อมูลโปรไฟล์หลักหรือตั้งค่าเริ่มต้นเพื่อความแนบเนียน
+                const profileData = JSON.parse(localStorage.getItem('klinklin_profile_data')) || {};
+                const name = profileData.firstname ? `คุณ${profileData.firstname} ${profileData.lastname || ''}` : 'คุณกลิ่นกลิ่น นวดแผนไทย';
+                if (valRecipient) valRecipient.textContent = name;
+                
+                const savedAddresses = JSON.parse(localStorage.getItem('klinklin_addresses')) || [];
+                const defaultAddr = savedAddresses.find(a => a.isDefault) || savedAddresses[0];
+                if (valAddress) {
+                    valAddress.textContent = defaultAddr ? defaultAddr.details : '123 แขวงคลองเตยเหนือ เขตวัฒนา กรุงเทพมหานคร 10110 (ประเทศไทย)';
+                }
+            }
+
+            numDisplay.textContent = inputVal.toUpperCase();
+            container.style.display = 'block';
+
+            // เลื่อนดูสถานะอย่างสมูท
+            container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // ซ่อนข้อความแจ้งเตือนทันทีที่เริ่มพิมพ์
+        document.getElementById('tracking-id-input').addEventListener('input', () => {
+            const warningEl = document.getElementById('tracking-warning');
+            if (warningEl) {
+                warningEl.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlinKlin - My Favorites</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./:assets/logo klinklin.png">
+    <!-- เชื่อมต่อ CSS -->
+    <link rel="stylesheet" href="./:assets/style.css">
+    <!-- Font Awesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Playwrite+IE:wght@100..400&display=swap" rel="stylesheet">
+    <style>
+        /* Favorites Custom Selection Highlight & On-Demand display */
+        .card-checkbox-label {
+            position: absolute !important;
+            top: 15px !important;
+            left: 15px !important;
+            z-index: 10 !important;
+            cursor: pointer !important;
+            opacity: 0 !important;
+            transform: scale(0.7) !important;
+            pointer-events: none !important;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            display: block !important;
+        }
+
+        .all-products-grid.multi-select-active .card-checkbox-label {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+            pointer-events: auto !important;
+        }
+
+        #toggle-multi-select-btn:hover {
+            background-color: #111 !important;
+            color: #fff !important;
+        }
+
+        /* Clean checkmark toggle rules */
+        .custom-checkbox {
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 50% !important;
+            border: 2px solid #ddd !important;
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
+            box-sizing: border-box !important;
+        }
+
+        .custom-checkbox i {
+            display: none !important;
+        }
+
+        .card-select-checkbox:checked + .custom-checkbox {
+            background-color: var(--primary-green) !important;
+            border-color: var(--primary-green) !important;
+        }
+
+        .card-select-checkbox:checked + .custom-checkbox i {
+            display: block !important;
+        }
+    </style>
+</head>
+
+<body class="products-page">
+
+    <!-- Header (แถบเมนูด้านบน) -->
+    <header class="header scrolled" style="position: sticky; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+        <div class="header-container">
+            <!-- 1. โลโก้ (ซ้ายสุด) -->
+            <div class="logo">
+                <a href="index.html"><img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="logo-img"></a>
+            </div>
+
+            <!-- 2. เมนูนำทาง (ตรงกลาง) -->
+            <nav class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="products.html">PRODUCTS</a>
+                <a href="about.html">ABOUT</a>
+                <a href="contact.html">CONTACT</a>
+                    <a href="tracking.html">TRACKING</a>
+            </nav>
+
+            <!-- 3. ส่วนตัวช่วย (ขวาสุด) -->
+            <div class="nav-utils">
+                <div class="search-box">
+                    <input type="text" placeholder="ค้นหา..." class="search-input" id="global-search-input" onkeydown="if(event.key === 'Enter') { window.location.href='products.html?search='+encodeURIComponent(this.value); }">
+                    <a href="#" class="search-icon" onclick="const val = document.getElementById('global-search-input').value; window.location.href='products.html?search='+encodeURIComponent(val); return false;"><i class="fas fa-search"></i></a>
+                </div>
+                <a href="favorites.html" class="favorites-link" style="position: relative; margin-right: 5px; color: var(--primary-green);"><i class="fas fa-heart"></i><span class="fav-badge" id="fav-badge" style="position: absolute; top: -8px; right: -8px; background-color: #ff3366; color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease;">0</span></a>
+                <a href="profile.html" class="profile-link"><i class="fas fa-user-circle"></i></a>
+                <a href="cart.html" class="cart-link" style="position: relative;"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cart-badge" style="position: absolute; top: -8px; right: -8px; background-color: var(--primary-green); color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content" style="padding-top: 40px; min-height: 80vh; background-color: #fcfbf7;">
+        <div class="products-container" style="max-width: 1400px; margin: 0 auto; padding: 0 40px 100px 40px;">
+            
+            <!-- Page Title -->
+            <div class="page-title-section" style="text-align: center; margin-bottom: 40px;">
+                <h1 style="font-size: 2.2rem; font-weight: 500; letter-spacing: 0.2em; color: #111; margin-bottom: 10px;">MY FAVORITES</h1>
+                <p style="color: #888; font-size: 0.95rem; letter-spacing: 0.05em; margin-bottom: 15px;" id="fav-count">รายการโปรดของคุณ</p>
+                <button id="toggle-multi-select-btn" class="qty-btn" style="width: auto; height: auto; padding: 10px 25px; border-radius: 30px; font-size: 0.88rem; border: 1.5px solid #111; color: #111; font-weight: 600; cursor: pointer; transition: all 0.3s ease; background-color: transparent; outline: none; display: inline-flex; align-items: center; gap: 8px; margin: 0 auto;">
+                    <i class="fas fa-tasks"></i> เลือกสินค้าหลายชิ้น
+                </button>
+            </div>
+
+            <!-- Bulk Action Toolbar -->
+            <div id="bulk-action-bar" style="display: none; justify-content: space-between; align-items: center; background-color: #ffffff; border: 1px solid #f0edf0; padding: 15px 30px; border-radius: 12px; margin-bottom: 30px; animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.95rem; font-weight: 500; color: #555;">
+                        <input type="checkbox" id="select-all-checkbox" style="width: 18px; height: 18px; accent-color: var(--primary-green); cursor: pointer;">
+                        <span>เลือกทั้งหมด</span>
+                    </label>
+                    <span style="color: #ddd;">|</span>
+                    <span id="selected-count-text" style="font-size: 0.95rem; font-weight: 600; color: var(--primary-green);">เลือกแล้ว 0 รายการ</span>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <button id="bulk-add-to-cart-btn" class="add-to-cart-btn" style="margin-top: 0; width: auto; padding: 10px 25px; border-radius: 30px; font-size: 0.88rem; background-color: #111111; opacity: 0.6; pointer-events: none;">
+                        <i class="fas fa-shopping-cart"></i> ใส่ตะกร้าที่เลือก
+                    </button>
+                    <button id="bulk-remove-btn" class="qty-btn" style="width: auto; height: auto; padding: 10px 20px; border-radius: 30px; font-size: 0.88rem; border: 1px solid #e0dee0; color: #ff3366;">
+                        <i class="fas fa-trash"></i> ลบที่เลือก
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="all-products-grid" id="favorites-grid-container">
+                <!-- Favorites will be dynamically rendered here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (ส่วนท้าย) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col-brand">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="footer-logo-img">
+                </a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-service">บริการลูกค้า</h4>
+                <ul class="footer-col-list">
+                    <li><a href="contact.html#faq-section" id="footer-link-faq">คำถามที่พบบ่อย</a></li>
+                    <li><a href="404.html" id="footer-link-404">หน้า 404</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-news">รับข่าวสารจากเรา</h4>
+                <ul class="footer-col-list">
+                    <li><a href="privacy-policy.html" id="footer-link-privacy">ความเป็นส่วนตัวและความปลอดภัย</a></li>
+                    <li><a href="terms.html" id="footer-link-terms">ข้อกำหนดและประกาศจากเว็บไซต์</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-contact">ติดต่อเรา</h4>
+                <div class="footer-social-icons">
+                    <a href="#" class="social-icon-btn"><i class="fab fa-line"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fas fa-phone-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Favorites logic script -->
+    <script src="./:js/products-data.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- ระบบควบคุมและเปลี่ยนภาษา ( BILINGUAL SWITCHER ) ---
+            const currentLang = localStorage.getItem('klinklin_lang') || 'th';
+
+            function initLanguageSwitcher() {
+                const navUtils = document.querySelector('.nav-utils');
+                if (navUtils && !document.getElementById('header-lang-switch')) {
+                    const switchDiv = document.createElement('div');
+                    switchDiv.id = 'header-lang-switch';
+                    switchDiv.style.cssText = 'display: flex; gap: 5px; font-size: 0.82rem; font-weight: 700; color: #111; cursor: pointer; align-items: center; margin-right: 15px; user-select: none; font-family: "Google Sans Flex", sans-serif;';
+                    switchDiv.innerHTML = `
+                        <span id="lang-th" style="color: ${currentLang === 'th' ? 'var(--primary-green)' : '#888'};">TH</span>
+                        <span style="color: #e0dee0; font-weight: 400;">|</span>
+                        <span id="lang-en" style="color: ${currentLang === 'en' ? 'var(--primary-green)' : '#888'};">EN</span>
+                    `;
+                    
+                    const favLink = navUtils.querySelector('.favorites-link');
+                    if (favLink) {
+                        navUtils.insertBefore(switchDiv, favLink);
+                    } else {
+                        navUtils.appendChild(switchDiv);
+                    }
+
+                    document.getElementById('lang-th').onclick = () => {
+                        if (currentLang !== 'th') {
+                            localStorage.setItem('klinklin_lang', 'th');
+                            window.location.reload();
+                        }
+                    };
+                    document.getElementById('lang-en').onclick = () => {
+                        if (currentLang !== 'en') {
+                            localStorage.setItem('klinklin_lang', 'en');
+                            window.location.reload();
+                        }
+                    };
+                }
+
+                // แปลแถบลิสต์เมนูด้านบน
+                const navLinks = document.querySelectorAll('.nav-links a');
+            if (navLinks.length >= 5) {
+                if (currentLang === 'en') {
+                    navLinks[0].textContent = 'HOME';
+                    navLinks[1].textContent = 'PRODUCTS';
+                    navLinks[2].textContent = 'ABOUT';
+                    navLinks[3].textContent = 'CONTACT';
+                    navLinks[4].textContent = 'TRACKING';
+                } else {
+                    navLinks[0].textContent = 'หน้าแรก';
+                    navLinks[1].textContent = 'สินค้า';
+                    navLinks[2].textContent = 'เกี่ยวกับเรา';
+                    navLinks[3].textContent = 'ติดต่อเรา';
+                    navLinks[4].textContent = 'เช็คสถานะพัสดุ';
+                }
+            } else if (navLinks.length >= 4) {
+                if (currentLang === 'en') {
+                    navLinks[0].textContent = 'HOME';
+                    navLinks[1].textContent = 'PRODUCTS';
+                    navLinks[2].textContent = 'ABOUT';
+                    navLinks[3].textContent = 'CONTACT';
+                } else {
+                    navLinks[0].textContent = 'หน้าแรก';
+                    navLinks[1].textContent = 'สินค้า';
+                    navLinks[2].textContent = 'เกี่ยวกับเรา';
+                    navLinks[3].textContent = 'ติดต่อเรา';
+                }
+            }
+
+
+                // แปลส่วนท้ายของเว็บ Footer โครงสร้างใหม่ตามดีไซน์รูปภาพที่ส่งมา
+                const colService = document.getElementById('footer-col-service');
+                const linkFaq = document.getElementById('footer-link-faq');
+                const link404 = document.getElementById('footer-link-404');
+                const colNews = document.getElementById('footer-col-news');
+                const linkPrivacy = document.getElementById('footer-link-privacy');
+                const linkTerms = document.getElementById('footer-link-terms');
+                const colContact = document.getElementById('footer-col-contact');
+
+                if (currentLang === 'en') {
+                    if (colService) colService.textContent = 'Customer Service';
+                    if (linkFaq) linkFaq.textContent = 'FAQs';
+                    if (link404) link404.textContent = '404 Page';
+                    if (colNews) colNews.textContent = 'Subscribe';
+                    if (linkPrivacy) linkPrivacy.textContent = 'Privacy & Security';
+                    if (linkTerms) linkTerms.textContent = 'Terms & Announcements';
+                    if (colContact) colContact.textContent = 'Contact Us';
+                } else {
+                    if (colService) colService.textContent = 'บริการลูกค้า';
+                    if (linkFaq) linkFaq.textContent = 'คำถามที่พบบ่อย';
+                    if (link404) link404.textContent = 'หน้า 404';
+                    if (colNews) colNews.textContent = 'รับข่าวสารจากเรา';
+                    if (linkPrivacy) linkPrivacy.textContent = 'ความเป็นส่วนตัวและความปลอดภัย';
+                    if (linkTerms) linkTerms.textContent = 'ข้อกำหนดและประกาศจากเว็บไซต์';
+                    if (colContact) colContact.textContent = 'ติดต่อเรา';
+                }
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.placeholder = currentLang === 'en' ? 'Search...' : 'ค้นหา...';
+                }
+            }
+
+            initLanguageSwitcher();
+
+            const gridContainer = document.getElementById('favorites-grid-container');
+            const favCountText = document.getElementById('fav-count');
+            const favBadge = document.getElementById('fav-badge');
+            const cartBadge = document.getElementById('cart-badge');
+
+            // Load from local storage
+            let favorites = JSON.parse(localStorage.getItem('klinklin_favorites')) || [];
+            let cart = JSON.parse(localStorage.getItem('klinklin_cart')) || [];
+            let isMultiSelectMode = false;
+
+            const toggleMultiSelectBtn = document.getElementById('toggle-multi-select-btn');
+
+            function updateBadge() {
+                if (favBadge) {
+                    favBadge.textContent = favorites.length;
+                    if (favorites.length > 0) {
+                        favBadge.style.opacity = '1';
+                        favBadge.style.transform = 'scale(1)';
+                    } else {
+                        favBadge.style.opacity = '0';
+                        favBadge.style.transform = 'scale(0)';
+                    }
+                }
+            }
+
+            function updateCartBadge() {
+                if (cartBadge) {
+                    const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+                    cartBadge.textContent = totalQty;
+                    if (totalQty > 0) {
+                        cartBadge.style.opacity = '1';
+                        cartBadge.style.transform = 'scale(1)';
+                    } else {
+                        cartBadge.style.opacity = '0';
+                        cartBadge.style.transform = 'scale(0)';
+                    }
+                }
+            }
+
+            function showToast(message) {
+                const toastContainer = document.getElementById('toast-container');
+                if (!toastContainer) return;
+                
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.innerHTML = `
+                    <i class="fas fa-check-circle toast-icon"></i>
+                    <span>${message}</span>
+                `;
+                
+                toastContainer.appendChild(toast);
+                
+                // Trigger reflow
+                void toast.offsetWidth;
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 400);
+                }, 2500);
+            }
+
+            // Bulk UI Elements
+            const bulkActionBar = document.getElementById('bulk-action-bar');
+            const selectAllCheckbox = document.getElementById('select-all-checkbox');
+            const selectedCountText = document.getElementById('selected-count-text');
+            const bulkAddToCartBtn = document.getElementById('bulk-add-to-cart-btn');
+            const bulkRemoveBtn = document.getElementById('bulk-remove-btn');
+
+            function updateBulkBarState() {
+                if (!bulkActionBar) return;
+                const checkedCheckboxes = document.querySelectorAll('.card-select-checkbox:checked');
+                const totalCheckboxes = document.querySelectorAll('.card-select-checkbox');
+                
+                selectedCountText.textContent = currentLang === 'en' 
+                    ? `Selected ${checkedCheckboxes.length} items` 
+                    : `เลือกแล้ว ${checkedCheckboxes.length} รายการ`;
+
+                // Translate select all text
+                const selectAllSpan = document.querySelector('#bulk-action-bar label span');
+                if (selectAllSpan) {
+                    selectAllSpan.textContent = currentLang === 'en' ? 'Select All' : 'เลือกทั้งหมด';
+                }
+
+                // Highlight cards
+                totalCheckboxes.forEach(cb => {
+                    const id = cb.getAttribute('data-id');
+                    const card = document.getElementById(`card-${id}`);
+                    if (card) {
+                        if (cb.checked) {
+                            card.classList.add('selected-card');
+                        } else {
+                            card.classList.remove('selected-card');
+                        }
+                    }
+                });
+
+                if (checkedCheckboxes.length > 0) {
+                    // Enable bulk buttons
+                    bulkAddToCartBtn.style.opacity = '1';
+                    bulkAddToCartBtn.style.pointerEvents = 'auto';
+                    bulkAddToCartBtn.innerHTML = currentLang === 'en' 
+                        ? `<i class="fas fa-shopping-cart"></i> Add to Cart (${checkedCheckboxes.length})` 
+                        : `<i class="fas fa-shopping-cart"></i> ใส่ตะกร้าที่เลือก (${checkedCheckboxes.length})`;
+                    
+                    bulkRemoveBtn.style.opacity = '1';
+                    bulkRemoveBtn.style.pointerEvents = 'auto';
+                } else {
+                    // Disable bulk buttons
+                    bulkAddToCartBtn.style.opacity = '0.6';
+                    bulkAddToCartBtn.style.pointerEvents = 'none';
+                    bulkAddToCartBtn.innerHTML = currentLang === 'en' 
+                        ? `<i class="fas fa-shopping-cart"></i> Add to Cart` 
+                        : `<i class="fas fa-shopping-cart"></i> ใส่ตะกร้าที่เลือก`;
+                    
+                    bulkRemoveBtn.style.opacity = '0.6';
+                    bulkRemoveBtn.style.pointerEvents = 'none';
+                }
+
+                // Translate delete btn
+                if (bulkRemoveBtn) {
+                    bulkRemoveBtn.innerHTML = currentLang === 'en' 
+                        ? `<i class="fas fa-trash"></i> Remove` 
+                        : `<i class="fas fa-trash"></i> ลบที่เลือก`;
+                }
+
+                // Update select-all checkbox state
+                if (totalCheckboxes.length > 0 && checkedCheckboxes.length === totalCheckboxes.length) {
+                    selectAllCheckbox.checked = true;
+                } else {
+                    if (selectAllCheckbox) selectAllCheckbox.checked = false;
+                }
+            }
+
+            function attachCartListeners() {
+                document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                    btn.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        
+                        const product = products.find(p => p.id === id);
+                        const productName = product 
+                            ? (currentLang === 'en' ? product.nameEN : product.name) 
+                            : 'Product';
+
+                        const existingItem = cart.find(item => item.id === id);
+                        if (existingItem) {
+                            existingItem.quantity += 1;
+                        } else {
+                            cart.push({ id: id, quantity: 1 });
+                        }
+
+                        localStorage.setItem('klinklin_cart', JSON.stringify(cart));
+                        updateCartBadge();
+                        
+                        if (currentLang === 'en') {
+                            showToast(`Added ${productName} to cart!`);
+                        } else {
+                            showToast(`เพิ่ม ${productName} ลงตะกร้าแล้ว!`);
+                        }
+                    };
+                });
+            }
+
+            function attachBulkListeners() {
+                if (!bulkActionBar) return;
+
+                // Individual Checkbox Change Event
+                document.querySelectorAll('.card-select-checkbox').forEach(cb => {
+                    cb.onchange = () => {
+                        updateBulkBarState();
+                    };
+                });
+
+                // Select All Click
+                if (selectAllCheckbox) {
+                    selectAllCheckbox.onchange = (e) => {
+                        document.querySelectorAll('.card-select-checkbox').forEach(cb => {
+                            cb.checked = e.target.checked;
+                        });
+                        updateBulkBarState();
+                    };
+                }
+
+                // Bulk Add to Cart Click
+                if (bulkAddToCartBtn) {
+                    bulkAddToCartBtn.onclick = () => {
+                        const checkedCheckboxes = document.querySelectorAll('.card-select-checkbox:checked');
+                        if (checkedCheckboxes.length === 0) return;
+
+                        checkedCheckboxes.forEach(cb => {
+                            const id = parseInt(cb.getAttribute('data-id'));
+                            const existingItem = cart.find(item => item.id === id);
+                            if (existingItem) {
+                                existingItem.quantity += 1;
+                            } else {
+                                cart.push({ id: id, quantity: 1 });
+                            }
+                        });
+
+                        localStorage.setItem('klinklin_cart', JSON.stringify(cart));
+                        updateCartBadge();
+                        
+                        if (currentLang === 'en') {
+                            showToast(`Added ${checkedCheckboxes.length} selected products to cart!`);
+                        } else {
+                            showToast(`เพิ่มสินค้าที่เลือก ${checkedCheckboxes.length} รายการลงตะกร้าแล้ว!`);
+                        }
+                        
+                        // Uncheck everything
+                        document.querySelectorAll('.card-select-checkbox').forEach(cb => {
+                            cb.checked = false;
+                        });
+                        updateBulkBarState();
+                    };
+                }
+
+                // Bulk Remove Click with animation
+                if (bulkRemoveBtn) {
+                    bulkRemoveBtn.onclick = () => {
+                        const checkedCheckboxes = document.querySelectorAll('.card-select-checkbox:checked');
+                        if (checkedCheckboxes.length === 0) return;
+
+                        const idsToRemove = Array.from(checkedCheckboxes).map(cb => parseInt(cb.getAttribute('data-id')));
+                        
+                        // Animate card exits
+                        idsToRemove.forEach(id => {
+                            const card = document.getElementById(`card-${id}`);
+                            if (card) {
+                                card.style.transition = 'all 0.4s ease';
+                                card.style.opacity = '0';
+                                card.style.transform = 'translateY(20px) scale(0.9)';
+                            }
+                        });
+
+                        setTimeout(() => {
+                            favorites = favorites.filter(id => !idsToRemove.includes(id));
+                            localStorage.setItem('klinklin_favorites', JSON.stringify(favorites));
+                            renderFavorites();
+                        }, 400);
+                    };
+                }
+            }
+
+            function renderFavorites() {
+                // Check if user is logged in first!
+                const isLoggedIn = localStorage.getItem('klinklin_logged_in') === 'true';
+                if (!isLoggedIn) {
+                    if (bulkActionBar) bulkActionBar.style.display = 'none';
+                    if (toggleMultiSelectBtn) toggleMultiSelectBtn.style.display = 'none';
+                    if (favCountText) favCountText.textContent = '';
+                    
+                    const loginRequiredTitle = currentLang === 'en' ? 'Please Log In First' : 'กรุณาเข้าสู่ระบบก่อนใช้งาน';
+                    const loginRequiredDesc = currentLang === 'en' 
+                        ? 'You must sign in to view and manage your liked items.' 
+                        : 'คุณจำเป็นต้องเข้าสู่ระบบเพื่อเข้าชมและจัดการรายการสินค้าที่ถูกใจของคุณ';
+                    const loginBtnText = currentLang === 'en' ? 'Log In Now' : 'เข้าสู่ระบบทันที';
+                    
+                    gridContainer.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 100px 20px; color: #888;">
+                            <i class="fas fa-user-lock" style="font-size: 4rem; margin-bottom: 25px; color: var(--primary-green, #7cc954);"></i>
+                            <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 15px; color: #111;">${loginRequiredTitle}</h3>
+                            <p style="font-size: 1rem; margin-bottom: 30px; color: #666; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.6;">${loginRequiredDesc}</p>
+                            <a href="profile.html" class="btn" style="background-color: var(--primary-green, #7cc954); color: white; border-radius: 30px; padding: 14px 40px; font-weight: 600; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(124, 201, 84, 0.3); transition: all 0.25s;">${loginBtnText}</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Filter products that are in favorites
+                const favProducts = products.filter(p => favorites.includes(p.id));
+
+                // Update text count
+                if (favCountText) {
+                    favCountText.textContent = currentLang === 'en'
+                        ? `You have liked ${favProducts.length} items in total`
+                        : `คุณถูกใจสินค้าทั้งหมด ${favProducts.length} รายการ`;
+                }
+                updateBadge();
+                updateCartBadge();
+
+                if (favProducts.length === 0) {
+                    if (bulkActionBar) bulkActionBar.style.display = 'none';
+                    if (toggleMultiSelectBtn) toggleMultiSelectBtn.style.display = 'none';
+                    
+                    const emptyTitle = currentLang === 'en' ? 'No items in your favorites yet' : 'ยังไม่มีสินค้าในรายการโปรดของคุณ';
+                    const emptyBtn = currentLang === 'en' ? 'View All Products' : 'ดูสินค้าทั้งหมด';
+
+                    gridContainer.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 80px 20px; color: #888;">
+                            <i class="far fa-heart" style="font-size: 4rem; margin-bottom: 20px; color: #ff3366;"></i>
+                            <p style="font-size: 1.2rem; font-weight: 500; margin-bottom: 25px; color: #555;">${emptyTitle}</p>
+                            <a href="products.html" class="btn" style="background-color: #111; color: white; border-radius: 30px; padding: 12px 30px; font-weight: 500; font-size: 0.95rem;">${emptyBtn}</a>
+                        </div>
+                    `;
+                } else {
+                    if (toggleMultiSelectBtn) toggleMultiSelectBtn.style.display = 'inline-flex';
+                    
+                    if (isMultiSelectMode) {
+                        gridContainer.classList.add('multi-select-active');
+                        if (bulkActionBar) bulkActionBar.style.display = 'flex';
+                        if (toggleMultiSelectBtn) {
+                            toggleMultiSelectBtn.innerHTML = currentLang === 'en' ? `<i class="fas fa-times"></i> Cancel Selection` : `<i class="fas fa-times"></i> ยกเลิกการเลือก`;
+                            toggleMultiSelectBtn.style.borderColor = '#e0dee0';
+                            toggleMultiSelectBtn.style.color = '#666';
+                        }
+                    } else {
+                        gridContainer.classList.remove('multi-select-active');
+                        if (bulkActionBar) bulkActionBar.style.display = 'none';
+                        if (toggleMultiSelectBtn) {
+                            toggleMultiSelectBtn.innerHTML = currentLang === 'en' ? `<i class="fas fa-tasks"></i> Select Multiple` : `<i class="fas fa-tasks"></i> เลือกสินค้าหลายชิ้น`;
+                            toggleMultiSelectBtn.style.borderColor = '#111';
+                            toggleMultiSelectBtn.style.color = '#111';
+                        }
+                    }
+
+                    gridContainer.innerHTML = favProducts.map(product => {
+                        const nameToUse = currentLang === 'en' ? product.nameEN : product.name;
+                        const sizeText = currentLang === 'en' ? `Size: ${product.size}` : `ขนาด: ${product.size}`;
+                        const addToCartLabel = currentLang === 'en' ? 'add to cart' : 'ใส่ตะกร้า';
+
+                        return `
+                            <div class="product-grid-card" id="card-${product.id}">
+                                <div class="card-image-box" style="position: relative;">
+                                    <label class="card-checkbox-label" style="position: absolute; top: 15px; left: 15px; z-index: 10; width: 24px; height: 24px; cursor: pointer;">
+                                        <input type="checkbox" class="card-select-checkbox" data-id="${product.id}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 2; margin: 0; padding: 0; pointer-events: auto !important;">
+                                        <span class="custom-checkbox" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;">
+                                            <i class="fas fa-check" style="font-size: 0.75rem; color: white;"></i>
+                                        </span>
+                                    </label>
+                                    <button class="fav-btn active" data-id="${product.id}" style="position: absolute; top: 15px; right: 15px;">
+                                        <i class="fas fa-heart" style="color: #ff3366;"></i>
+                                    </button>
+                                    <a href="product-detail.html?id=${product.id}" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
+                                        <img src="${product.image}" alt="${product.nameEN}">
+                                    </a>
+                                </div>
+                                <div class="card-info-box">
+                                    <h3 class="card-product-name">${nameToUse}</h3>
+                                    <p class="card-product-en">${product.nameEN}</p>
+                                    <p class="card-product-size">${sizeText}</p>
+                                    <span class="card-product-price">${product.price.toLocaleString()} ฿</span>
+                                    <button class="add-to-cart-btn" data-id="${product.id}">${addToCartLabel}</button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    // แนบแอนิเมชั่นเลื่อนขึ้นเมื่อโหลดแสดงการ์ดสินค้า
+                    initScrollAnimations();
+
+                    // Add click listener to the favorite buttons to remove them with animation
+                    document.querySelectorAll('.fav-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            const id = parseInt(btn.getAttribute('data-id'));
+                            
+                            // Remove from favorites array
+                            favorites = favorites.filter(favId => favId !== id);
+                            localStorage.setItem('klinklin_favorites', JSON.stringify(favorites));
+
+                            // Smooth fade-out of the card
+                            const card = document.getElementById(`card-${id}`);
+                            if (card) {
+                                card.style.transition = 'all 0.4s ease-in-out';
+                                card.style.opacity = '0';
+                                card.style.transform = 'translateY(20px) scale(0.9)';
+                                setTimeout(() => {
+                                    renderFavorites();
+                                }, 400);
+                            } else {
+                                renderFavorites();
+                            }
+                        });
+                    });
+
+                    // Attach add to cart event listeners
+                    attachCartListeners();
+                    
+                    // Attach Bulk Checkboxes listeners
+                    attachBulkListeners();
+                    updateBulkBarState();
+                }
+            }
+
+            function initScrollAnimations() {
+                const cards = document.querySelectorAll('.product-grid-card');
+                
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px 0px -60px 0px',
+                    threshold: 0.05
+                };
+
+                const observer = new IntersectionObserver((entries, observer) => {
+                    let delay = 0;
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const card = entry.target;
+                            card.style.transitionDelay = `${delay}s`;
+                            card.classList.add('revealed');
+                            observer.unobserve(card);
+                            delay += 0.08;
+                        }
+                    });
+                }, observerOptions);
+
+                cards.forEach(card => {
+                    observer.observe(card);
+                });
+            }
+
+            // Toggle Multi-Select Button click
+            if (toggleMultiSelectBtn) {
+                toggleMultiSelectBtn.addEventListener('click', () => {
+                    isMultiSelectMode = !isMultiSelectMode;
+                    
+                    // Clear selections when turning off
+                    if (!isMultiSelectMode) {
+                        document.querySelectorAll('.card-select-checkbox').forEach(cb => {
+                            cb.checked = false;
+                        });
+                    }
+                    
+                    renderFavorites();
+                });
+            }
+
+            // Initial render
+            renderFavorites();
+        });
+    </script>
+
+    <!-- Toast container for notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+
+    <!-- Back to Top Button Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (!document.getElementById('back-to-top')) {
+                const backToTopBtn = document.createElement('button');
+                backToTopBtn.id = 'back-to-top';
+                backToTopBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
+                document.body.appendChild(backToTopBtn);
+
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 400) {
+                        backToTopBtn.classList.add('visible');
+                    } else {
+                        backToTopBtn.classList.remove('visible');
+                    }
+                });
+
+                backToTopBtn.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

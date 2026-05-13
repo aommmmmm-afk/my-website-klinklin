@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlinKlin - Terms & Conditions</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./:assets/logo klinklin.png">
+    <!-- เชื่อมต่อ CSS -->
+    <link rel="stylesheet" href="./:assets/style.css">
+    <!-- Font Awesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Playwrite+IE:wght@100..400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Header (แถบเมนูด้านบน) -->
+    <header class="header">
+        <div class="header-container">
+            <!-- 1. โลโก้ (ซ้ายสุด) -->
+            <div class="logo">
+                <a href="index.html"><img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="logo-img"></a>
+            </div>
+
+            <!-- 2. เมนูนำทาง (ตรงกลาง) -->
+            <nav class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="products.html">PRODUCTS</a>
+                <a href="about.html">ABOUT</a>
+                <a href="contact.html">CONTACT</a>
+                <a href="tracking.html">TRACKING</a>
+            </nav>
+
+            <!-- 3. ส่วนตัวช่วย (ขวาสุด) -->
+            <div class="nav-utils">
+                <div class="search-box">
+
+                    <input type="text" placeholder="ค้นหา..." class="search-input" id="global-search-input" onkeydown="if(event.key === 'Enter') { window.location.href='products.html?search='+encodeURIComponent(this.value); }">
+
+                    <a href="#" class="search-icon" onclick="const val = document.getElementById('global-search-input').value; window.location.href='products.html?search='+encodeURIComponent(val); return false;"><i class="fas fa-search"></i></a>
+
+                </div>
+                <a href="favorites.html" class="favorites-link" style="position: relative; margin-right: 5px;"><i class="far fa-heart"></i><span class="fav-badge" id="fav-badge" style="position: absolute; top: -8px; right: -8px; background-color: #ff3366; color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+                <a href="profile.html" class="profile-link"><i class="fas fa-user-circle"></i></a>
+                <a href="cart.html" class="cart-link" style="position: relative;"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cart-badge" style="position: absolute; top: -8px; right: -8px; background-color: var(--primary-green); color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container (ปรับดีไซน์ให้โปร่งหรูหรากึ่งกลางหน้าจอพอดี) -->
+    <main class="main-content" style="padding: 120px 0 80px 0; min-height: calc(100vh - 460px); background-color: #fcfbf7; font-family: 'Google Sans Flex', sans-serif;">
+        <div style="max-width: 900px; margin: 0 auto; padding: 0 24px;">
+            
+            <!-- Breadcrumbs -->
+            <div style="margin-bottom: 25px; font-size: 0.88rem; color: #8c9690; display: flex; gap: 8px;">
+                <a href="index.html" style="color: #8c9690; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--primary-green)'" onmouseout="this.style.color='#8c9690'" id="breadcrumb-home">หน้าแรก</a>
+                <span>/</span>
+                <span style="color: var(--primary-green); font-weight: 500;" id="breadcrumb-current">ข้อกำหนดและประกาศจากเว็บไซต์</span>
+            </div>
+
+            <!-- Content Card -->
+            <div style="background: #ffffff; border: 1px solid #e5e0da; border-radius: 16px; padding: 50px; box-shadow: 0 10px 35px rgba(44, 92, 61, 0.03);">
+                <h1 style="font-family: 'Google Sans Flex', sans-serif; font-size: 2rem; font-weight: 700; color: #1b3c25; margin: 0 0 10px 0; text-align: center;" id="policy-title-main">Terms of Service</h1>
+                <h2 style="font-family: 'Google Sans Flex', sans-serif; font-size: 1.3rem; font-weight: 500; color: #4a544e; margin: 0 0 30px 0; text-align: center;" id="policy-title-sub">ข้อกำหนดและประกาศจากเว็บไซต์</h2>
+                
+                <div style="border-bottom: 1px solid #f3efea; padding-bottom: 15px; margin-bottom: 30px; font-size: 0.88rem; color: #8c9690; text-align: center;" id="policy-updated">
+                    ประกาศเมื่อวันที่: 7 พ.ค. 2569
+                </div>
+
+                <div class="policy-content-text" style="color: #4a544e; font-size: 0.98rem; line-height: 1.8; display: flex; flex-direction: column; gap: 24px;" id="policy-body">
+                    <!-- จะถูกเติมแบบ Dynamic โดย JavaScript ตามภาษาที่เลือก -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer (ส่วนท้าย) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col-brand">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="footer-logo-img">
+                </a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-service">บริการลูกค้า</h4>
+                <ul class="footer-col-list">
+                    <li><a href="contact.html#faq-section" id="footer-link-faq">คำถามที่พบบ่อย</a></li>
+                    <li><a href="404.html" id="footer-link-404">หน้า 404</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-news">รับข่าวสารจากเรา</h4>
+                <ul class="footer-col-list">
+                    <li><a href="privacy-policy.html" id="footer-link-privacy">ความเป็นส่วนตัวและความปลอดภัย</a></li>
+                    <li><a href="terms.html" id="footer-link-terms">ข้อกำหนดและประกาศจากเว็บไซต์</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-contact">ติดต่อเรา</h4>
+                <div class="footer-social-icons">
+                    <a href="#" class="social-icon-btn"><i class="fab fa-line"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fas fa-phone-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./:js/script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- ระบบควบคุมและเปลี่ยนภาษา ( BILINGUAL SWITCHER ) ---
+            const currentLang = localStorage.getItem('klinklin_lang') || 'th';
+
+            function initLanguageSwitcher() {
+                const navUtils = document.querySelector('.nav-utils');
+                if (navUtils && !document.getElementById('header-lang-switch')) {
+                    const switchDiv = document.createElement('div');
+                    switchDiv.id = 'header-lang-switch';
+                    switchDiv.style.cssText = 'display: flex; gap: 5px; font-size: 0.82rem; font-weight: 700; color: #111; cursor: pointer; align-items: center; margin-right: 15px; user-select: none; font-family: "Google Sans Flex", sans-serif;';
+                    switchDiv.innerHTML = `
+                        <span id="lang-th" style="color: ${currentLang === 'th' ? 'var(--primary-green)' : '#888'};">TH</span>
+                        <span style="color: #e0dee0; font-weight: 400;">|</span>
+                        <span id="lang-en" style="color: ${currentLang === 'en' ? 'var(--primary-green)' : '#888'};">EN</span>
+                    `;
+                    
+                    const favLink = navUtils.querySelector('.favorites-link');
+                    if (favLink) {
+                        navUtils.insertBefore(switchDiv, favLink);
+                    } else {
+                        navUtils.appendChild(switchDiv);
+                    }
+
+                    document.getElementById('lang-th').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (localStorage.getItem('klinklin_lang') !== 'th') {
+                            localStorage.setItem('klinklin_lang', 'th');
+                            window.location.reload();
+                        }
+                    });
+
+                    document.getElementById('lang-en').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (localStorage.getItem('klinklin_lang') !== 'en') {
+                            localStorage.setItem('klinklin_lang', 'en');
+                            window.location.reload();
+                        }
+                    });
+                }
+            }
+
+            const pageData = {
+                th: {
+                    breadcrumbHome: "หน้าแรก",
+                    breadcrumbCurrent: "ข้อกำหนดและประกาศจากเว็บไซต์",
+                    titleMain: "Terms of Service",
+                    titleSub: "ข้อกำหนดและประกาศจากเว็บไซต์",
+                    updated: "ประกาศเมื่อวันที่: 7 พ.ค. 2569",
+                    navHome: "หน้าแรก",
+                    navProducts: "สินค้า",
+                    navAbout: "เกี่ยวกับเรา",
+                    navContact: "ติดต่อเรา",
+                    colService: "บริการลูกค้า",
+                    linkFaq: "คำถามที่พบบ่อย",
+                    link404: "หน้า 404",
+                    colNews: "รับข่าวสารจากเรา",
+                    linkPrivacy: "ความเป็นส่วนตัวและความปลอดภัย",
+                    linkTerms: "ข้อกำหนดและประกาศจากเว็บไซต์",
+                    colContact: "ติดต่อเรา",
+                    searchPlaceholder: "ค้นหา...",
+                    content: `
+                        <p>ยินดีต้อนรับสู่เว็บไซต์ Klin Klin กรุณาอ่านข้อกำหนดและเงื่อนไขดังต่อไปนี้โดยละเอียด การใช้งานเว็บไซต์หรือการสั่งซื้อสินค้าถือว่าท่านยอมรับข้อกำหนดเหล่านี้:</p>
+                        
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">1. การสมัครสมาชิกและการสั่งซื้อ</h3>
+                            <ul style="margin: 8px 0 0 20px; padding: 0; list-style-type: disc;">
+                                <li>ผู้ใช้งานต้องให้ข้อมูลที่ถูกต้องและเป็นความจริงในการสั่งซื้อสินค้า</li>
+                                <li>การสั่งซื้อจะถือว่าสมบูรณ์เมื่อท่านชำระเงินและได้รับหลักฐานการยืนยันจากเรา</li>
+                                <li>เราขอสงวนสิทธิ์ในการปฏิเสธคำสั่งซื้อหากพบว่าข้อมูลไม่ถูกต้องหรือสินค้าหมดสต็อก</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">2. ราคาสินค้าและการชำระเงิน</h3>
+                            <ul style="margin: 8px 0 0 20px; padding: 0; list-style-type: disc;">
+                                <li>ราคาสินค้าเป็นไปตามที่ระบุไว้บนหน้าเว็บไซต์ (เราขอสงวนสิทธิ์ในการเปลี่ยนแปลงราคาโดยไม่แจ้งให้ทราบล่วงหน้า)</li>
+                                <li>การชำระเงินต้องทำผ่านช่องทางที่กำหนดเท่านั้น และเราจะไม่รับผิดชอบหากเกิดความผิดพลาดจากบุคคลภายนอก (เช่น ธนาคาร)</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">3. การจัดส่งสินค้า</h3>
+                            <ul style="margin: 8px 0 0 20px; padding: 0; list-style-type: disc;">
+                                <li>เราจะจัดส่งสินค้าตามที่อยู่ที่ท่านระบุเท่านั้น หากมีการระบุที่อยู่ผิดและสินค้าถูกตีกลับ ผู้ซื้ออาจต้องรับผิดชอบค่าจัดส่งเพิ่มเติม</li>
+                                <li>ระยะเวลาการจัดส่งเป็นเพียงการประมาณการ อาจมีการล่าช้าเนื่องจากเหตุสุดวิสัยของบริษัทขนส่ง</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">4. การคืนสินค้าและการรับประกัน</h3>
+                            <p>ท่านสามารถขอคืนหรือเปลี่ยนสินค้าได้ภายใน <strong>7 วัน</strong> หลังจากได้รับสินค้า หากพบว่าสินค้าเสียหายจากกระบวนการผลิตหรือการขนส่ง โดยต้องมีวิดีโอขณะเปิดกล่องสินค้าเป็นหลักฐานประกอบ</p>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">5. ทรัพย์สินทางปัญญา</h3>
+                            <p>ข้อความ รูปภาพ โลโก้ และเนื้อหาทั้งหมดบนเว็บไซต์นี้เป็นลิขสิทธิ์ของ Klin Klin ห้ามมิให้ผู้ใดนำไปใช้ ดัดแปลง หรือเผยแพร่โดยไม่ได้รับอนุญาตเป็นลายลักษณ์อักษร</p>
+                        </div>
+                    `
+                },
+                en: {
+                    breadcrumbHome: "Home",
+                    breadcrumbCurrent: "Terms & Conditions",
+                    titleMain: "Terms of Service",
+                    titleSub: "Terms & Announcements",
+                    updated: "Announced on: May 7, 2026",
+                    navHome: "HOME",
+                    navProducts: "PRODUCTS",
+                    navAbout: "ABOUT",
+                    navContact: "CONTACT",
+                    colService: "Customer Service",
+                    linkFaq: "FAQs",
+                    link404: "404 Page",
+                    colNews: "Subscribe",
+                    linkPrivacy: "Privacy & Security",
+                    linkTerms: "Terms & Announcements",
+                    colContact: "Contact Us",
+                    searchPlaceholder: "Search...",
+                    content: `
+                        <p>Welcome to the Klin Klin website. Please read the following terms and conditions carefully. Your use of this website or purchasing of products constitutes your acceptance of these terms:</p>
+                        
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">1. Registration and Purchasing</h3>
+                            <ul style="margin: 8px 0 0 20px; padding: 0; list-style-type: disc;">
+                                <li>Users must provide accurate and true information when purchasing products.</li>
+                                <li>A purchase is deemed complete once payment is made and you receive confirmation from us.</li>
+                                <li>We reserve the right to reject orders if the information is incorrect or if items are out of stock.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">2. Product Prices and Payment</h3>
+                            <ul style="margin: 8px 0 0 20px; padding: 0; list-style-type: disc;">
+                                <li>Product prices are as stated on the website (we reserve the right to change prices without prior notice).</li>
+                                <li>Payments must be made only through designated channels, and we will not be held responsible for errors caused by third parties (e.g., banks).</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">3. Delivery of Goods</h3>
+                            <ul style="margin: 8px 0 0 20px; padding: 0; list-style-type: disc;">
+                                <li>We only deliver products to the address you specify. If the address is incorrect and the product is returned, the buyer may be responsible for additional shipping fees.</li>
+                                <li>Delivery times are estimates only; delays may occur due to force majeure events of the delivery company.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">4. Return of Products and Warranties</h3>
+                            <p>You can request a return or exchange of products within <strong>7 days</strong> after receiving the product if it is found to be damaged from the manufacturing or shipping process, provided you have a video of opening the package as evidence.</p>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 10px 0;">5. Intellectual Property</h3>
+                            <p>All text, images, logos, and content on this website are the copyright of Klin Klin. No one is allowed to use, modify, or distribute them without written permission.</p>
+                        </div>
+                    `
+                }
+            };
+
+            function localizePage() {
+                const data = pageData[currentLang] || pageData.th;
+
+                // Breadcrumbs & Title
+                const bHome = document.getElementById('breadcrumb-home');
+                const bCurrent = document.getElementById('breadcrumb-current');
+                const tMain = document.getElementById('policy-title-main');
+                const tSub = document.getElementById('policy-title-sub');
+                const uTime = document.getElementById('policy-updated');
+                const pBody = document.getElementById('policy-body');
+
+                if (bHome) bHome.textContent = data.breadcrumbHome;
+                if (bCurrent) bCurrent.textContent = data.breadcrumbCurrent;
+                if (tMain) tMain.textContent = data.titleMain;
+                if (tSub) tSub.textContent = data.titleSub;
+                if (uTime) uTime.textContent = data.updated;
+                if (pBody) pBody.innerHTML = data.content;
+
+                // Navigation Links
+                const navLinks = document.querySelectorAll('.nav-links a');
+                if (navLinks.length >= 5) {
+                    navLinks[0].textContent = data.navHome;
+                    navLinks[1].textContent = data.navProducts;
+                    navLinks[2].textContent = data.navAbout;
+                    navLinks[3].textContent = data.navContact;
+                    navLinks[4].textContent = currentLang === 'en' ? 'TRACKING' : 'เช็คสถานะพัสดุ';
+                } else if (navLinks.length >= 4) {
+                    navLinks[0].textContent = data.navHome;
+                    navLinks[1].textContent = data.navProducts;
+                    navLinks[2].textContent = data.navAbout;
+                    navLinks[3].textContent = data.navContact;
+                }
+
+                // Footer Translations
+                const colService = document.getElementById('footer-col-service');
+                const linkFaq = document.getElementById('footer-link-faq');
+                const link404 = document.getElementById('footer-link-404');
+                const colNews = document.getElementById('footer-col-news');
+                const linkPrivacy = document.getElementById('footer-link-privacy');
+                const linkTerms = document.getElementById('footer-link-terms');
+                const colContact = document.getElementById('footer-col-contact');
+
+                if (colService) colService.textContent = data.colService;
+                if (linkFaq) linkFaq.textContent = data.linkFaq;
+                if (link404) link404.textContent = data.link404;
+                if (colNews) colNews.textContent = data.colNews;
+                if (linkPrivacy) linkPrivacy.textContent = data.linkPrivacy;
+                if (linkTerms) linkTerms.textContent = data.linkTerms;
+                if (colContact) colContact.textContent = data.colContact;
+
+                // Search Input
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.placeholder = data.searchPlaceholder;
+                }
+            }
+
+            initLanguageSwitcher();
+            localizePage();
+
+            // Badge System update
+            function updateBadges() {
+                const cart = JSON.parse(localStorage.getItem('klinklin_cart')) || [];
+                const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+                const cartBadge = document.getElementById('cart-badge');
+                if (cartBadge) {
+                    if (cartCount > 0) {
+                        cartBadge.textContent = cartCount;
+                        cartBadge.style.opacity = '1';
+                    } else {
+                        cartBadge.style.opacity = '0';
+                    }
+                }
+
+                const favorites = JSON.parse(localStorage.getItem('klinklin_favorites')) || [];
+                const favCount = favorites.length;
+                const favBadge = document.getElementById('fav-badge');
+                if (favBadge) {
+                    if (favCount > 0) {
+                        favBadge.textContent = favCount;
+                        favBadge.style.opacity = '1';
+                    } else {
+                        favBadge.style.opacity = '0';
+                    }
+                }
+            }
+            updateBadges();
+        });
+    </script>
+</body>
+
+</html>

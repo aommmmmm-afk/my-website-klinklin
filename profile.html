@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlinKlin - My Profile</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./:assets/logo klinklin.png">
+    <!-- เชื่อมต่อ CSS -->
+    <link rel="stylesheet" href="./:assets/style.css">
+    <!-- Font Awesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Playwrite+IE:wght@100..400&display=swap"
+        rel="stylesheet">
+
+    <!-- สไตล์เฉพาะสำหรับหน้า Profile และหน้า Login -->
+    <style>
+        /* โครงสร้างเลย์เอาท์แฝด */
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 60px;
+            margin-top: 30px;
+            align-items: start;
+        }
+
+        /* ส่วนของประวัติย่อซ้ายมือ */
+        .profile-sidebar {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .profile-page-title {
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: #111111;
+            margin: 0 0 35px 0;
+            font-family: 'Google Sans Flex', sans-serif;
+            letter-spacing: -0.01em;
+        }
+
+        .profile-avatar-wrapper {
+            position: relative;
+            width: 190px;
+            height: 190px;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #deddd9;
+            /* สีเทาตามภาพ Mockup */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        .profile-avatar-circle svg {
+            width: 78%;
+            height: 78%;
+            fill: none;
+            stroke: #111111;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .profile-image-preview {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .profile-edit-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: #111111;
+            /* สีปุ่มดินสอตาม Mockup */
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 3px solid #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 5;
+        }
+
+        .profile-edit-badge:hover {
+            background-color: var(--primary-green);
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(83, 161, 229, 0.35);
+        }
+
+        .profile-sidebar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .profile-sidebar-link {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #111111;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .profile-sidebar-link:hover {
+            color: var(--primary-green);
+            transform: translateX(4px);
+        }
+
+        .profile-sidebar-link.active {
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        /* ส่วนของคอนเทนต์ฟอร์มขวามือ */
+        .profile-content {
+            background-color: #ffffff;
+            border: 1px solid #f0edf0;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            min-height: 450px;
+        }
+
+        .profile-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #f0edf0;
+            padding-bottom: 15px;
+        }
+
+        .profile-section-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #111111;
+            margin: 0;
+            font-family: 'Google Sans Flex', sans-serif;
+        }
+
+        .profile-privacy-link {
+            font-size: 0.9rem;
+            color: #111111;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.25s;
+        }
+
+        .profile-privacy-link:hover {
+            color: var(--primary-green);
+            text-decoration: underline;
+        }
+
+        .profile-description {
+            font-size: 0.95rem;
+            color: #444444;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 650px;
+        }
+
+        /* โครงสร้างฟอร์ม */
+        .profile-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 750px;
+        }
+
+        .profile-form-grid .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .profile-input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-input-field {
+            width: 100%;
+            background-color: #e2e1dd;
+            /* สีเทากล่องอินพุตตาม Mockup */
+            border: none;
+            border-radius: 4px;
+            padding: 15px 18px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #111111;
+            box-sizing: border-box;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .profile-input-field::placeholder {
+            color: #555555;
+            font-weight: 500;
+        }
+
+        .profile-input-field:focus {
+            outline: none;
+            background-color: #dad9d5;
+            box-shadow: inset 0 0 0 2px var(--primary-green);
+        }
+
+        .profile-button-row {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+            max-width: 750px;
+        }
+
+        .profile-update-btn {
+            background-color: #111111;
+            /* สีปุ่มอัปเดตเทาเข้มตาม Mockup */
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            padding: 14px 45px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 12px rgba(17, 17, 17, 0.08);
+        }
+
+        .profile-update-btn:hover {
+            background-color: var(--primary-green);
+            box-shadow: 0 6px 20px rgba(83, 161, 229, 0.35);
+            transform: translateY(-1px);
+        }
+
+        /* ปุ่มต่างๆ ในหน้าจัดการที่อยู่ */
+        .address-action-btn {
+            background-color: #111111 !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 8px !important;
+            padding: 10px 22px !important;
+            font-weight: 600 !important;
+            font-size: 0.88rem !important;
+            cursor: pointer !important;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            font-family: 'Google Sans Flex', sans-serif !important;
+            box-shadow: 0 4px 12px rgba(17, 17, 17, 0.08) !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #save-address-btn {
+            padding: 12px 30px !important;
+            font-size: 0.95rem !important;
+        }
+
+        .address-action-btn:hover {
+            background-color: var(--primary-green) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(83, 161, 229, 0.3) !important;
+        }
+
+        /* แถบการล็อกอิน */
+        .login-card {
+            max-width: 440px;
+            margin: 60px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border: 1px solid #f0edf0;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+            text-align: center;
+        }
+
+        .login-card h2 {
+            font-family: 'Google Sans Flex', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #111111;
+            margin-bottom: 8px;
+        }
+
+        .login-card p {
+            font-size: 0.9rem;
+            color: #666666;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        /* แท็บส่วนของที่อยู่จัดส่ง */
+        .address-card-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .address-box {
+            border: 1px solid #f0edf0;
+            background-color: #faf9f6;
+            border-radius: 8px;
+            padding: 24px;
+            position: relative;
+        }
+
+        .address-box.primary-address {
+            border-color: var(--primary-green);
+            background-color: #f7faf5;
+        }
+
+        .address-badge {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            background-color: var(--primary-green);
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 850px) {
+            .profile-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .profile-sidebar {
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile-sidebar-links {
+                flex-direction: row;
+                justify-content: center;
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .profile-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-sidebar-links {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body class="profile-page">
+
+    <!-- Header (แถบเมนูด้านบน) -->
+    <header class="header scrolled"
+        style="position: sticky; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); z-index: 999;">
+        <div class="header-container">
+            <!-- 1. โลโก้ (ซ้ายสุด) -->
+            <div class="logo">
+                <a href="index.html"><img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="logo-img"></a>
+            </div>
+
+            <!-- 2. เมนูนำทาง (ตรงกลาง) -->
+            <nav class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="products.html">PRODUCTS</a>
+                <a href="about.html">ABOUT</a>
+                <a href="contact.html">CONTACT</a>
+                <a href="tracking.html">TRACKING</a>
+            </nav>
+
+            <!-- 3. ส่วนตัวช่วย (ขวาสุด) -->
+            <div class="nav-utils">
+                <div class="search-box">
+                    <input type="text" placeholder="ค้นหา..." class="search-input" id="global-search-input"
+                        onkeydown="if(event.key === 'Enter') { window.location.href='products.html?search='+encodeURIComponent(this.value); }">
+                    <a href="#" class="search-icon"
+                        onclick="const val = document.getElementById('global-search-input').value; window.location.href='products.html?search='+encodeURIComponent(val); return false;"><i
+                            class="fas fa-search"></i></a>
+                </div>
+                <a href="cart.html" class="cart-link" style="position: relative;"><i
+                        class="fas fa-shopping-cart"></i><span class="cart-badge" id="cart-badge"
+                        style="position: absolute; top: -8px; right: -8px; background-color: var(--primary-green); color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <main class="main-content" style="padding-top: 40px; min-height: 80vh; background-color: #fcfbf7;">
+        <div class="products-container"
+            style="max-width: 1200px; margin: 0 auto; padding: 0 20px 80px 20px; background-color: #fcfbf7;">
+
+            <!-- 1. ส่วนลงชื่อเข้าใช้งาน (แสดงเมื่อยังไม่ได้ล็อกอินเป็นครั้งแรก) -->
+            <div id="profile-login-wrapper"
+                style="display: none; background-color: #fcfbf7 !important; width: 100% !important;">
+                <div class="auth-container">
+                    <div class="auth-columns">
+
+                        <!-- คอลัมน์ซ้าย: login -->
+                        <div class="auth-col">
+                            <h2 class="auth-title" id="auth-login-title">Log In</h2>
+                            <a href="#" class="auth-subtitle-link" id="auth-privacy-policy">นโยบายความเป็นส่วนตัว</a>
+
+                            <div style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
+                                <div class="auth-input-group">
+                                    <input type="email" class="auth-input-field" id="login-email" placeholder="e-mail">
+                                </div>
+                                <div class="auth-input-group">
+                                    <input type="password" class="auth-input-field" id="login-password"
+                                        placeholder="password">
+                                    <i class="far fa-eye-slash auth-eye-btn" id="toggle-password"></i>
+                                </div>
+
+                                <div style="display: flex; justify-content: flex-start; margin-top: -10px;">
+                                    <a href="#" class="auth-link" id="auth-forget-password">forget password &gt;</a>
+                                </div>
+
+                                <button class="auth-btn" id="login-submit-btn">Log In</button>
+                            </div>
+                        </div>
+
+                        <!-- คอลัมน์ขวา: sign in (benefits & link to register) -->
+                        <div class="auth-col">
+                            <h2 class="auth-title" id="auth-register-title">Create an account</h2>
+                            <h3 class="auth-subtitle-no-dec" id="auth-no-account" style="margin-bottom: 12px;">
+                                ยังไม่มีบัญชี?</h3>
+                            <p class="auth-desc-text" id="auth-register-desc">ลงทะเบียนกับ klin klin
+                                เพื่อเพลิดเพลินกับบริการสุดพิเศษของเรา ซึ่งประกอบไปด้วย:</p>
+
+                            <ul class="auth-bullet-list">
+                                <li id="auth-bullet-1">สถานะการสั่งซื้อออนไลน์</li>
+                                <li id="auth-bullet-2">อีเมลสุดเอ็กซ์คลูซีฟ</li>
+                                <li id="auth-bullet-3">บันทึกที่อยู่สำหรับจัดส่ง</li>
+                                <li id="auth-bullet-4">การตั้งค่าการชำระเงิน</li>
+                            </ul>
+
+                            <a href="register.html" class="auth-btn" style="text-decoration: none;"
+                                id="auth-register-btn">Create an account</a>
+
+                            <div style="display: flex; justify-content: center; margin-top: 15px; width: 100%;">
+                                <a href="#" class="auth-link" style="margin: 0;" id="auth-google-signin">sign in with
+                                    google?</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- เคล็ดลับด่วนเพื่อให้ทดลองเข้าใช้งานได้ง่าย -->
+                    <div
+                        style="margin-top: 60px; padding: 15px 20px; background-color: #fafafa; border: 1px solid #eaeaea; border-radius: 4px; font-size: 0.82rem; color: #666666; text-align: left; line-height: 1.6; font-family: 'Google Sans Flex', sans-serif;">
+                        <i class="fas fa-info-circle" style="margin-right: 6px; color: #333;"></i> <strong
+                            style="color: #000;" id="auth-demo-title">บัญชีตัวอย่างสำหรับทดลอง:</strong><br>
+                        Email: <code
+                            style="font-family: monospace; font-weight: 600; color: #000;">hello@klinklin.com</code> |
+                        Password: <code style="font-family: monospace; font-weight: 600; color: #000;">klinklin</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. ส่วนแดชบอร์ดจัดการข้อมูล (แสดงเมื่อล็อกอินแล้ว) -->
+            <div id="profile-dashboard-wrapper" class="profile-layout" style="display: none;">
+                <!-- Left Sidebar -->
+                <div class="profile-sidebar">
+                    <h1 class="profile-page-title">my profile</h1>
+
+                    <!-- Avatar circle container directly matching mockup -->
+                    <div class="profile-avatar-wrapper">
+                        <div class="profile-avatar-circle" id="avatar-trigger">
+                            <!-- SVG outline path matching mock design -->
+                            <svg viewBox="0 0 100 100" id="default-svg-avatar">
+                                <circle cx="50" cy="50" r="44" />
+                                <circle cx="50" cy="38" r="13" />
+                                <path d="M 23 74 A 28 28 0 0 1 77 74" />
+                            </svg>
+                            <!-- Image preview overlays if uploaded -->
+                            <img id="profile-image-preview" class="profile-image-preview" src="" style="display: none;"
+                                alt="User Profile Image">
+                        </div>
+
+                        <!-- Floating edit pencil icon badge -->
+                        <label for="profile-image-file-input" class="profile-edit-badge">
+                            <i class="fas fa-pencil"></i>
+                            <input type="file" id="profile-image-file-input" accept="image/*" style="display: none;">
+                        </label>
+                    </div>
+
+                    <!-- Sidebar navigation list -->
+                    <div class="profile-sidebar-links">
+                        <span class="profile-sidebar-link active" data-tab="personal-info">ข้อมูลส่วนตัว</span>
+                        <span class="profile-sidebar-link" data-tab="addresses">ที่อยู่</span>
+                        <a href="favorites.html" class="profile-sidebar-link"
+                            style="text-decoration: none; color: inherit;">fav</a>
+                        <hr style="border: none; border-top: 1px solid #e2e1dd; width: 100%; margin: 10px 0;">
+                        <span class="profile-sidebar-link" id="sidebar-logout-btn" style="color: #ff3366;"><i
+                                class="fas fa-sign-out-alt" style="margin-right: 8px;"></i> ออกจากระบบ</span>
+                    </div>
+                </div>
+
+                <!-- Right content wrapper -->
+                <div class="profile-content">
+
+                    <!-- Tab 1: ข้อมูลส่วนตัว (Default View) -->
+                    <div id="tab-personal-info" class="tab-view-container">
+                        <div class="profile-header-row">
+                            <h2 class="profile-section-title">ข้อมูลส่วนตัว</h2>
+                            <a href="#" class="profile-privacy-link">นโยบายความเป็นส่วนตัว</a>
+                        </div>
+
+                        <p class="profile-description">
+                            Update the email address used to send you account related information, such as order and
+                            shipping confirmation(s).
+                        </p>
+
+                        <!-- Form matching mock spacing and inputs -->
+                        <div class="profile-form-grid">
+                            <div class="profile-input-group full-width">
+                                <input type="email" class="profile-input-field" id="form-email" placeholder="e-mail">
+                            </div>
+                            <div class="profile-input-group">
+                                <input type="text" class="profile-input-field" id="form-firstname" placeholder="ชื่อ">
+                            </div>
+                            <div class="profile-input-group">
+                                <input type="text" class="profile-input-field" id="form-lastname" placeholder="นามสกุล">
+                            </div>
+                            <div class="profile-input-group">
+                                <input type="tel" class="profile-input-field" id="form-phone"
+                                    placeholder="เบอร์โทรศัพท์">
+                            </div>
+                            <div class="profile-input-group">
+                                <input type="text" class="profile-input-field" id="form-birthday" placeholder="วันเกิด"
+                                    onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'">
+                            </div>
+                        </div>
+
+                        <div class="profile-button-row">
+                            <button class="profile-update-btn" id="update-profile-btn">อัปเดต</button>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: ที่อยู่จัดส่ง -->
+                    <div id="tab-addresses" class="tab-view-container" style="display: none;">
+                        <div class="profile-header-row">
+                            <h2 class="profile-section-title">ที่อยู่จัดส่ง</h2>
+                            <button id="add-address-btn" class="address-action-btn">
+                                <i class="fas fa-plus" style="font-size: 0.75rem; margin-right: 6px;"></i>
+                                เพิ่มที่อยู่ใหม่
+                            </button>
+                        </div>
+
+                        <p class="profile-description">
+                            ระบุที่อยู่สำหรับบริการจัดส่งสินค้าและใบเสร็จการชำระเงินของคุณให้ถูกต้องเพื่อการจัดส่งที่สะดวกรวดเร็ว
+                        </p>
+
+                        <!-- GORGEOUS MOCKUP-ALIGNED ADD ADDRESS FORM (Initially Hidden) -->
+                        <div id="add-address-form-container"
+                            style="display: none; background: #ffffff; border: 1px solid #e5e0da; border-radius: 12px; padding: 30px; margin-bottom: 30px; box-shadow: 0 8px 24px rgba(44, 92, 61, 0.04); font-family: 'Google Sans Flex', sans-serif;">
+                            <h3 style="font-size: 1.35rem; font-weight: 500; color: #1b3c25; margin: 0 0 25px 0;"
+                                id="form-address-title">เพิ่มที่อยู่ใหม่</h3>
+
+                            <form id="new-address-form" style="display: flex; flex-direction: column; gap: 16px;">
+                                <!-- แถวที่ 1: ชื่อที่อยู่ (เต็มแถว) -->
+                                <div class="auth-input-group" style="margin-bottom: 0;">
+                                    <input type="text" class="auth-input-field" id="addr-name" placeholder="ชื่อที่อยู่"
+                                        required>
+                                </div>
+
+                                <!-- แถวที่ 2: ชื่อ / นามสกุล (ครึ่งแถว) -->
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                    <div class="auth-input-group" style="margin-bottom: 0;">
+                                        <input type="text" class="auth-input-field" id="addr-firstname"
+                                            placeholder="ชื่อ" required>
+                                    </div>
+                                    <div class="auth-input-group" style="margin-bottom: 0;">
+                                        <input type="text" class="auth-input-field" id="addr-lastname"
+                                            placeholder="นามสกุล" required>
+                                    </div>
+                                </div>
+
+                                <!-- แถวที่ 3: ที่อยู่ (เต็มแถว) -->
+                                <div class="auth-input-group" style="margin-bottom: 0;">
+                                    <input type="text" class="auth-input-field" id="addr-detail"
+                                        placeholder="ที่อยู่ (ระบุ บ้านเลขที่, ถนน, แขวง, เขต, จังหวัด)" required>
+                                </div>
+
+                                <!-- แถวที่ 4: รหัสไปรษณีย์ / เบอร์โทร (ครึ่งแถว) -->
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                    <div class="auth-input-group" style="margin-bottom: 0;">
+                                        <input type="tel" id="addr-zipcode" class="auth-input-field"
+                                            placeholder="รหัสไปรษณีย์" required>
+                                    </div>
+                                    <div class="auth-input-group" style="margin-bottom: 0;">
+                                        <input type="tel" class="auth-input-field" id="addr-phone"
+                                            placeholder="เบอร์โทร" required>
+                                    </div>
+                                </div>
+
+                                <!-- แถวปุ่ม ยกเลิก / บันทึก -->
+                                <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 15px;">
+                                    <button type="button" id="cancel-address-btn"
+                                        style="background-color: #7a827d; color: white; border: none; border-radius: 8px; padding: 12px 26px; font-weight: 500; font-size: 0.95rem; cursor: pointer; transition: all 0.25s ease;">ยกเลิก</button>
+                                    <button type="submit" id="save-address-btn"
+                                        class="address-action-btn">บันทึก</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="address-card-list" id="address-list-container">
+                            <!-- Populated shipping address list dynamically -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer (ส่วนท้าย) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col-brand">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="footer-logo-img">
+                </a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-service">บริการลูกค้า</h4>
+                <ul class="footer-col-list">
+                    <li><a href="contact.html#faq-section" id="footer-link-faq">คำถามที่พบบ่อย</a></li>
+                    <li><a href="404.html" id="footer-link-404">หน้า 404</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-news">รับข่าวสารจากเรา</h4>
+                <ul class="footer-col-list">
+                    <li><a href="privacy-policy.html" id="footer-link-privacy">ความเป็นส่วนตัวและความปลอดภัย</a></li>
+                    <li><a href="terms.html" id="footer-link-terms">ข้อกำหนดและประกาศจากเว็บไซต์</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-contact">ติดต่อเรา</h4>
+                <div class="footer-social-icons">
+                    <a href="#" class="social-icon-btn"><i class="fab fa-line"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fas fa-phone-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- ระบบควบคุมและเปลี่ยนภาษา ( BILINGUAL SWITCHER ) ---
+            const currentLang = localStorage.getItem('klinklin_lang') || 'th';
+
+            function initLanguageSwitcher() {
+                const navUtils = document.querySelector('.nav-utils');
+                if (navUtils && !document.getElementById('header-lang-switch')) {
+                    const switchDiv = document.createElement('div');
+                    switchDiv.id = 'header-lang-switch';
+                    switchDiv.style.cssText = 'display: flex; gap: 5px; font-size: 0.82rem; font-weight: 700; color: #111; cursor: pointer; align-items: center; margin-right: 15px; user-select: none; font-family: "Google Sans Flex", sans-serif;';
+                    switchDiv.innerHTML = `
+                        <span id="lang-th" style="color: ${currentLang === 'th' ? 'var(--primary-green)' : '#888'};">TH</span>
+                        <span style="color: #e0dee0; font-weight: 400;">|</span>
+                        <span id="lang-en" style="color: ${currentLang === 'en' ? 'var(--primary-green)' : '#888'};">EN</span>
+                    `;
+
+                    const favLink = navUtils.querySelector('.favorites-link');
+                    if (favLink) {
+                        navUtils.insertBefore(switchDiv, favLink);
+                    } else {
+                        navUtils.appendChild(switchDiv);
+                    }
+
+                    document.getElementById('lang-th').onclick = () => {
+                        if (currentLang !== 'th') {
+                            localStorage.setItem('klinklin_lang', 'th');
+                            window.location.reload();
+                        }
+                    };
+                    document.getElementById('lang-en').onclick = () => {
+                        if (currentLang !== 'en') {
+                            localStorage.setItem('klinklin_lang', 'en');
+                            window.location.reload();
+                        }
+                    };
+                }
+
+                // แปลแถบลิสต์เมนูด้านบน
+                const navLinks = document.querySelectorAll('.nav-links a');
+                if (navLinks.length >= 5) {
+                    if (currentLang === 'en') {
+                        navLinks[0].textContent = 'HOME';
+                        navLinks[1].textContent = 'PRODUCTS';
+                        navLinks[2].textContent = 'ABOUT';
+                        navLinks[3].textContent = 'CONTACT';
+                        navLinks[4].textContent = 'TRACKING';
+                    } else {
+                        navLinks[0].textContent = 'หน้าแรก';
+                        navLinks[1].textContent = 'สินค้า';
+                        navLinks[2].textContent = 'เกี่ยวกับเรา';
+                        navLinks[3].textContent = 'ติดต่อเรา';
+                        navLinks[4].textContent = 'เช็คสถานะพัสดุ';
+                    }
+                } else if (navLinks.length >= 4) {
+                    if (currentLang === 'en') {
+                        navLinks[0].textContent = 'HOME';
+                        navLinks[1].textContent = 'PRODUCTS';
+                        navLinks[2].textContent = 'ABOUT';
+                        navLinks[3].textContent = 'CONTACT';
+                    } else {
+                        navLinks[0].textContent = 'หน้าแรก';
+                        navLinks[1].textContent = 'สินค้า';
+                        navLinks[2].textContent = 'เกี่ยวกับเรา';
+                        navLinks[3].textContent = 'ติดต่อเรา';
+                    }
+                }
+
+
+                // แปลป้ายค้นหาแถบเฮดเดอร์
+                const globalSearch = document.getElementById('global-search-input');
+                if (globalSearch) {
+                    globalSearch.placeholder = currentLang === 'en' ? 'Search...' : 'ค้นหา...';
+                }
+
+                // แปลส่วนท้ายของเว็บ Footer
+                const colService = document.getElementById('footer-col-service');
+                const linkFaq = document.getElementById('footer-link-faq');
+                const link404 = document.getElementById('footer-link-404');
+                const colNews = document.getElementById('footer-col-news');
+                const linkPrivacy = document.getElementById('footer-link-privacy');
+                const linkTerms = document.getElementById('footer-link-terms');
+                const colContact = document.getElementById('footer-col-contact');
+
+                if (currentLang === 'en') {
+                    if (colService) colService.textContent = 'Customer Service';
+                    if (linkFaq) linkFaq.textContent = 'FAQs';
+                    if (link404) link404.textContent = '404 Page';
+                    if (colNews) colNews.textContent = 'Subscribe';
+                    if (linkPrivacy) linkPrivacy.textContent = 'Privacy & Security';
+                    if (linkTerms) linkTerms.textContent = 'Terms & Announcements';
+                    if (colContact) colContact.textContent = 'Contact Us';
+                } else {
+                    if (colService) colService.textContent = 'บริการลูกค้า';
+                    if (linkFaq) linkFaq.textContent = 'คำถามที่พบบ่อย';
+                    if (link404) link404.textContent = 'หน้า 404';
+                    if (colNews) colNews.textContent = 'รับข่าวสารจากเรา';
+                    if (linkPrivacy) linkPrivacy.textContent = 'ความเป็นส่วนตัวและความปลอดภัย';
+                    if (linkTerms) linkTerms.textContent = 'ข้อกำหนดและประกาศจากเว็บไซต์';
+                    if (colContact) colContact.textContent = 'ติดต่อเรา';
+                }
+            }
+
+            function localizeProfilePage() {
+                // --- Common items (Left Sidebar Links & Tabs) ---
+                const sidebarTitle = document.querySelector('.profile-page-title');
+                const tabElements = document.querySelectorAll('.profile-sidebar-link[data-tab]');
+                const logoutBtnElement = document.getElementById('sidebar-logout-btn');
+                const personalInfoTitle = document.querySelector('#tab-personal-info .profile-section-title');
+                const privacyLink = document.querySelector('#tab-personal-info .profile-privacy-link');
+                const personalInfoDesc = document.querySelector('#tab-personal-info .profile-description');
+                const inputFirst = document.getElementById('form-firstname');
+                const inputLast = document.getElementById('form-lastname');
+                const inputPhone = document.getElementById('form-phone');
+                const inputBirthday = document.getElementById('form-birthday');
+                const updateProfileBtn = document.getElementById('update-profile-btn');
+                const addressesTitle = document.querySelector('#tab-addresses .profile-section-title');
+                const addAddressBtn = document.getElementById('add-address-btn');
+                const addressesDesc = document.querySelector('#tab-addresses .profile-description');
+
+                // --- Auth Minimalist Form Items ---
+                const authLoginTitle = document.getElementById('auth-login-title');
+                const authRegisterTitle = document.getElementById('auth-register-title');
+                const authPrivacy = document.getElementById('auth-privacy-policy');
+                const authForget = document.getElementById('auth-forget-password');
+                const authSubmit = document.getElementById('login-submit-btn');
+                const authNoAcc = document.getElementById('auth-no-account');
+                const authRegDesc = document.getElementById('auth-register-desc');
+                const authBullet1 = document.getElementById('auth-bullet-1');
+                const authBullet2 = document.getElementById('auth-bullet-2');
+                const authBullet3 = document.getElementById('auth-bullet-3');
+                const authBullet4 = document.getElementById('auth-bullet-4');
+                const authRegBtn = document.getElementById('auth-register-btn');
+                const authGoogle = document.getElementById('auth-google-signin');
+                const authDemoTitle = document.getElementById('auth-demo-title');
+                const inputLoginPwd = document.getElementById('login-password');
+
+                if (currentLang === 'en') {
+                    // Sidebar
+                    if (sidebarTitle) sidebarTitle.textContent = 'my profile';
+                    if (tabElements.length >= 2) {
+                        tabElements[0].textContent = 'Personal Info';
+                        tabElements[1].textContent = 'Addresses';
+                    }
+                    if (logoutBtnElement) {
+                        logoutBtnElement.innerHTML = '<i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i> Log Out';
+                    }
+
+                    // Personal Info Tab
+                    if (personalInfoTitle) personalInfoTitle.textContent = 'Personal Info';
+                    if (privacyLink) privacyLink.textContent = 'Privacy Policy';
+                    if (personalInfoDesc) personalInfoDesc.textContent = 'Update the email address used to send you account related information, such as order and shipping confirmation(s).';
+                    if (inputFirst) inputFirst.placeholder = 'First Name';
+                    if (inputLast) inputLast.placeholder = 'Last Name';
+                    if (inputPhone) inputPhone.placeholder = 'Phone Number';
+                    if (inputBirthday) inputBirthday.placeholder = 'Birthday';
+                    if (updateProfileBtn) updateProfileBtn.textContent = 'Update Profile';
+
+                    // Addresses Tab
+                    if (addressesTitle) addressesTitle.textContent = 'Shipping Addresses';
+                    if (addAddressBtn) {
+                        addAddressBtn.innerHTML = '<i class="fas fa-plus" style="font-size: 0.75rem; margin-right: 6px;"></i> Add New Address';
+                    }
+                    if (addressesDesc) addressesDesc.textContent = 'Provide your accurate shipping addresses and billing details for prompt and smooth delivery.';
+
+                    // Address Form Fields (EN)
+                    const formAddressTitle = document.getElementById('form-address-title');
+                    const addrNameInp = document.getElementById('addr-name');
+                    const addrFirstInp = document.getElementById('addr-firstname');
+                    const addrLastInp = document.getElementById('addr-lastname');
+                    const addrDetailInp = document.getElementById('addr-detail');
+                    const addrZipInp = document.getElementById('addr-zipcode');
+                    const addrPhoneInp = document.getElementById('addr-phone');
+                    const cancelAddrBtn = document.getElementById('cancel-address-btn');
+                    const saveAddrBtn = document.getElementById('save-address-btn');
+
+                    if (formAddressTitle) formAddressTitle.textContent = 'Add New Address';
+                    if (addrNameInp) addrNameInp.placeholder = 'Address Name (e.g. Home, Office)';
+                    if (addrFirstInp) addrFirstInp.placeholder = 'First Name';
+                    if (addrLastInp) addrLastInp.placeholder = 'Last Name';
+                    if (addrDetailInp) addrDetailInp.placeholder = 'Address (House No., Street, Subdistrict, District, Province)';
+                    if (addrZipInp) addrZipInp.placeholder = 'Postal Code';
+                    if (addrPhoneInp) addrPhoneInp.placeholder = 'Phone Number';
+                    if (cancelAddrBtn) cancelAddrBtn.textContent = 'Cancel';
+                    if (saveAddrBtn) saveAddrBtn.textContent = 'Save';
+
+                    // Auth Fields (Minimalist Login Layout)
+                    if (authLoginTitle) authLoginTitle.textContent = 'Log In';
+                    if (authPrivacy) authPrivacy.textContent = 'Privacy Policy';
+                    if (authForget) authForget.textContent = 'forget password >';
+                    if (authSubmit) authSubmit.textContent = 'Log In';
+                    if (authRegisterTitle) authRegisterTitle.textContent = 'Create an account';
+                    if (authNoAcc) authNoAcc.textContent = "Don't have an account?";
+                    if (authRegDesc) authRegDesc.textContent = 'Register with klin klin to enjoy our exclusive services, which include:';
+                    if (authBullet1) authBullet1.textContent = 'Online order status';
+                    if (authBullet2) authBullet2.textContent = 'Exclusive e-mails';
+                    if (authBullet3) authBullet3.textContent = 'Save shipping addresses';
+                    if (authBullet4) authBullet4.textContent = 'Payment settings';
+                    if (authRegBtn) authRegBtn.textContent = 'Create an account';
+                    if (authGoogle) authGoogle.textContent = 'login with google?';
+                    if (authDemoTitle) authDemoTitle.textContent = 'Demo account details:';
+                    if (inputLoginPwd) inputLoginPwd.placeholder = 'password';
+
+                } else {
+                    // Sidebar
+                    if (sidebarTitle) sidebarTitle.textContent = 'โปรไฟล์ของฉัน';
+                    if (tabElements.length >= 2) {
+                        tabElements[0].textContent = 'ข้อมูลส่วนตัว';
+                        tabElements[1].textContent = 'ที่อยู่จัดส่ง';
+                    }
+                    if (logoutBtnElement) {
+                        logoutBtnElement.innerHTML = '<i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i> ออกจากระบบ';
+                    }
+
+                    // Personal Info Tab
+                    if (personalInfoTitle) personalInfoTitle.textContent = 'ข้อมูลส่วนตัว';
+                    if (privacyLink) privacyLink.textContent = 'นโยบายความเป็นส่วนตัว';
+                    if (personalInfoDesc) personalInfoDesc.textContent = 'อัปเดตที่อยู่อีเมลและข้อมูลส่วนบุคคลที่ใช้ในการรับข้อมูลเกี่ยวกับบัญชี เช่น การยืนยันคำสั่งซื้อและการจัดส่ง';
+                    if (inputFirst) inputFirst.placeholder = 'ชื่อจริง';
+                    if (inputLast) inputLast.placeholder = 'นามสกุล';
+                    if (inputPhone) inputPhone.placeholder = 'เบอร์โทรศัพท์';
+                    if (inputBirthday) inputBirthday.placeholder = 'วันเกิด';
+                    if (updateProfileBtn) updateProfileBtn.textContent = 'อัปเดตโปรไฟล์';
+
+                    // Addresses Tab
+                    if (addressesTitle) addressesTitle.textContent = 'ที่อยู่จัดส่ง';
+                    if (addAddressBtn) {
+                        addAddressBtn.innerHTML = '<i class="fas fa-plus" style="font-size: 0.75rem; margin-right: 6px;"></i> เพิ่มที่อยู่จัดส่งใหม่';
+                    }
+                    if (addressesDesc) addressesDesc.textContent = 'ระบุที่อยู่จัดส่งที่ถูกต้องของคุณเพื่อความรวดเร็วและถูกต้องแม่นยำในการจัดส่งพัสดุ';
+
+                    // Address Form Fields (TH)
+                    const formAddressTitle = document.getElementById('form-address-title');
+                    const addrNameInp = document.getElementById('addr-name');
+                    const addrFirstInp = document.getElementById('addr-firstname');
+                    const addrLastInp = document.getElementById('addr-lastname');
+                    const addrDetailInp = document.getElementById('addr-detail');
+                    const addrZipInp = document.getElementById('addr-zipcode');
+                    const addrPhoneInp = document.getElementById('addr-phone');
+                    const cancelAddrBtn = document.getElementById('cancel-address-btn');
+                    const saveAddrBtn = document.getElementById('save-address-btn');
+
+                    if (formAddressTitle) formAddressTitle.textContent = 'เพิ่มที่อยู่ใหม่';
+                    if (addrNameInp) addrNameInp.placeholder = 'ชื่อที่อยู่';
+                    if (addrFirstInp) addrFirstInp.placeholder = 'ชื่อ';
+                    if (addrLastInp) addrLastInp.placeholder = 'นามสกุล';
+                    if (addrDetailInp) addrDetailInp.placeholder = 'ที่อยู่ (ระบุ บ้านเลขที่, ถนน, แขวง, เขต, จังหวัด)';
+                    if (addrZipInp) addrZipInp.placeholder = 'รหัสไปรษณีย์';
+                    if (addrPhoneInp) addrPhoneInp.placeholder = 'เบอร์โทร';
+                    if (cancelAddrBtn) cancelAddrBtn.textContent = 'ยกเลิก';
+                    if (saveAddrBtn) saveAddrBtn.textContent = 'บันทึก';
+
+                    // Auth Fields (Minimalist Login Layout)
+                    if (authLoginTitle) authLoginTitle.textContent = 'Log In';
+                    if (authPrivacy) authPrivacy.textContent = 'นโยบายความเป็นส่วนตัว';
+                    if (authForget) authForget.textContent = 'ลืมรหัสผ่าน >';
+                    if (authSubmit) authSubmit.textContent = 'เข้าสู่ระบบ';
+                    if (authRegisterTitle) authRegisterTitle.textContent = 'สร้างบัญชี';
+                    if (authNoAcc) authNoAcc.textContent = 'ยังไม่มีบัญชี?';
+                    if (authRegDesc) authRegDesc.textContent = 'ลงทะเบียนกับ klin klin เพื่อเพลิดเพลินกับบริการสุดพิเศษของเรา ซึ่งประกอบไปด้วย:';
+                    if (authBullet1) authBullet1.textContent = 'สถานะการสั่งซื้อออนไลน์';
+                    if (authBullet2) authBullet2.textContent = 'อีเมลสุดเอ็กซ์คลูซีฟ';
+                    if (authBullet3) authBullet3.textContent = 'บันทึกที่อยู่สำหรับจัดส่ง';
+                    if (authBullet4) authBullet4.textContent = 'การตั้งค่าการชำระเงิน';
+                    if (authRegBtn) authRegBtn.textContent = 'สร้างบัญชีผู้ใช้';
+                    if (authGoogle) authGoogle.textContent = 'เข้าสู่ระบบด้วย Google?';
+                    if (authDemoTitle) authDemoTitle.textContent = 'บัญชีตัวอย่างสำหรับทดลอง:';
+                    if (inputLoginPwd) inputLoginPwd.placeholder = 'password';
+                }
+
+                // Sync searchable combobox values and items based on the active language
+                if (typeof populateProvinceDropdown === 'function') {
+                    populateProvinceDropdown();
+                    const displayInput = document.getElementById('province-display-input');
+                    const hiddenInput = document.getElementById('addr-province');
+                    if (displayInput && hiddenInput) {
+                        if (hiddenInput.value === 'กรุงเทพมหานคร') {
+                            displayInput.value = currentLang === 'en' ? 'Bangkok' : 'กรุงเทพมหานคร';
+                        } else {
+                            // Sync translations of selected custom province if available
+                            const currVal = hiddenInput.value;
+                            displayInput.value = currentLang === 'en' ? (provinceTranslations[currVal] || currVal) : currVal;
+                        }
+                    }
+                }
+            }
+
+            // โหลดข้อมูลภาษาแรกเริ่ม
+            initLanguageSwitcher();
+            localizeProfilePage();
+
+            const favBadge = document.getElementById('fav-badge');
+            const cartBadge = document.getElementById('cart-badge');
+
+            // Load counts from local storage
+            let favorites = JSON.parse(localStorage.getItem('klinklin_favorites')) || [];
+            let cart = JSON.parse(localStorage.getItem('klinklin_cart')) || [];
+
+            function updateBadges() {
+                if (favBadge) {
+                    favBadge.textContent = favorites.length;
+                    favBadge.style.opacity = favorites.length > 0 ? '1' : '0';
+                    favBadge.style.transform = favorites.length > 0 ? 'scale(1)' : 'scale(0)';
+                }
+                if (cartBadge) {
+                    const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+                    cartBadge.textContent = totalQty;
+                    cartBadge.style.opacity = totalQty > 0 ? '1' : '0';
+                    cartBadge.style.transform = totalQty > 0 ? 'scale(1)' : 'scale(0)';
+                }
+            }
+
+            function showToast(message) {
+                const toastContainer = document.getElementById('toast-container');
+                if (!toastContainer) return;
+
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.innerHTML = `
+                    <i class="fas fa-check-circle toast-icon"></i>
+                    <span>${message}</span>
+                `;
+
+                toastContainer.appendChild(toast);
+                void toast.offsetWidth; // Trigger reflow
+                toast.classList.add('show');
+
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 400);
+                }, 2500);
+            }
+
+            // --- profile tabs controller ---
+            const tabLinks = document.querySelectorAll('.profile-sidebar-link[data-tab]');
+            tabLinks.forEach(link => {
+                link.onclick = () => {
+                    const tabId = link.getAttribute('data-tab');
+
+                    // Toggle active classes on link
+                    tabLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+
+                    // Toggle active visual views
+                    document.querySelectorAll('.tab-view-container').forEach(view => {
+                        view.style.display = 'none';
+                    });
+                    document.getElementById(`tab-${tabId}`).style.display = 'block';
+                };
+            });
+
+            // --- profile personal info management ---
+            const inputEmail = document.getElementById('form-email');
+            const inputFirst = document.getElementById('form-firstname');
+            const inputLast = document.getElementById('form-lastname');
+            const inputPhone = document.getElementById('form-phone');
+            const inputBirthday = document.getElementById('form-birthday');
+            const updateBtn = document.getElementById('update-profile-btn');
+
+            // Load saved profile data
+            const savedProfile = JSON.parse(localStorage.getItem('klinklin_profile_data')) || {
+                email: 'hello@klinklin.com',
+                firstname: 'กลิ่นกลิ่น',
+                lastname: 'นวดแผนไทย',
+                phone: '081-234-5678',
+                birthday: '1995-10-15'
+            };
+
+            // Populate form values
+            inputEmail.value = savedProfile.email || '';
+            inputFirst.value = savedProfile.firstname || '';
+            inputLast.value = savedProfile.lastname || '';
+            inputPhone.value = savedProfile.phone || '';
+
+            if (savedProfile.birthday) {
+                inputBirthday.value = savedProfile.birthday;
+                inputBirthday.type = 'date';
+            }
+
+            // Save and update Profile action
+            updateBtn.onclick = () => {
+                const profileData = {
+                    email: inputEmail.value,
+                    firstname: inputFirst.value,
+                    lastname: inputLast.value,
+                    phone: inputPhone.value,
+                    birthday: inputBirthday.value
+                };
+
+                localStorage.setItem('klinklin_profile_data', JSON.stringify(profileData));
+
+                // ซิงค์ชื่อและเบอร์โทรศัพท์ล่าสุดจากประวัติข้อมูลส่วนตัวเข้าไปยังรายการที่อยู่จัดส่งเริ่มต้นด้วย
+                let savedAddresses = JSON.parse(localStorage.getItem('klinklin_addresses')) || [];
+                if (savedAddresses.length > 0) {
+                    const defaultAddr = savedAddresses.find(a => a.isDefault) || savedAddresses[0];
+                    if (defaultAddr) {
+                        let tag = '';
+                        const bracketIndex = defaultAddr.receiver.indexOf('[');
+                        if (bracketIndex !== -1) {
+                            tag = defaultAddr.receiver.substring(bracketIndex);
+                        } else {
+                            tag = '[ที่อยู่หลัก]';
+                        }
+                        defaultAddr.receiver = `คุณ${inputFirst.value} ${inputLast.value} ${tag}`.trim();
+                        defaultAddr.phone = inputPhone.value;
+                        localStorage.setItem('klinklin_addresses', JSON.stringify(savedAddresses));
+                        
+                        // อัปเดตรายการหน้าจอโปรไฟล์ในเซสชันเดียวกันทันที
+                        if (typeof addresses !== 'undefined') {
+                            addresses = savedAddresses;
+                            renderAddresses();
+                        }
+                    }
+                } else {
+                    // ถ้าผู้ใช้ยังไม่มีรายการที่อยู่จัดส่งจัดเก็บไว้เลย ให้สร้างรายการจัดส่งเริ่มต้นซิงก์จากโปรไฟล์ให้
+                    const newAddr = {
+                        id: 1,
+                        receiver: `คุณ${inputFirst.value} ${inputLast.value} [ที่อยู่หลัก]`,
+                        phone: inputPhone.value,
+                        details: '123 แขวงคลองเตยเหนือ เขตวัฒนา กรุงเทพมหานคร 10110 (ประเทศไทย)',
+                        isDefault: true
+                    };
+                    savedAddresses = [newAddr];
+                    localStorage.setItem('klinklin_addresses', JSON.stringify(savedAddresses));
+                    if (typeof addresses !== 'undefined') {
+                        addresses = savedAddresses;
+                        renderAddresses();
+                    }
+                }
+
+                showToast(currentLang === 'en' ? "Personal info updated successfully! ⭐" : "อัปเดตข้อมูลส่วนตัวสำเร็จแล้ว! ⭐");
+            };
+
+            // --- profile image upload and persist (base64) ---
+            const fileInput = document.getElementById('profile-image-file-input');
+            const defaultAvatar = document.getElementById('default-svg-avatar');
+            const previewImage = document.getElementById('profile-image-preview');
+
+            // Load saved image from localstorage
+            const savedAvatar = localStorage.getItem('klinklin_profile_avatar');
+            if (savedAvatar) {
+                previewImage.src = savedAvatar;
+                previewImage.style.display = 'block';
+                defaultAvatar.style.display = 'none';
+            }
+
+            fileInput.onchange = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const base64Data = event.target.result;
+                    localStorage.setItem('klinklin_profile_avatar', base64Data);
+
+                    previewImage.src = base64Data;
+                    previewImage.style.display = 'block';
+                    defaultAvatar.style.display = 'none';
+
+                    showToast(currentLang === 'en' ? "New profile photo uploaded successfully!" : "อัปโหลดรูปโปรไฟล์ใหม่สำเร็จแล้ว!");
+                };
+                reader.readAsDataURL(file);
+            };
+
+            // --- addresses shipping manager tab ---
+            const addressContainer = document.getElementById('address-list-container');
+            const addAddressBtn = document.getElementById('add-address-btn');
+            const addAddressFormContainer = document.getElementById('add-address-form-container');
+            const cancelAddressBtn = document.getElementById('cancel-address-btn');
+            const newAddressForm = document.getElementById('new-address-form');
+
+            let addresses = JSON.parse(localStorage.getItem('klinklin_addresses')) || [
+                {
+                    id: 1,
+                    receiver: 'คุณกลิ่นกลิ่น นวดแผนไทย [บ้าน]',
+                    phone: '081-234-5678',
+                    details: '123 แขวงคลองเตยเหนือ เขตวัฒนา กรุงเทพมหานคร 10110 (ประเทศไทย)',
+                    isDefault: true
+                }
+            ];
+
+            function renderAddresses() {
+                if (addresses.length === 0) {
+                    addressContainer.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #888;">
+                            <i class="fas fa-map-marker-alt" style="font-size: 2.5rem; margin-bottom: 15px; color: #ccc;"></i>
+                            <p style="font-weight: 500;">${currentLang === 'en' ? 'No shipping addresses saved yet.' : 'ยังไม่มีที่อยู่จัดส่งจัดเก็บไว้'}</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                addressContainer.innerHTML = addresses.map(addr => {
+                    const defaultBadge = currentLang === 'en' ? 'Default' : 'ที่อยู่เริ่มต้น';
+                    const phoneLabel = currentLang === 'en' ? 'Phone:' : 'เบอร์โทรศัพท์:';
+                    const setAsDefaultLabel = currentLang === 'en' ? 'Set as Default' : 'ตั้งเป็นที่อยู่เริ่มต้น';
+                    const deleteLabel = currentLang === 'en' ? 'Delete' : 'ลบที่อยู่นี้';
+
+                    return `
+                        <div class="address-box ${addr.isDefault ? 'primary-address' : ''}">
+                            ${addr.isDefault ? `<span class="address-badge">${defaultBadge}</span>` : ''}
+                            <h4 style="font-size: 1.05rem; font-weight: 600; color: #111; margin: 0 0 8px 0;">${addr.receiver}</h4>
+                            <p style="font-size: 0.92rem; color: #555; line-height: 1.5; margin: 0 0 10px 0;">${addr.details}</p>
+                            <p style="font-size: 0.88rem; color: #888; margin: 0 0 15px 0;"><i class="fas fa-phone-alt" style="font-size: 0.8rem; margin-right: 6px;"></i> ${phoneLabel} ${addr.phone}</p>
+                            
+                            <div style="display: flex; gap: 15px;">
+                                ${!addr.isDefault ? `<button onclick="setDefaultAddress(${addr.id})" style="background: transparent; border: none; color: var(--primary-green); font-size: 0.88rem; font-weight: 600; cursor: pointer; padding: 0;">${setAsDefaultLabel}</button> <span style="color: #e0dee0;">|</span>` : ''}
+                                <button onclick="deleteAddress(${addr.id})" style="background: transparent; border: none; color: #ff3366; font-size: 0.88rem; font-weight: 600; cursor: pointer; padding: 0;">${deleteLabel}</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            window.setDefaultAddress = (id) => {
+                addresses.forEach(addr => {
+                    addr.isDefault = addr.id === id;
+                });
+                localStorage.setItem('klinklin_addresses', JSON.stringify(addresses));
+                renderAddresses();
+                showToast(currentLang === 'en' ? "Default address changed successfully!" : "เปลี่ยนที่อยู่เริ่มต้นสำเร็จแล้ว!");
+            };
+
+            window.deleteAddress = (id) => {
+                addresses = addresses.filter(addr => addr.id !== id);
+                if (addresses.length > 0 && !addresses.some(a => a.isDefault)) {
+                    addresses[0].isDefault = true;
+                }
+                localStorage.setItem('klinklin_addresses', JSON.stringify(addresses));
+                renderAddresses();
+                showToast(currentLang === 'en' ? "Address deleted successfully." : "ลบที่อยู่เรียบร้อยแล้ว");
+            };
+
+            // Toggle form visibility
+            if (addAddressBtn) {
+                addAddressBtn.onclick = () => {
+                    addAddressFormContainer.style.display = 'block';
+                    addAddressBtn.style.display = 'none';
+                    addAddressFormContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                };
+            }
+
+            if (cancelAddressBtn) {
+                cancelAddressBtn.onclick = () => {
+                    addAddressFormContainer.style.display = 'none';
+                    addAddressBtn.style.display = 'block';
+                    newAddressForm.reset();
+                };
+            }
+
+            if (newAddressForm) {
+                newAddressForm.onsubmit = (e) => {
+                    e.preventDefault();
+
+                    const addrName = document.getElementById('addr-name').value.trim();
+                    const firstname = document.getElementById('addr-firstname').value.trim();
+                    const lastname = document.getElementById('addr-lastname').value.trim();
+                    const detail = document.getElementById('addr-detail').value.trim();
+                    const zipcode = document.getElementById('addr-zipcode').value.trim();
+                    const phone = document.getElementById('addr-phone').value.trim();
+
+                    // Format beautiful details
+                    const formattedDetails = `${detail} ${zipcode}`;
+                    const receiverName = `คุณ${firstname} ${lastname} [${addrName}]`;
+
+                    const newAddr = {
+                        id: Date.now(),
+                        receiver: receiverName,
+                        phone: phone,
+                        details: formattedDetails,
+                        isDefault: addresses.length === 0
+                    };
+
+                    addresses.push(newAddr);
+                    localStorage.setItem('klinklin_addresses', JSON.stringify(addresses));
+                    renderAddresses();
+
+                    // Hide form & Reset
+                    addAddressFormContainer.style.display = 'none';
+                    addAddressBtn.style.display = 'block';
+                    newAddressForm.reset();
+
+                    showToast(currentLang === 'en' ? "New shipping address added successfully!" : "เพิ่มที่อยู่จัดส่งสำเร็จแล้ว!");
+                };
+            }
+
+            // --- ระบบตรวจสอบเซสชันควบคุมหน้าจอ (Session Control) ---
+            const loginWrapper = document.getElementById('profile-login-wrapper');
+            const dashboardWrapper = document.getElementById('profile-dashboard-wrapper');
+
+            const inputLoginEmail = document.getElementById('login-email');
+            const inputLoginPassword = document.getElementById('login-password');
+            const loginBtn = document.getElementById('login-submit-btn');
+            const togglePassword = document.getElementById('toggle-password');
+            const logoutBtn = document.getElementById('sidebar-logout-btn');
+
+            function checkSession() {
+                const isLoggedIn = localStorage.getItem('klinklin_logged_in') === 'true';
+                if (isLoggedIn) {
+                    loginWrapper.style.display = 'none';
+                    dashboardWrapper.style.display = 'grid'; // แสดงกริดจัดการโปรไฟล์หลัก
+
+                    // ดึงค่าโปรไฟล์ล่าสุดมาซิงก์ใส่ในฟอร์ม
+                    const savedProfile = JSON.parse(localStorage.getItem('klinklin_profile_data')) || {};
+                    if (savedProfile.email) {
+                        inputEmail.value = savedProfile.email;
+                    }
+                } else {
+                    loginWrapper.style.display = 'block';
+                    dashboardWrapper.style.display = 'none';
+                }
+            }
+
+            // ปุ่มสลับซ่อน/แสดงรหัสผ่าน (Toggle Password Visibility)
+            if (togglePassword) {
+                togglePassword.onclick = () => {
+                    const type = inputLoginPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+                    inputLoginPassword.setAttribute('type', type);
+                    togglePassword.className = type === 'text' ? 'far fa-eye auth-eye-btn' : 'far fa-eye-slash auth-eye-btn';
+                };
+            }
+
+            // ปุ่มคลิกล็อกอิน (Login Submit Action)
+            if (loginBtn) {
+                loginBtn.onclick = () => {
+                    const email = inputLoginEmail.value.trim();
+                    const password = inputLoginPassword.value.trim();
+
+                    if (!email || !password) {
+                        alert(currentLang === 'en' ? "Please fill in both email and password fields." : "กรุณากรอกอีเมลและรหัสผ่านให้ครบถ้วน");
+                        return;
+                    }
+
+                    // ยอมรับการล็อกอินเพื่อความยืดหยุ่นในการกรอก แต่จะซิงก์ค่าอีเมลล่าสุดเพื่อความพรีเมียม
+                    localStorage.setItem('klinklin_logged_in', 'true');
+
+                    const savedProfile = JSON.parse(localStorage.getItem('klinklin_profile_data')) || {
+                        email: 'hello@klinklin.com',
+                        firstname: 'กลิ่นกลิ่น',
+                        lastname: 'นวดแผนไทย',
+                        phone: '081-234-5678',
+                        birthday: '1995-10-15'
+                    };
+                    savedProfile.email = email;
+                    localStorage.setItem('klinklin_profile_data', JSON.stringify(savedProfile));
+
+                    // อัปเดตข้อมูลกล่องในแดชบอร์ดหลักทันที
+                    inputEmail.value = email;
+
+                    showToast(currentLang === 'en' ? "Welcome back! Signed in successfully ⭐" : "ยินดีต้อนรับกลับมา! ลงชื่อเข้าใช้สำเร็จแล้ว ⭐");
+                    setTimeout(() => {
+                        checkSession();
+                    }, 500);
+                };
+            }
+
+            // ปุ่มออกจากระบบ (Logout Action)
+            if (logoutBtn) {
+                logoutBtn.onclick = () => {
+                    if (confirm(currentLang === 'en' ? "Are you sure you want to log out?" : "คุณแน่ใจหรือไม่ว่าต้องการออกจากระบบ?")) {
+                        localStorage.setItem('klinklin_logged_in', 'false');
+                        showToast(currentLang === 'en' ? "Logged out successfully" : "ออกจากระบบเรียบร้อยแล้ว");
+                        setTimeout(() => {
+                            checkSession();
+                        }, 500);
+                    }
+                };
+            }
+
+            // ตรวจสอบพารามิเตอร์จากการสมัครสมาชิกใหม่ (Check registration redirect query params)
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('registered') === 'true' && urlParams.get('email')) {
+                const regEmail = urlParams.get('email');
+                if (inputLoginEmail) {
+                    inputLoginEmail.value = regEmail;
+                }
+                setTimeout(() => {
+                    showToast(currentLang === 'en'
+                        ? "Registration successful! Please sign in."
+                        : "สมัครสมาชิกสำเร็จแล้ว! กรุณาลงชื่อเข้าใช้งานได้เลยค่ะ");
+                }, 800);
+            }
+
+            // ตรวจสอบเซสชันตอนเปิดหน้าเว็บครั้งแรก
+            checkSession();
+            updateBadges();
+            renderAddresses();
+        });
+    </script>
+
+    <!-- Back to Top Button Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (!document.getElementById('back-to-top')) {
+                const backToTopBtn = document.createElement('button');
+                backToTopBtn.id = 'back-to-top';
+                backToTopBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
+                document.body.appendChild(backToTopBtn);
+
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 400) {
+                        backToTopBtn.classList.add('visible');
+                    } else {
+                        backToTopBtn.classList.remove('visible');
+                    }
+                });
+
+                backToTopBtn.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

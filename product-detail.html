@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlinKlin - Product Detail</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./:assets/logo klinklin.png">
+    <!-- เชื่อมต่อ CSS -->
+    <link rel="stylesheet" href="./:assets/style.css">
+    <!-- Font Awesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Playwrite+IE:wght@100..400&display=swap" rel="stylesheet">
+    <!-- ป้องกันปัญหารูปเปิดซูมด้านล่างหน้าจอหาก CSS ในเครื่องผู้ใช้แคชด้วยสไตล์ด่วนพิเศษ -->
+    <style>
+        .lightbox-modal {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            background-color: rgba(255, 255, 255, 0.88) !important; /* เปลี่ยนพื้นหลังเป็นสีขาวโปร่งตามขอ */
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            z-index: 100000 !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        .lightbox-modal.active {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        .lightbox-content {
+            max-width: 90% !important;
+            max-height: 85% !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+
+        .lightbox-content img {
+            max-width: 100% !important;
+            max-height: 100% !important;
+            object-fit: contain !important;
+            border-radius: 6px !important;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12) !important; /* นุ่มนวลขึ้นเมื่ออยู่บนพื้นหลังขาว */
+            transform: scale(0.92) !important;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        .lightbox-modal.active .lightbox-content img {
+            transform: scale(1) !important;
+        }
+
+        .lightbox-close-btn {
+            position: absolute !important;
+            top: 30px !important;
+            right: 40px !important;
+            background-color: #ffffff !important;
+            border: 1px solid #e2e1dd !important; /* เพิ่มขอบเทาจางให้นิยามในพื้นหลังขาว */
+            color: #111111 !important;
+            font-size: 1.25rem !important;
+            cursor: pointer !important;
+            width: 46px !important;
+            height: 46px !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            border-radius: 50% !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            z-index: 100100 !important;
+        }
+
+        .lightbox-close-btn:hover {
+            background-color: #53a1e5 !important; /* primary light blue */
+            border-color: #53a1e5 !important;
+            color: #ffffff !important;
+            transform: scale(1.1) rotate(90deg) !important;
+        }
+
+        @media (max-width: 576px) {
+            .lightbox-close-btn {
+                top: 20px !important;
+                right: 20px !important;
+                width: 40px !important;
+                height: 40px !important;
+                font-size: 1.1rem !important;
+            }
+        }
+
+        /* บังคับสินค้าแนะนำให้เรียงแถวเดียวแนวนอนเด่นๆ บนจอคอมและแท็บเล็ต */
+        #recommended-grid-container {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 64px !important; /* เพิ่มระยะห่างช่องว่างการ์ดเดสก์ท็อปให้กว้างขวาง สวยหรูหรา และดูผ่อนคลายสบายตาขึ้น */
+            width: 100% !important;
+        }
+
+        #recommended-grid-container .card-image-box img {
+            max-width: 95% !important; /* ขยายขนาดรูปสินค้าให้ใหญ่เต็มนิ้ว สวยงามสะดุดตาเด่นชัดขึ้น */
+            max-height: 95% !important;
+        }
+
+        @media (max-width: 868px) {
+            #recommended-grid-container {
+                grid-template-columns: repeat(2, 1fr) !important; /* ย่อเหลือ 2x2 บนหน้าจอเล็ก */
+                gap: 40px !important; /* เพิ่มระยะห่างเว้นวรรคบนแท็บเล็ตและมือถือให้กว้างขวางขึ้น */
+            }
+            .desc-grid-layout {
+                grid-template-columns: 1fr !important;
+                gap: 35px !important;
+            }
+            .desc-spec-column {
+                border-left: none !important;
+                padding-left: 0 !important;
+                border-top: 1px solid #eee !important;
+                padding-top: 35px !important;
+            }
+        }
+
+        /* Custom product slide gallery styles */
+        .slide-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #e2e1dd !important;
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            backdrop-filter: blur(4px) !important;
+            -webkit-backdrop-filter: blur(4px) !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: #111 !important;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .slide-nav-btn:hover {
+            background-color: var(--primary-green) !important;
+            color: #ffffff !important;
+            border-color: var(--primary-green) !important;
+            transform: translateY(-50%) scale(1.1) !important;
+        }
+        .slide-thumbnail {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+        .slide-thumbnail:hover {
+            border-color: var(--primary-green) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .slide-thumbnail.active {
+            border-color: var(--primary-green) !important;
+            box-shadow: 0 4px 12px rgba(44, 92, 61, 0.15);
+        }
+
+        /* --- Product Reviews Styles --- */
+        .reviews-summary-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 40px;
+            background-color: #fcfbf7;
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid #e2e1dd;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto 50px auto;
+        }
+        
+        .summary-score-card {
+            text-align: center;
+            border-right: 1px solid #e2e1dd;
+            padding-right: 40px;
+        }
+        
+        .score-number {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #111;
+            line-height: 1;
+            margin-bottom: 10px;
+            font-family: 'Google Sans Flex', sans-serif;
+        }
+        
+        .score-stars {
+            font-size: 1.2rem;
+            color: #ffb800;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+        }
+        
+        .score-label {
+            font-size: 0.88rem;
+            color: #666;
+        }
+        
+        .rating-bars-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-right: 1px solid #e2e1dd;
+            padding-right: 40px;
+        }
+        
+        .rating-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: #444;
+        }
+        
+        .star-label {
+            min-width: 30px;
+            text-align: right;
+            font-weight: 500;
+        }
+        
+        .bar-bg {
+            flex-grow: 1;
+            height: 8px;
+            background-color: #eae7df;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .bar-fill {
+            height: 100%;
+            background-color: #ffb800;
+            border-radius: 4px;
+        }
+        
+        .percentage-label {
+            min-width: 35px;
+            color: #666;
+            font-size: 0.85rem;
+        }
+        
+        .write-review-cta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .write-review-btn {
+            background-color: #111111;
+            color: #ffffff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        
+        .write-review-btn:hover {
+            background-color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(44, 92, 61, 0.15);
+        }
+        
+        .reviews-feed {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .review-card {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #e2e1dd;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.01);
+            transition: transform 0.3s ease;
+        }
+        
+        .review-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.03);
+        }
+        
+        .review-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .reviewer-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #eae7df;
+            color: #555;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .reviewer-meta h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #111;
+            margin: 0 0 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .verified-badge {
+            font-size: 0.72rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            background-color: rgba(44, 92, 61, 0.08);
+            padding: 2px 8px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .reviewer-date {
+            font-size: 0.8rem;
+            color: #888;
+        }
+        
+        .review-stars {
+            font-size: 0.95rem;
+            color: #ffb800;
+            display: flex;
+            gap: 2px;
+        }
+        
+        .review-body {
+            font-size: 0.98rem;
+            color: #444;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .submit-review-btn:hover {
+            background-color: #1b3c25 !important;
+            transform: translateY(-1px);
+        }
+
+        /* Star rating selector styles */
+        .star-rating-selector i {
+            transition: color 0.2s ease;
+        }
+        .star-rating-selector i:hover,
+        .star-rating-selector i.active {
+            color: #ffb800 !important;
+        }
+
+        @media (max-width: 850px) {
+            .reviews-summary-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 30px;
+            }
+            .summary-score-card {
+                border-right: none;
+                border-bottom: 1px solid #e2e1dd;
+                padding-right: 0;
+                padding-bottom: 25px;
+            }
+            .rating-bars-container {
+                border-right: none;
+                border-bottom: 1px solid #e2e1dd;
+                padding-right: 0;
+                padding-bottom: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body class="product-detail-page">
+
+    <!-- Header (แถบเมนูด้านบน) -->
+    <header class="header scrolled" style="position: sticky; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); z-index: 999;">
+        <div class="header-container">
+            <!-- 1. โลโก้ (ซ้ายสุด) -->
+            <div class="logo">
+                <a href="index.html"><img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="logo-img"></a>
+            </div>
+
+            <!-- 2. เมนูนำทาง (ตรงกลาง) -->
+            <nav class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="products.html" class="active" style="color: var(--primary-green); font-weight: 600;">PRODUCTS</a>
+                <a href="about.html">ABOUT</a>
+                <a href="contact.html">CONTACT</a>
+                    <a href="tracking.html">TRACKING</a>
+            </nav>
+
+            <!-- 3. ส่วนตัวช่วย (ขวาสุด) -->
+            <div class="nav-utils">
+                <div class="search-box">
+                    <input type="text" placeholder="ค้นหา..." class="search-input" id="global-search-input" onkeydown="if(event.key === 'Enter') { window.location.href='products.html?search='+encodeURIComponent(this.value); }">
+                    <a href="#" class="search-icon" onclick="const val = document.getElementById('global-search-input').value; window.location.href='products.html?search='+encodeURIComponent(val); return false;"><i class="fas fa-search"></i></a>
+                </div>
+                <a href="favorites.html" class="favorites-link" style="position: relative; margin-right: 5px;"><i class="far fa-heart"></i><span class="fav-badge" id="fav-badge" style="position: absolute; top: -8px; right: -8px; background-color: #ff3366; color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+                <a href="profile.html" class="profile-link"><i class="fas fa-user-circle"></i></a>
+                <a href="cart.html" class="cart-link" style="position: relative;"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cart-badge" style="position: absolute; top: -8px; right: -8px; background-color: var(--primary-green); color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <main class="main-content" style="padding-top: 40px; min-height: 80vh; background-color: #fcfbf7;">
+        <div class="detail-page-container">
+            
+            <!-- Back Button -->
+            <a href="#" onclick="window.history.back(); return false;" class="detail-back-btn">
+                <i class="fas fa-chevron-left"></i> กลับ
+            </a>
+
+            <!-- Product Detail Layout -->
+            <div id="detail-layout-container">
+                <!-- Dynamically populated detail template -->
+                <div style="text-align: center; padding: 100px 0; color: #888;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 2.5rem; margin-bottom: 20px; color: var(--primary-green);"></i>
+                    <p style="font-size: 1.1rem; font-weight: 500;">กำลังโหลดข้อมูลสินค้า...</p>
+                </div>
+            </div>
+
+            <!-- Product Description Section -->
+            <div id="product-description-container" style="margin-top: 80px; border-top: 1px solid #e2e1dd; padding-top: 80px;">
+                <!-- Will be dynamically populated by JS with high-quality descriptions -->
+            </div>
+
+            <!-- Product Reviews Section -->
+            <div class="product-reviews-section reveal-on-scroll" style="margin-top: 100px; border-top: 1px solid #e2e1dd; padding-top: 80px;">
+                <div class="reviews-header-block" style="text-align: center; margin-bottom: 60px;">
+                    <h2 style="font-size: 2.5rem; font-weight: 300; letter-spacing: -0.5px; color: #111; margin-bottom: 12px; font-family: 'Google Sans Flex', sans-serif;" id="reviews-section-title">Customer Reviews</h2>
+                    <p style="color: #888; font-size: 0.95rem;" id="reviews-section-subtitle">Real experiences shared by our valued customers</p>
+                </div>
+
+                <!-- Summary Overview Grid -->
+                <div class="reviews-summary-container">
+                    <div class="summary-score-card">
+                        <div class="score-number">4.9</div>
+                        <div class="score-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <div class="score-label" id="reviews-count-label">Based on 148 verified reviews</div>
+                    </div>
+                    
+                    <div class="rating-bars-container">
+                        <!-- 5 Stars -->
+                        <div class="rating-bar-row">
+                            <span class="star-label">5 ★</span>
+                            <div class="bar-bg">
+                                <div class="bar-fill" style="width: 92%;"></div>
+                            </div>
+                            <span class="percentage-label">92%</span>
+                        </div>
+                        <!-- 4 Stars -->
+                        <div class="rating-bar-row">
+                            <span class="star-label">4 ★</span>
+                            <div class="bar-bg">
+                                <div class="bar-fill" style="width: 6%;"></div>
+                            </div>
+                            <span class="percentage-label">6%</span>
+                        </div>
+                        <!-- 3 Stars -->
+                        <div class="rating-bar-row">
+                            <span class="star-label">3 ★</span>
+                            <div class="bar-bg">
+                                <div class="bar-fill" style="width: 2%;"></div>
+                            </div>
+                            <span class="percentage-label">2%</span>
+                        </div>
+                        <!-- 2 Stars -->
+                        <div class="rating-bar-row">
+                            <span class="star-label">2 ★</span>
+                            <div class="bar-bg">
+                                <div class="bar-fill" style="width: 0%;"></div>
+                            </div>
+                            <span class="percentage-label">0%</span>
+                        </div>
+                        <!-- 1 Star -->
+                        <div class="rating-bar-row">
+                            <span class="star-label">1 ★</span>
+                            <div class="bar-bg">
+                                <div class="bar-fill" style="width: 0%;"></div>
+                            </div>
+                            <span class="percentage-label">0%</span>
+                        </div>
+                    </div>
+
+                    <!-- Button to write a review -->
+                    <div class="write-review-cta">
+                        <button class="write-review-btn" id="write-review-btn-toggle">
+                            <i class="fas fa-pen"></i> <span id="write-review-btn-text">Write a Review</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Add Review Modal/Collapse Form -->
+                <div class="review-form-wrapper" id="review-form-wrapper" style="display: none; max-width: 600px; margin: 40px auto; background: white; padding: 30px; border-radius: 12px; border: 1px solid #e2e1dd; box-shadow: 0 10px 30px rgba(0,0,0,0.02);">
+                    <h3 style="font-family: 'Google Sans Flex', sans-serif; font-size: 1.3rem; font-weight: 500; margin-bottom: 20px;" id="form-review-title">Share your experience</h3>
+                    <form id="new-review-form">
+                        <div style="margin-bottom: 18px;">
+                            <label style="display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 8px; color: #444;" id="lbl-review-rating">Rating</label>
+                            <div class="star-rating-selector" style="display: flex; gap: 8px; font-size: 1.5rem; color: #e2e1dd; cursor: pointer;">
+                                <i class="fas fa-star rating-star active" data-rating="1"></i>
+                                <i class="fas fa-star rating-star active" data-rating="2"></i>
+                                <i class="fas fa-star rating-star active" data-rating="3"></i>
+                                <i class="fas fa-star rating-star active" data-rating="4"></i>
+                                <i class="fas fa-star rating-star active" data-rating="5"></i>
+                            </div>
+                            <input type="hidden" name="rating" id="selected-rating" value="5">
+                        </div>
+                        <div style="margin-bottom: 18px;">
+                            <label style="display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 8px; color: #444;" id="lbl-review-name">Your Name</label>
+                            <input type="text" id="review-author" required style="width: 100%; padding: 12px; border: 1px solid #e2e1dd; border-radius: 8px; font-size: 0.95rem;" placeholder="e.g. คุณ ณิชาภัทร S.">
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 8px; color: #444;" id="lbl-review-text">Review Content</label>
+                            <textarea id="review-body-text" required style="width: 100%; padding: 12px; border: 1px solid #e2e1dd; border-radius: 8px; font-size: 0.95rem; min-height: 100px; resize: vertical;" placeholder="How do you like the feel and quality of the massager?"></textarea>
+                        </div>
+                        <button type="submit" class="submit-review-btn" id="submit-review-btn-text" style="background-color: var(--primary-green); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; cursor: pointer; transition: all 0.3s ease;">
+                            Submit Review
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Feed of Reviews -->
+                <div class="reviews-feed" id="reviews-feed-container">
+                    <!-- Standard high-quality reviews will load here based on the product ID -->
+                </div>
+            </div>
+
+            <!-- Recommended For You Section -->
+            <div class="recommended-section" style="margin-top: 160px; border-top: 1px solid #e2e1dd; padding-top: 90px; margin-bottom: 40px;">
+                <div class="recommended-title-section" style="text-align: center; margin-bottom: 50px;">
+                    <h2 style="font-size: 2.5rem; font-weight: 300; letter-spacing: -0.5px; color: #111; margin-bottom: 12px; font-family: 'Google Sans Flex', sans-serif; text-transform: none;" id="recommended-title">Recommended For You</h2>
+                    <p style="color: #888; font-size: 0.95rem; letter-spacing: 0.05em;" id="recommended-subtitle">Our selected item recommendations for you</p>
+                </div>
+                <div class="all-products-grid" id="recommended-grid-container">
+                    <!-- 4 dynamic products will render here -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Lightbox Modal (Zoom overlay) -->
+    <div id="zoom-lightbox" class="lightbox-modal">
+        <button id="lightbox-close" class="lightbox-close-btn">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="lightbox-content">
+            <img id="lightbox-image" src="" alt="Zoomed Product Image">
+        </div>
+    </div>
+
+    <!-- Footer (ส่วนท้าย) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col-brand">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="footer-logo-img">
+                </a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-service">บริการลูกค้า</h4>
+                <ul class="footer-col-list">
+                    <li><a href="contact.html#faq-section" id="footer-link-faq">คำถามที่พบบ่อย</a></li>
+                    <li><a href="404.html" id="footer-link-404">หน้า 404</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-news">รับข่าวสารจากเรา</h4>
+                <ul class="footer-col-list">
+                    <li><a href="privacy-policy.html" id="footer-link-privacy">ความเป็นส่วนตัวและความปลอดภัย</a></li>
+                    <li><a href="terms.html" id="footer-link-terms">ข้อกำหนดและประกาศจากเว็บไซต์</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-contact">ติดต่อเรา</h4>
+                <div class="footer-social-icons">
+                    <a href="#" class="social-icon-btn"><i class="fab fa-line"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fas fa-phone-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./:js/products-data.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- ระบบควบคุมและเปลี่ยนภาษา ( BILINGUAL SWITCHER ) ---
+            const currentLang = localStorage.getItem('klinklin_lang') || 'th';
+
+            function initLanguageSwitcher() {
+                const navUtils = document.querySelector('.nav-utils');
+                if (navUtils && !document.getElementById('header-lang-switch')) {
+                    const switchDiv = document.createElement('div');
+                    switchDiv.id = 'header-lang-switch';
+                    switchDiv.style.cssText = 'display: flex; gap: 5px; font-size: 0.82rem; font-weight: 700; color: #111; cursor: pointer; align-items: center; margin-right: 15px; user-select: none; font-family: "Google Sans Flex", sans-serif;';
+                    switchDiv.innerHTML = `
+                        <span id="lang-th" style="color: ${currentLang === 'th' ? 'var(--primary-green)' : '#888'};">TH</span>
+                        <span style="color: #e0dee0; font-weight: 400;">|</span>
+                        <span id="lang-en" style="color: ${currentLang === 'en' ? 'var(--primary-green)' : '#888'};">EN</span>
+                    `;
+                    
+                    const favLink = navUtils.querySelector('.favorites-link');
+                    if (favLink) {
+                        navUtils.insertBefore(switchDiv, favLink);
+                    } else {
+                        navUtils.appendChild(switchDiv);
+                    }
+
+                    document.getElementById('lang-th').onclick = () => {
+                        if (currentLang !== 'th') {
+                            localStorage.setItem('klinklin_lang', 'th');
+                            sessionStorage.setItem('klinklin_language_switching', 'true');
+                            window.location.reload();
+                        }
+                    };
+                    document.getElementById('lang-en').onclick = () => {
+                        if (currentLang !== 'en') {
+                            localStorage.setItem('klinklin_lang', 'en');
+                            sessionStorage.setItem('klinklin_language_switching', 'true');
+                            window.location.reload();
+                        }
+                    };
+                }
+
+                // แปลแถบลิสต์เมนูด้านบน
+                const navLinks = document.querySelectorAll('.nav-links a');
+            if (navLinks.length >= 5) {
+                if (currentLang === 'en') {
+                    navLinks[0].textContent = 'HOME';
+                    navLinks[1].textContent = 'PRODUCTS';
+                    navLinks[2].textContent = 'ABOUT';
+                    navLinks[3].textContent = 'CONTACT';
+                    navLinks[4].textContent = 'TRACKING';
+                } else {
+                    navLinks[0].textContent = 'หน้าแรก';
+                    navLinks[1].textContent = 'สินค้า';
+                    navLinks[2].textContent = 'เกี่ยวกับเรา';
+                    navLinks[3].textContent = 'ติดต่อเรา';
+                    navLinks[4].textContent = 'เช็คสถานะพัสดุ';
+                }
+            } else if (navLinks.length >= 4) {
+                if (currentLang === 'en') {
+                    navLinks[0].textContent = 'HOME';
+                    navLinks[1].textContent = 'PRODUCTS';
+                    navLinks[2].textContent = 'ABOUT';
+                    navLinks[3].textContent = 'CONTACT';
+                } else {
+                    navLinks[0].textContent = 'หน้าแรก';
+                    navLinks[1].textContent = 'สินค้า';
+                    navLinks[2].textContent = 'เกี่ยวกับเรา';
+                    navLinks[3].textContent = 'ติดต่อเรา';
+                }
+            }
+
+
+                // แปลป้ายค้นหาแถบเฮดเดอร์
+                const globalSearch = document.getElementById('global-search-input');
+                if (globalSearch) {
+                    globalSearch.placeholder = currentLang === 'en' ? 'Search...' : 'ค้นหา...';
+                }
+
+                // แปลส่วนท้ายของเว็บ Footer โครงสร้างใหม่ตามดีไซน์รูปภาพที่ส่งมา
+                const colService = document.getElementById('footer-col-service');
+                const linkFaq = document.getElementById('footer-link-faq');
+                const link404 = document.getElementById('footer-link-404');
+                const colNews = document.getElementById('footer-col-news');
+                const linkPrivacy = document.getElementById('footer-link-privacy');
+                const linkTerms = document.getElementById('footer-link-terms');
+                const colContact = document.getElementById('footer-col-contact');
+
+                if (currentLang === 'en') {
+                    if (colService) colService.textContent = 'Customer Service';
+                    if (linkFaq) linkFaq.textContent = 'FAQs';
+                    if (link404) link404.textContent = '404 Page';
+                    if (colNews) colNews.textContent = 'Subscribe';
+                    if (linkPrivacy) linkPrivacy.textContent = 'Privacy & Security';
+                    if (linkTerms) linkTerms.textContent = 'Terms & Announcements';
+                    if (colContact) colContact.textContent = 'Contact Us';
+                } else {
+                    if (colService) colService.textContent = 'บริการลูกค้า';
+                    if (linkFaq) linkFaq.textContent = 'คำถามที่พบบ่อย';
+                    if (link404) link404.textContent = 'หน้า 404';
+                    if (colNews) colNews.textContent = 'รับข่าวสารจากเรา';
+                    if (linkPrivacy) linkPrivacy.textContent = 'ความเป็นส่วนตัวและความปลอดภัย';
+                    if (linkTerms) linkTerms.textContent = 'ข้อกำหนดและประกาศจากเว็บไซต์';
+                    if (colContact) colContact.textContent = 'ติดต่อเรา';
+                }
+
+                // แปลส่วนหัวเรื่องสินค้าแนะนำ (Recommended Section)
+                const recTitle = document.getElementById('recommended-title');
+                const recSub = document.getElementById('recommended-subtitle');
+                if (recTitle) {
+                    recTitle.textContent = currentLang === 'en' ? 'Recommended For You' : 'แนะนำสำหรับคุณ';
+                }
+                if (recSub) {
+                    recSub.textContent = currentLang === 'en' ? 'Our curated item recommendations for you' : 'สินค้าแนะนําพิเศษเพื่อความผ่อนคลายสำหรับคุณโดยเฉพาะ';
+                }
+
+                // แปลส่วนรีวิวลูกค้า (Reviews Section)
+                const revTitle = document.getElementById('reviews-section-title');
+                const revSub = document.getElementById('reviews-section-subtitle');
+                const revBtnText = document.getElementById('write-review-btn-text');
+                const revFormTitle = document.getElementById('form-review-title');
+                const revFormRating = document.getElementById('lbl-review-rating');
+                const revFormName = document.getElementById('lbl-review-name');
+                const revFormText = document.getElementById('lbl-review-text');
+                const revFormSubmit = document.getElementById('submit-review-btn-text');
+                
+                if (revTitle) revTitle.textContent = currentLang === 'en' ? 'Customer Reviews' : 'รีวิวจากลูกค้า';
+                if (revSub) revSub.textContent = currentLang === 'en' ? 'Real experiences shared by our valued customers' : 'ความรู้สึกจริงจากลูกค้าผู้ใช้งานเครื่องนวดของ Klin Klin';
+                if (revBtnText) {
+                    const formWrapper = document.getElementById('review-form-wrapper');
+                    if (formWrapper && formWrapper.style.display === 'block') {
+                        revBtnText.textContent = currentLang === 'en' ? 'Cancel' : 'ยกเลิก';
+                    } else {
+                        revBtnText.textContent = currentLang === 'en' ? 'Write a Review' : 'เขียนรีวิวใหม่';
+                    }
+                }
+                if (revFormTitle) revFormTitle.textContent = currentLang === 'en' ? 'Share your experience' : 'แบ่งปันประสบการณ์ใช้งานของคุณ';
+                if (revFormRating) revFormRating.textContent = currentLang === 'en' ? 'Rating' : 'คะแนนความพึงพอใจ';
+                if (revFormName) revFormName.textContent = currentLang === 'en' ? 'Your Name' : 'ชื่อของคุณ';
+                if (revFormText) revFormText.textContent = currentLang === 'en' ? 'Review Content' : 'รายละเอียดรีวิว';
+                if (revFormSubmit) revFormSubmit.textContent = currentLang === 'en' ? 'Submit Review' : 'ส่งความคิดเห็น';
+
+                // Re-render reviews to match current language
+                if (typeof window.renderProductReviews === 'function' && productId) {
+                    window.renderProductReviews(productId);
+                }
+            }
+
+            // โหลดข้อมูลภาษาแรกเริ่ม
+            initLanguageSwitcher();
+
+            const detailContainer = document.getElementById('detail-layout-container');
+            const favBadge = document.getElementById('fav-badge');
+            const cartBadge = document.getElementById('cart-badge');
+            
+            const lightbox = document.getElementById('zoom-lightbox');
+            const lightboxImage = document.getElementById('lightbox-image');
+            const lightboxClose = document.getElementById('lightbox-close');
+
+            // Load favorites and cart from local storage
+            let favorites = JSON.parse(localStorage.getItem('klinklin_favorites')) || [];
+            let cart = JSON.parse(localStorage.getItem('klinklin_cart')) || [];
+
+            function updateBadges() {
+                // โหลดข้อมูลล่าสุดจาก localStorage เพื่อป้องกันปัญหาตัวแปรเก็บสถานะเก่า (stale state)
+                favorites = JSON.parse(localStorage.getItem('klinklin_favorites')) || [];
+                cart = JSON.parse(localStorage.getItem('klinklin_cart')) || [];
+
+                // Favorites Badge
+                if (favBadge) {
+                    favBadge.textContent = favorites.length;
+                    if (favorites.length > 0) {
+                        favBadge.style.opacity = '1';
+                        favBadge.style.transform = 'scale(1)';
+                    } else {
+                        favBadge.style.opacity = '0';
+                        favBadge.style.transform = 'scale(0)';
+                    }
+                }
+                
+                // Cart Badge
+                if (cartBadge) {
+                    const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+                    cartBadge.textContent = totalQty;
+                    if (totalQty > 0) {
+                        cartBadge.style.opacity = '1';
+                        cartBadge.style.transform = 'scale(1)';
+                    } else {
+                        cartBadge.style.opacity = '0';
+                        cartBadge.style.transform = 'scale(0)';
+                    }
+                }
+            }
+
+            function showToast(message) {
+                const toastContainer = document.getElementById('toast-container');
+                if (!toastContainer) return;
+                
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.innerHTML = `
+                    <i class="fas fa-check-circle toast-icon"></i>
+                    <span>${message}</span>
+                `;
+                
+                toastContainer.appendChild(toast);
+                
+                // Trigger reflow
+                void toast.offsetWidth;
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 400);
+                }, 2500);
+            }
+
+            // Get product ID from query parameter
+            const params = new URLSearchParams(window.location.search);
+            const productId = parseInt(params.get('id'));
+
+            // Find matching product
+            const product = products.find(p => p.id === productId);
+
+            if (!product) {
+                // Product not found layout
+                const nfTitle = currentLang === 'en' ? 'Product Not Found' : 'ไม่พบสินค้าที่คุณค้นหา';
+                const nfDesc = currentLang === 'en' 
+                    ? 'This item may have been removed or the URL is invalid.' 
+                    : 'สินค้าชิ้นนี้อาจถูกลบไปแล้วหรือที่อยู่ URL ไม่ถูกต้อง';
+                const nfBtn = currentLang === 'en' ? 'Back to All Products' : 'กลับไปดูสินค้าทั้งหมด';
+
+                detailContainer.innerHTML = `
+                    <div style="text-align: center; padding: 100px 0; color: #888;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3.5rem; margin-bottom: 20px; color: #ffb74d;"></i>
+                        <h2 style="font-size: 1.6rem; color: #111; margin-bottom: 12px; font-weight: 600;">${nfTitle}</h2>
+                        <p style="font-size: 1rem; margin-bottom: 30px; color: #777;">${nfDesc}</p>
+                        <a href="products.html" class="detail-add-to-cart-btn" style="display: inline-flex; width: auto; padding: 12px 35px; border-radius: 30px;">
+                            ${nfBtn}
+                        </a>
+                    </div>
+                `;
+                updateBadges();
+                return;
+            }
+
+            // Find category display names
+            const catInfo = categories[product.category] || { name: 'เครื่องนวด', nameEN: 'Massager' };
+
+            // ระบบคำนวณสถิติดาวและจำนวนรีวิวจำลองแบบคงที่ของแต่ละสินค้า
+            function getProductRatingStats(id) {
+                const rating = (4.5 + (id % 6) * 0.1).toFixed(1);
+                const count = 40 + (id * 17) % 150;
+                return { rating: parseFloat(rating), count };
+            }
+
+            // ระบบลงทะเบียนคะแนนที่ผู้ใช้โหวต
+            function attachRatingListeners(productId) {
+                const container = document.getElementById('star-rating-container');
+                if (!container) return;
+
+                const stars = container.querySelectorAll('i');
+                const textVal = document.getElementById('rating-text-val');
+                const reviewCount = document.getElementById('rating-review-count');
+
+                // เอฟเฟกต์เมาส์ชี้ (Hover) เลื่อนเพื่อจำลองดาวที่จะให้
+                stars.forEach(star => {
+                    star.onmouseenter = () => {
+                        const index = parseInt(star.getAttribute('data-index'));
+                        stars.forEach((s, idx) => {
+                            if (idx < index) {
+                                s.className = 'fas fa-star';
+                                s.style.color = '#ffbc0b';
+                            } else {
+                                s.className = 'far fa-star';
+                                s.style.color = '#e0dee0';
+                            }
+                        });
+                    };
+                });
+
+                // เมื่อเมาส์เลื่อนออก คืนค่าเป็นดาวเดิมตามจริง
+                container.onmouseleave = () => {
+                    const userRating = JSON.parse(localStorage.getItem('klinklin_user_ratings')) || {};
+                    const stats = getProductRatingStats(productId);
+                    const activeRating = userRating[productId] || stats.rating;
+
+                    const full = Math.floor(activeRating);
+                    const half = activeRating % 1 >= 0.4 && activeRating % 1 <= 0.7;
+
+                    stars.forEach((s, idx) => {
+                        const i = idx + 1;
+                        s.style.color = '#ffbc0b';
+                        if (i <= full) {
+                            s.className = 'fas fa-star';
+                        } else if (i === full + 1 && half) {
+                            s.className = 'fas fa-star-half-alt';
+                        } else {
+                            s.className = 'far fa-star';
+                            if (userRating[productId]) {
+                                s.style.color = '#e0dee0'; // ดาวที่ไม่ได้รับเลือกสำหรับคะแนนโหวตของผู้ใช้
+                            }
+                        }
+                    });
+                };
+
+                // ระบบกดยืนยันให้คะแนน (Click to Rate)
+                stars.forEach(star => {
+                    star.onclick = () => {
+                        // ตรวจสอบสถานะการล็อกอินก่อนให้ดาว
+                        const isLoggedIn = localStorage.getItem('klinklin_logged_in') === 'true';
+                        if (!isLoggedIn) {
+                            showLoginPromptModal('rating');
+                            return;
+                        }
+
+                        const index = parseInt(star.getAttribute('data-index'));
+                        const userRating = JSON.parse(localStorage.getItem('klinklin_user_ratings')) || {};
+                        userRating[productId] = index;
+                        localStorage.setItem('klinklin_user_ratings', JSON.stringify(userRating));
+
+                        // อัปเดตข้อความด้านข้างและขึ้นสไลด์แจ้งเตือนความสำเร็จ
+                        textVal.textContent = index.toFixed(1);
+                        if (currentLang === 'en') {
+                            reviewCount.innerHTML = `(<span style="color: var(--primary-green); font-weight: 600;">You rated this item ${index} stars</span>)`;
+                            showToast(`Thank you for rating ${index} stars! ⭐`);
+                        } else {
+                            reviewCount.innerHTML = `(<span style="color: var(--primary-green); font-weight: 600;">คุณให้คะแนนสินค้าชิ้นนี้ ${index} ดาว</span>)`;
+                            showToast(`ขอบคุณสำหรับการให้คะแนน ${index} ดาว! ⭐`);
+                        }
+
+                        // ตรึงดาวใหม่ตามที่คลิกโหวตทันที
+                        stars.forEach((s, idx) => {
+                            if (idx < index) {
+                                s.className = 'fas fa-star';
+                                s.style.color = '#ffbc0b';
+                            } else {
+                                s.className = 'far fa-star';
+                                s.style.color = '#e0dee0';
+                            }
+                        });
+                    };
+                });
+            }
+
+            const categoryDescriptions = {
+
+    'premium-box-set': {
+        overviewTH: "สัมผัสประสบการณ์การดูแลตัวเองที่เรียบง่ายแต่ล้ำลึก กับชุดอุปกรณ์นวดนวัตกรรมใหม่ที่ผสานงานดีไซน์เข้ากับวิถีธรรมชาติ มอบความผ่อนคลายให้ร่างกายและจิตใจได้ทุกวันที่บ้าน ในราคาเซ็ตละ 690 บาท เป็นสีที่ทำมาแค่ในเซ็ทนี้เท่านั้น",
+        overviewEN: "Experience simple yet profound self-care with an innovative massage tool set that blends design with natural wellness. Bring daily relaxation to your body and mind at home. Available for 690 THB per set, featuring exclusive colors available only in this set.",
+        benefitsTH: [],
+        benefitsEN: []
+    },
+    'hand-massager': {
+        overviewTH: "ช่วยกระตุ้นการไหลเวียนโลหิต คลายความเมื่อยล้า บรรเทาอาการนิ้วล็อก ลดอาการเหน็บชา และช่วยลดความตึงเครียดจากการใช้งานมือหนักๆ เช่น พิมพ์งาน หรือขับรถ เหมาะสำหรับใช้นวดกดจุดบริเวณฝ่ามือ ง่ามนิ้ว และฝ่าเท้า เพื่อสุขภาพที่ดี",
+        overviewEN: "Stimulates blood circulation, relieves fatigue, prevents trigger finger, reduces numbness, and eases hand tension from heavy use such as typing or driving. Ideal for acupressure on palms, between fingers, and soles of the feet for better health.",
+        benefitsTH: ["วางไว้ในอุ้งมือแล้วกำ-บีบสลับกัน หรือหมุนคลึงไปมา"],
+        benefitsEN: ["Place it in your palm and alternately squeeze and release, or roll it around."],
+    },
+    'hand-keychain': {
+        overviewTH: "ช่วยบรรเทาอาการปวดเมื่อยและกระตุ้นการไหลเวียนโลหิต เหมาะสำหรับใช้กดเฉพาะจุด เช่น ฝ่ามือ ฝ่าเท้า บ่า และคอ ช่วยคลายกล้ามเนื้อที่ตึงเครียด ลดอาการเหน็บชา ป้องกันนิ้วล็อก และช่วยให้ร่างกายผ่อนคลาย สามารถห้อยกระเป๋าได้ พกพาสะดวก",
+        overviewEN: "Relieves soreness and stimulates blood circulation. Perfect for targeted acupressure on palms, feet, shoulders, and neck. Relieves tight muscles, reduces numbness, prevents trigger finger, and promotes overall relaxation. Comes with a keychain for easy carrying.",
+        benefitsTH: ["วางไว้ในอุ้งมือแล้วกำ-บีบสลับกัน หรือหมุนคลึงไปมา"],
+        benefitsEN: ["Place it in your palm and alternately squeeze and release, or roll it around."],
+    },
+    'pressure-point-massager': {
+        overviewTH: "ช่วยบรรเทาอาการปวดเมื่อยและกระตุ้นการไหลเวียนโลหิต เหมาะสำหรับใช้กดเฉพาะจุด เช่น ฝ่ามือ ฝ่าเท้า บ่า และคอ ช่วยคลายกล้ามเนื้อที่ตึงเครียด ลดอาการเหน็บชา ป้องกันนิ้วล็อก และช่วยให้ร่างกายผ่อนคลาย",
+        overviewEN: "Relieves soreness and stimulates blood circulation. Ideal for targeted acupressure on palms, feet, shoulders, and neck to release muscle tension, reduce numbness, prevent trigger finger, and relax the body.",
+        benefitsTH: ["มีลักษณะเป็นแท่งไม้เรียว ใช้สำหรับกดจุดเน้นๆ ในบริเวณที่ปวดเมื่อย เช่น คอ บ่า ไหล่ และฝ่าเท้า"],
+        benefitsEN: ["Features a slender wooden stick design used for deep, targeted acupressure on sore areas like the neck, shoulders, and soles of the feet."],
+    },
+    'three-leg-massager': {
+        overviewTH: "ช่วยบรรเทาอาการปวดเมื่อยตามร่างกาย สลายพังผืด เพิ่มการไหลเวียนโลหิต และบรรเทาอาการตึงเครียดของกล้ามเนื้อได้อย่างตรงจุดและสะดวกสบาย",
+        overviewEN: "Relieves body aches, breaks down fascia, boosts blood circulation, and effectively releases muscle tension with precision and comfort.",
+        benefitsTH: ["กดจุด (ใช้ขาเดียว): ใช้ขาข้างใดข้างหนึ่งกดลงไปตรงจุดที่ปวดหรือตึงเปรี๊ยะ (Trigger Point) เช่น บริเวณบ่า หรือจุดที่เส้นยึด ค้างไว้ 5-10 วินาทีแล้วปล่อย", "รูดคลายเส้น (ใช้ 2 หรือ 3 ขา): วางขาไม้ให้คร่อมมัดกล้ามเนื้อ (เช่น ต้นแขน ต้นขา หรือน่อง) แล้วรูดไปตามแนวยาวของกล้ามเนื้อ วิธีนี้จะช่วยกระจายแรงกดและคลายพังผืดได้เป็นวงกว้าง", "นวดอุ้งมือ: วางไม้ในอุ้งมือแล้วใช้มือกำ-คลาย เพื่อบริหารกล้ามเนื้อมือและนิ้ว แก้อาการนิ้วล็อกหรือมือชา"],
+        benefitsEN: ["Acupressure (1 Leg): Use one leg to press directly onto trigger points or tight spots (e.g., shoulders). Hold for 5-10 seconds, then release.", "Muscle Scraping (2 or 3 Legs): Place the legs over a muscle group (like arms, thighs, or calves) and glide along its length to distribute pressure and release wide areas of fascia.", "Palm Massage: Hold the massager in your palm, squeezing and releasing it to exercise hand and finger muscles, relieving trigger finger or numbness."],
+    },
+    'teardrop-gua-sha': {
+        overviewTH: "ช่วยกระตุ้นการไหลเวียนของโลหิต บรรเทาอาการปวดเมื่อยตามร่างกาย โดยเฉพาะบริเวณ คอ บ่า และไหล่ รวมถึงสามารถใช้กดจุดและขูดเพื่อยกกระชับผิวหน้า ลดอาการบวม และระบายน้ำเหลืองได้ดี",
+        overviewEN: "Stimulates blood flow and relieves body aches, especially around the neck and shoulders. Can also be used for acupressure and facial scraping to lift the skin, reduce puffiness, and promote lymphatic drainage.",
+        benefitsTH: ["1.ชโลมออยล์/น้ำมัน: ทาบริเวณที่จะนวดเพื่อลดการเสียดสี (ป้องกันผิวถลอก)", "2.ใช้ด้านมน (รูด): ใช้ส่วนโค้งมนขูด/รูดไปตามแนวกล้ามเนื้อ เช่น ขูดจากกลางหน้าออกไปหาหู หรือรูดจากบ่าลงไปแขน เพื่อคลายพังผืด", "3.ใช้ด้านแหลม (กด): ใช้ปลายหยดน้ำกดลงบนจุดที่ปวดหรือตึง (เช่น ขมับ ฝ่าเท้า หรือซอกนิ้ว) ค้างไว้ 3-5 วินาที", "4.ทิศทาง: ถ้าใช้กับหน้าให้ \"รูดขึ้นและออก\" เสมอเพื่อยกกระชับ"],
+        benefitsEN: ["1. Apply Oil: Lubricate the area to reduce friction and protect the skin.", "2. Use the Rounded Edge (Scraping): Glide along muscle lines, such as from the center of the face outward to the ears, or from the shoulders down the arms to release fascia.", "3. Use the Pointed End (Pressing): Press the tip onto sore or tight trigger points (e.g., temples, soles, between fingers) and hold for 3-5 seconds.", "4. Direction: Always scrape 'up and out' when using on the face for a lifting effect."],
+    },
+    'spiky-massager': {
+        overviewTH: "ช่วยบรรเทาอาการปวดเมื่อยและกระตุ้นการไหลเวียนโลหิต เหมาะสำหรับใช้กดเฉพาะจุด เช่น ฝ่ามือ ฝ่าเท้า บ่า และคอ ช่วยคลายกล้ามเนื้อที่ตึงเครียด ลดอาการเหน็บชา ป้องกันนิ้วล็อก และช่วยให้ร่างกายผ่อนคลาย",
+        overviewEN: "Relieves soreness and stimulates blood circulation. Perfect for targeted acupressure on palms, feet, shoulders, and neck to ease muscle tension, reduce numbness, prevent trigger finger, and relax the body.",
+        benefitsTH: ["วางไว้ในอุ้งมือแล้วกำ-บีบสลับกัน หรือหมุนคลึงไปมา"],
+        benefitsEN: ["Place it in your palm and alternately squeeze and release, or roll it around."],
+    },
+    'spiky-keychain': {
+        overviewTH: "ช่วยบรรเทาอาการปวดเมื่อยและกระตุ้นการไหลเวียนโลหิต เหมาะสำหรับใช้กดเฉพาะจุด เช่น ฝ่ามือ ฝ่าเท้า บ่า และคอ ช่วยคลายกล้ามเนื้อที่ตึงเครียด ลดอาการเหน็บชา ป้องกันนิ้วล็อก และช่วยให้ร่างกายผ่อนคลาย สามารถห้อยกระเป๋าได้ พกพาสะดวก",
+        overviewEN: "Relieves soreness and stimulates blood circulation. Great for targeted acupressure on palms, feet, shoulders, and neck to ease muscle tension, prevent trigger finger, and relax the body. Includes a keychain for convenient carrying.",
+        benefitsTH: ["วางไว้ในอุ้งมือแล้วกำ-บีบสลับกัน หรือหมุนคลึงไปมา"],
+        benefitsEN: ["Place it in your palm and alternately squeeze and release, or roll it around."],
+    },
+    'roller-massager': {
+        overviewTH: "เป็นอุปกรณ์ช่วยผ่อนคลายที่กระตุ้นการไหลเวียนโลหิต บรรเทาอาการปวดเมื่อยกล้ามเนื้อ และลดอาการบวมน้ำ ใช้งานง่ายด้วยตนเองครอบคลุมตั้งแต่ คอ บ่า หลัง ขา ไปจนถึงฝ่าเท้า ช่วยลดความตึงเครียดสะสมในชีวิตประจําวัน",
+        overviewEN: "A relaxation tool that stimulates blood flow, relieves muscle soreness, and reduces edema. Easy to use for self-massage covering the neck, shoulders, back, legs, and soles. Helps reduce accumulated daily tension.",
+        benefitsTH: ["จับด้ามให้กระชับ กลิ้งขึ้น-ลงอย่างนุ่มนวลบริเวณบ่าและต้นคอเพื่อคลายความตึงเครียด"],
+        benefitsEN: ["Hold the handle firmly and roll gently up and down along the shoulders and neck to relieve tension."],
+    },
+    'four-ball-roller': {
+        overviewTH: "ช่วยบรรเทาอาการปวดเมื่อยกล้ามเนื้อ กระตุ้นการไหลเวียนของโลหิต และช่วยผ่อนคลายความตึงเครียดของเส้นประสาท เหมาะสําหรับใช้กลิ้งนวดตามบริเวณต่างๆ เช่น น่อง ขา หลัง บ่า และต้นคอ",
+        overviewEN: "Relieves muscle soreness, stimulates blood flow, and relaxes nervous tension. Ideal for rolling massages on calves, legs, back, shoulders, and neck.",
+        benefitsTH: ["กดและกลิ้งลูกกลิ้งไปมาบริเวณที่ต้องการ สามารถใช้นวดร่วมกับน้ำมันนวดหรือครีมทาผิวเพื่อลดการเสียดสีและเพิ่มความลื่นไหลได้ดียิ่งขึ้น"],
+        benefitsEN: ["Press and roll the massager back and forth over the desired area. Can be used with massage oil or lotion to reduce friction and improve the glide."],
+    },
+    'foot-roller': {
+        overviewTH: "ช่วยกระตุ้นการไหลเวียนโลหิต บรรเทาอาการปวดเมื่อยฝ่าเท้า และลดความตึงเครียดของกล้ามเนื้อ โดยปุ่มไม้จะช่วยกดจุดและกระตุ้นเส้นประสาทบริเวณฝ่าเท้า ทําให้รู้สึกผ่อนคลาย สามารถใช้งานได้ง่ายๆ ขณะนั่งทํางานหรือพักผ่อน",
+        overviewEN: "Stimulates blood circulation, relieves foot soreness, and reduces muscle tension. Wooden nodes provide acupressure and stimulate nerve endings in the soles for ultimate relaxation. Easy to use while sitting at a desk or resting.",
+        benefitsTH: ["เตรียมตัว: วางไม้นวดบนพื้นผิวเรียบและนั่งบนเก้าอี้ในท่าที่ผ่อนคลาย", "เริ่มนวด: วางเท้าเปล่าลงบนลูกกลิ้ง ค่อยๆ ดันเท้าไปข้างหน้าและถอยหลังช้าๆ เพื่อนวดให้ทั่วฝ่าเท้า", "เน้นจุด: หากพบจุดที่ปวดเมื่อยมากเป็นพิเศษ สามารถหยุดลูกกลิ้งและกดน้ำหนักลงไปค้างไว้สัก 5-10 วินาทีเพื่อคลายกล้ามเนื้อ"],
+        benefitsEN: ["Preparation: Place the massager on a flat floor and sit comfortably on a chair.", "Start Massaging: Place bare feet on the rollers and slowly push back and forth to massage the entire foot.", "Target Points: For particularly sore areas, stop rolling and press down on the nodes for 5-10 seconds to release the tension."],
+    },
+    'bird-shaped-massager': {
+        overviewTH: "ช่วยผ่อนคลายกล้ามเนื้อ โดยรูปทรงจําลองมาจากตัวนก ปลายจะมีความมนและแหลม ช่วยผ่อนแรงนิ้วมือ เหมาะสําหรับผู้ที่มีอาการปวดเมื่อยเฉพาะจุด เช่น คอ บ่า ไหล่ ฝ่ามือ และฝ่าเท้า",
+        overviewEN: "Relieves muscle tension. Designed in a bird shape with both rounded and pointed ends to save finger strength. Perfect for targeting localized pain such as the neck, shoulders, palms, and feet.",
+        benefitsTH: ["หัวนก (ส่วนหัวและจงอยปาก): ใช้สําหรับกดจุดสะท้อน (Reflexology) ตามฝ่ามือ ฝ่าเท้า หรือจุดที่ปวดเมื่อยลึกๆ", "หางนก: ใช้สําหรับกดจุดและดึงเส้นตามบริเวณบ่า คอ หรือต้นแขน", "ท้องนก: ส่วนที่โค้งมนใช้สําหรับการนวดคลึง (Rolling) เป็นวงกว้าง หรือใช้กัวซารีดเส้นตามลําตัว"],
+        benefitsEN: ["Bird's Head (Beak): Use for reflexology on palms, feet, or deep muscle trigger points.", "Bird's Tail: Use for acupressure and scraping along the shoulders, neck, or upper arms.", "Bird's Belly: Use the rounded curve for broad rolling massage or body scraping."],
+    },
+};
+
+            // Render Product detail view
+            function renderDetailView(currentProduct) {
+                const isFav = favorites.includes(currentProduct.id);
+                
+                // Define slide images list for this product color
+                const slideImages = [currentProduct.image];
+                
+                // คำนวณดาวปัจจุบันและตรวจสอบว่าเคยโหวตหรือยัง
+                const stats = getProductRatingStats(currentProduct.id);
+                const userRating = JSON.parse(localStorage.getItem('klinklin_user_ratings')) || {};
+                const currentRatingVal = userRating[currentProduct.id] || stats.rating;
+                const hasUserRated = !!userRating[currentProduct.id];
+
+                // ค้นหาข้อมูลคุณลักษณะเด่นตามหมวดหมู่
+                const descData = categoryDescriptions[currentProduct.category] || categoryDescriptions['spiky-massager'];
+                const descOverview = currentLang === 'en' ? descData.overviewEN : descData.overviewTH;
+                const benefits = currentLang === 'en' ? descData.benefitsEN : descData.benefitsTH;
+                const benefitsHTML = benefits.map(b => `<li style="margin-bottom: 8px;">${b}</li>`).join('');
+
+                // สร้าง HTML ของไอคอนดาว
+                let starsHTML = '';
+                const fullStars = Math.floor(currentRatingVal);
+                const hasHalf = currentRatingVal % 1 >= 0.4 && currentRatingVal % 1 <= 0.7;
+                
+                for (let i = 1; i <= 5; i++) {
+                    if (i <= fullStars) {
+                        starsHTML += `<i class="fas fa-star" data-index="${i}" style="transition: transform 0.2s; cursor: pointer;"></i>`;
+                    } else if (i === fullStars + 1 && hasHalf) {
+                        starsHTML += `<i class="fas fa-star-half-alt" data-index="${i}" style="transition: transform 0.2s; cursor: pointer;"></i>`;
+                    } else {
+                        starsHTML += `<i class="far fa-star" data-index="${i}" style="transition: transform 0.2s; cursor: pointer; color: ${hasUserRated ? '#e0dee0' : '#ffbc0b'};"></i>`;
+                    }
+                }
+
+                // Construct sibling dots for variations
+                const siblingsHTML = currentProduct.siblings.map((sib, index) => {
+                    const isActive = sib.image === currentProduct.image;
+                    const sibProduct = products.find(p => p.image === sib.image) || currentProduct;
+                    return `
+                        <span class="carousel-dot ${isActive ? 'active' : ''}" 
+                              data-id="${sibProduct.id}" 
+                              title="${sib.color} / ${sib.colorEN}">
+                        </span>
+                    `;
+                }).join('');
+
+                const zoomHintText = currentLang === 'en' ? 'Click to zoom' : 'คลิกเพื่อขยายรูป';
+                const categoryLabel = currentLang === 'en' ? catInfo.nameEN : catInfo.name;
+                const sizeLabelText = currentLang === 'en' ? 'Size:' : 'ขนาด:';
+                const materialLabelText = currentLang === 'en' ? 'Material:' : 'วัสดุ:';
+                const materialValText = currentLang === 'en' ? 'Natural Beechwood (Eco-Friendly)' : 'ไม้บีชธรรมชาติ (Eco-Friendly Beechwood)';
+                const qtyLabelText = currentLang === 'en' ? 'Quantity' : 'จำนวน';
+                const stockLabelText = currentLang === 'en' ? 'In Stock' : 'มีในสต็อก';
+                const addToCartBtnText = currentLang === 'en' ? 'add to cart' : 'ใส่ตะกร้า';
+
+                let reviewTextHTML = '';
+                if (hasUserRated) {
+                    reviewTextHTML = currentLang === 'en' 
+                        ? `(<span style="color: var(--primary-green); font-weight: 600;">You rated this item ${currentRatingVal} stars</span>)` 
+                        : `(<span style="color: var(--primary-green); font-weight: 600;">คุณให้คะแนนสินค้าชิ้นนี้ ${currentRatingVal} ดาว</span>)`;
+                } else {
+                    reviewTextHTML = currentLang === 'en' ? `(${stats.count} reviews)` : `(${stats.count} รีวิว)`;
+                }
+
+                let thumbnailsHTML = '';
+                let slideNavButtonsHTML = '';
+                if (slideImages.length > 1) {
+                    slideNavButtonsHTML = `
+                        <button class="slide-nav-btn prev-btn" id="prev-slide-btn" style="left: 15px;">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="slide-nav-btn next-btn" id="next-slide-btn" style="right: 15px;">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    `;
+                    thumbnailsHTML = `
+                        <div class="product-slides-thumbnails" style="display: flex; gap: 12px; margin-top: 15px; justify-content: center;">
+                            ${slideImages.map((imgUrl, idx) => `
+                                <div class="slide-thumbnail ${idx === 0 ? 'active' : ''}" 
+                                     data-index="${idx}" 
+                                     style="width: 60px; height: 60px; border-radius: 8px; border: 2px solid ${idx === 0 ? 'var(--primary-green)' : '#e2e1dd'}; cursor: pointer; overflow: hidden; display: flex; justify-content: center; align-items: center; background-color: #fff;">
+                                    <img src="${imgUrl}" style="max-width: 85%; max-height: 85%; object-fit: contain;">
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+
+                detailContainer.innerHTML = `
+                    <div class="detail-layout">
+                        <!-- Left Column: Gallery / Images -->
+                        <div class="detail-image-column">
+                            <div class="detail-img-box" id="zoom-trigger" style="position: relative;">
+                                <img src="${currentProduct.image}" alt="${currentProduct.nameEN}" id="main-product-image" style="transition: opacity 0.25s ease-in-out, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+                                <div class="detail-zoom-hint">
+                                    <i class="fas fa-expand-arrows-alt"></i>
+                                    ${zoomHintText}
+                                </div>
+                                ${slideNavButtonsHTML}
+                            </div>
+                            
+                            <!-- Product Slide Thumbnails -->
+                            ${thumbnailsHTML}
+                        </div>
+
+                        <!-- Right Column: Details Info -->
+                        <div class="detail-info-column">
+                            <span class="detail-category-label">${categoryLabel}</span>
+                            <h1 class="detail-title-thai">${currentProduct.name}</h1>
+                            <p class="detail-title-en">${currentProduct.nameEN}</p>
+                            
+                            <!-- Rating Stars Box -->
+                            <div class="detail-rating-box" style="display: flex; align-items: center; gap: 10px; margin-bottom: 18px; margin-top: 5px;">
+                                <div class="rating-stars" style="display: flex; gap: 4px; color: #ffbc0b; font-size: 1.05rem;" id="star-rating-container">
+                                    ${starsHTML}
+                                </div>
+                                <span class="rating-value" style="font-size: 0.92rem; font-weight: 600; color: #111;" id="rating-text-val">${currentRatingVal.toFixed(1)}</span>
+                                <span style="color: #e0dee0; font-size: 0.85rem;">|</span>
+                                <span class="review-count" style="color: #777; font-size: 0.85rem; font-weight: 500;" id="rating-review-count">
+                                    ${reviewTextHTML}
+                                </span>
+                            </div>
+
+                            <div class="detail-price">${currentProduct.price.toLocaleString()} ฿</div>
+                            
+                            <hr class="detail-divider" style="margin-top: 15px;">
+
+                            <!-- Product Attributes -->
+                            <div class="detail-option-group" style="margin-bottom: 15px;">
+                                <div style="display: flex; gap: 40px; font-size: 0.95rem; line-height: 1.8;">
+                                    <div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 40px; font-size: 0.95rem; line-height: 1.8; margin-top: 5px;">
+                                    <div>
+                                        <span style="color: #888; display: inline-block; width: 80px;">${materialLabelText}</span>
+                                        <span style="color: #111; font-weight: 500;">${materialValText}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="detail-divider" style="margin-top: 15px;">
+
+                            <!-- Stepper Selector Quantity -->
+                            <div class="detail-option-group">
+                                <span class="detail-option-label">${qtyLabelText}</span>
+                                <div style="display: flex; align-items: center; gap: 20px;">
+                                    <div class="detail-qty-stepper">
+                                        <button class="detail-qty-btn" id="qty-minus"><i class="fas fa-minus"></i></button>
+                                        <input type="text" class="detail-qty-val" id="qty-input" value="1" readonly>
+                                        <button class="detail-qty-btn" id="qty-plus"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                    
+                                    <!-- In Stock indicator pill -->
+                                    <div class="detail-stock-status">
+                                        <span class="detail-stock-dot"></span>
+                                        มีในสต็อก
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Buttons Add to Cart & Favorite -->
+                            <div class="detail-action-buttons">
+                                <button class="detail-add-to-cart-btn" id="add-to-cart-trigger">
+                                    <i class="fas fa-shopping-cart"></i> add to cart
+                                </button>
+                                <button class="detail-fav-btn ${isFav ? 'active' : ''}" id="fav-trigger">
+                                    <i class="${isFav ? 'fas' : 'far'} fa-heart"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                `;
+
+                // Attaching Sub-Event listeners for this view
+                attachStepperListeners();
+                attachActionListeners(currentProduct);
+                attachZoomListeners(currentProduct);
+                attachSlideListeners(slideImages);
+                attachRatingListeners(currentProduct.id);
+
+                // Render Description Card below product info
+                const descContainer = document.getElementById('product-description-container');
+                if (descContainer) {
+                    descContainer.innerHTML = `
+                        <div class="description-card" style="background: #ffffff; border: 1px solid #e5e0da; border-radius: 20px; padding: 50px; box-shadow: 0 10px 30px rgba(44, 92, 61, 0.02); display: flex; flex-direction: column; gap: 35px;">
+                            <!-- Section Title -->
+                            <div>
+                                <h2 style="font-family: 'Google Sans Flex', sans-serif; font-size: 1.6rem; font-weight: 700; color: #1b3c25; margin: 0 0 8px 0; letter-spacing: 0.05em;" id="desc-section-title">
+                                    ${currentLang === 'en' ? 'Product Description' : 'รายละเอียดสินค้า'}
+                                </h2>
+                                <p style="color: #8c9690; font-size: 0.88rem; margin: 0;" id="desc-section-subtitle">
+                                    ${currentLang === 'en' ? 'Organic wellness & craftsmanship details' : 'รายละเอียดความเป็นมาและคุณประโยชน์ด้านสุขภาพ'}
+                                </p>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 50px;" class="desc-grid-layout">
+                                <!-- Left: Rich Overview Paragraphs -->
+                                <div style="color: #4a544e; font-size: 1rem; line-height: 1.85; display: flex; flex-direction: column; gap: 20px;">
+                                    <p style="margin: 0;">${descOverview}</p>
+                                    
+                                    ${currentProduct.category === 'premium-box-set' ? '' : `
+                                    <div style="background: #faf8f5; border-radius: 12px; padding: 24px; border-left: 4px solid var(--primary-green);">
+                                        <h4 style="font-size: 1rem; font-weight: 600; color: #1b3c25; margin: 0 0 12px 0;">
+                                            ${currentLang === 'en' ? 'How to Use' : 'วิธีใช้งาน'}
+                                        </h4>
+                                        <ul style="margin: 0; padding-left: 20px; list-style-type: disc; color: #5a645e; font-size: 0.95rem; line-height: 1.7;">
+                                            ${benefitsHTML}
+                                        </ul>
+                                    </div>`}
+                                </div>
+                                
+                                <!-- Right: Technical Specifications -->
+                                <div style="border-left: 1px solid #eee; padding-left: 50px;" class="desc-spec-column">
+                                    <h3 style="font-size: 1.15rem; font-weight: 600; color: #1b3c25; margin: 0 0 20px 0;">
+                                        ${currentLang === 'en' ? 'Specifications' : 'รายละเอียดทางเทคนิค'}
+                                    </h3>
+                                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                                        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #e2e1dd; padding-bottom: 10px; font-size: 0.92rem;">
+                                            <span style="color: #8c9690;">${currentLang === 'en' ? 'Dimensions' : 'ขนาดเฉลี่ย'}</span>
+                                            <span style="color: #111; font-weight: 500;">${currentProduct.size}</span>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #e2e1dd; padding-bottom: 10px; font-size: 0.92rem;">
+                                            <span style="color: #8c9690;">${currentLang === 'en' ? 'Material' : 'วัสดุที่ใช้'}</span>
+                                            <span style="color: #111; font-weight: 500;">${currentLang === 'en' ? 'Natural Beechwood' : 'ไม้บีชธรรมชาติ (ความหนาแน่นสูง)'}</span>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #e2e1dd; padding-bottom: 10px; font-size: 0.92rem;">
+                                            <span style="color: #8c9690;">${currentLang === 'en' ? 'Texture' : 'ผิวสัมผัส'}</span>
+                                            <span style="color: #111; font-weight: 500;">${currentLang === 'en' ? 'Pristine Soft Polish' : 'ขัดผิวเงาเรียบเนียน ปลอดสารเคมี'}</span>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #e2e1dd; padding-bottom: 10px; font-size: 0.92rem;">
+                                            <span style="color: #8c9690;">${currentLang === 'en' ? 'Craftsmanship' : 'กรรมวิธีผลิต'}</span>
+                                            <span style="color: #111; font-weight: 500;">${currentLang === 'en' ? 'Artisanal Handmade' : 'งานทำมือแฮนด์เมดรักษ์โลก'}</span>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; padding-bottom: 10px; font-size: 0.92rem;">
+                                            <span style="color: #8c9690;">${currentLang === 'en' ? 'Origin' : 'ประเทศผู้ผลิต'}</span>
+                                            <span style="color: #111; font-weight: 500;">${currentLang === 'en' ? 'Thailand (Handcrafted)' : 'ประเทศไทย (Handcrafted)'}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            function attachStepperListeners() {
+                const minus = document.getElementById('qty-minus');
+                const plus = document.getElementById('qty-plus');
+                const input = document.getElementById('qty-input');
+                
+                minus.onclick = () => {
+                    let currentVal = parseInt(input.value);
+                    if (currentVal > 1) {
+                        input.value = currentVal - 1;
+                    }
+                };
+                
+                plus.onclick = () => {
+                    let currentVal = parseInt(input.value);
+                    input.value = currentVal + 1; // Can define a stock limit if required
+                };
+            }
+
+            function attachActionListeners(currentProduct) {
+                const addToCartBtn = document.getElementById('add-to-cart-trigger');
+                const favBtn = document.getElementById('fav-trigger');
+
+                // Add to Cart Trigger
+                addToCartBtn.onclick = () => {
+                    const isLoggedIn = localStorage.getItem('klinklin_logged_in') === 'true';
+                    if (!isLoggedIn) {
+                        showLoginPromptModal('cart');
+                        return;
+                    }
+
+                    const input = document.getElementById('qty-input');
+                    const qty = parseInt(input.value) || 1;
+                    
+                    const existingItem = cart.find(item => item.id === currentProduct.id);
+                    if (existingItem) {
+                        existingItem.quantity += qty;
+                    } else {
+                        cart.push({ id: currentProduct.id, quantity: qty });
+                    }
+
+                    localStorage.setItem('klinklin_cart', JSON.stringify(cart));
+                    updateBadges();
+                    
+                    if (currentLang === 'en') {
+                        showToast(`Added ${qty} of ${currentProduct.nameEN} to cart!`);
+                    } else {
+                        showToast(`เพิ่ม ${currentProduct.name} จำนวน ${qty} ชิ้นลงตะกร้าแล้ว!`);
+                    }
+                };
+
+                // Favorite Toggle Trigger
+                favBtn.onclick = () => {
+                    const isLoggedIn = localStorage.getItem('klinklin_logged_in') === 'true';
+                    if (!isLoggedIn) {
+                        showLoginPromptModal('favorite');
+                        return;
+                    }
+
+                    favorites = JSON.parse(localStorage.getItem('klinklin_favorites')) || [];
+                    const icon = favBtn.querySelector('i');
+                    if (favorites.includes(currentProduct.id)) {
+                        // Remove
+                        favorites = favorites.filter(id => id !== currentProduct.id);
+                        favBtn.classList.remove('active');
+                        icon.className = 'far fa-heart';
+                    } else {
+                        // Add
+                        favorites.push(currentProduct.id);
+                        favBtn.classList.add('active');
+                        icon.className = 'fas fa-heart';
+                    }
+
+                    localStorage.setItem('klinklin_favorites', JSON.stringify(favorites));
+                    updateBadges();
+                };
+            }
+
+            function attachZoomListeners(currentProduct) {
+                const trigger = document.getElementById('zoom-trigger');
+                
+                const openLightbox = () => {
+                    const mainImg = document.getElementById('main-product-image');
+                    lightboxImage.src = mainImg ? mainImg.src : currentProduct.image;
+                    lightboxImage.alt = currentProduct.nameEN;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // ล็อกการเลื่อนหน้าหลัง
+                };
+
+                const closeLightbox = () => {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = ''; // คืนค่าการเลื่อนหน้าหลัง
+                };
+
+                trigger.onclick = openLightbox;
+                lightboxClose.onclick = closeLightbox;
+
+                lightbox.onclick = (e) => {
+                    if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
+                        closeLightbox();
+                    }
+                };
+                
+                // ESC key handler to dismiss lightbox
+                document.onkeydown = (e) => {
+                    if (e.key === 'Escape') {
+                        closeLightbox();
+                    }
+                };
+            }
+
+            function attachSlideListeners(slideImages) {
+                if (slideImages.length <= 1) return;
+                
+                let currentSlideIdx = 0;
+                const mainImg = document.getElementById('main-product-image');
+                const thumbnails = document.querySelectorAll('.slide-thumbnail');
+                const prevBtn = document.getElementById('prev-slide-btn');
+                const nextBtn = document.getElementById('next-slide-btn');
+                
+                const updateSlide = (newIdx) => {
+                    currentSlideIdx = (newIdx + slideImages.length) % slideImages.length;
+                    
+                    if (mainImg) {
+                        mainImg.style.opacity = '0';
+                        setTimeout(() => {
+                            mainImg.src = slideImages[currentSlideIdx];
+                            mainImg.style.opacity = '1';
+                        }, 150);
+                    }
+                    
+                    thumbnails.forEach((thumb, idx) => {
+                        if (idx === currentSlideIdx) {
+                            thumb.classList.add('active');
+                            thumb.style.borderColor = 'var(--primary-green)';
+                        } else {
+                            thumb.classList.remove('active');
+                            thumb.style.borderColor = '#e2e1dd';
+                        }
+                    });
+                };
+                
+                thumbnails.forEach(thumb => {
+                    thumb.onclick = (e) => {
+                        e.stopPropagation();
+                        const idx = parseInt(thumb.getAttribute('data-index'));
+                        updateSlide(idx);
+                    };
+                });
+                
+                if (prevBtn) {
+                    prevBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        updateSlide(currentSlideIdx - 1);
+                    };
+                }
+                if (nextBtn) {
+                    nextBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        updateSlide(currentSlideIdx + 1);
+                    };
+                }
+            }
+
+            // ฟังก์ชันสร้างรายการแนะนำสินค้าแบรนด์นวดสปา 4 ชิ้นพิเศษแบบคละหมวดหมู่หลากหลายชิ้นไม่ซ้ำกัน
+            function renderRecommendedProducts(excludeId) {
+                const recommendedGrid = document.getElementById('recommended-grid-container');
+                if (!recommendedGrid) return;
+
+                let finalRecommended = [];
+                const cacheKey = `klinklin_recommended_for_${excludeId}`;
+                const cachedIdsStr = sessionStorage.getItem(cacheKey);
+                const isLangSwitching = sessionStorage.getItem('klinklin_language_switching') === 'true';
+
+                // โหลดจากแคชดึงสินค้าแนะนำเซ็ตเดิมขึ้นมาแสดงต่อ เฉพาะในกรณีที่มีการสลับธงภาษาเปลี่ยนภาษาเท่านั้น
+                if (isLangSwitching && cachedIdsStr) {
+                    try {
+                        const cachedIds = JSON.parse(cachedIdsStr);
+                        finalRecommended = cachedIds.map(id => products.find(p => p.id === id)).filter(Boolean);
+                    } catch (e) {
+                        console.error("Error parsing recommended cache", e);
+                    }
+                }
+
+                // ล้างสถานะธงการเปลี่ยนภาษากลับคืนทันทีเพื่อให้การนำทางครั้งต่อ ๆ ไปเป็นการสุ่มสินค้าใหม่เสมอ
+                sessionStorage.removeItem('klinklin_language_switching');
+
+                // หากไม่ใช่การกดปุ่มสลับภาษา (คือเป็นหน้าใหม่สดๆ หรือโหลดหน้าเปิดใหม่) ให้สุ่มชุดแนะนำใหม่ทั้งหมดแบบห้ามซ้ำตัวเดิม
+                if (finalRecommended.length === 0) {
+                    // ค้นหาหมวดหมู่ของสินค้าปัจจุบันเพื่อนำไปคัดแยกออก
+                    const activeProduct = products.find(p => p.id === excludeId);
+                    const activeCategory = activeProduct ? activeProduct.category : '';
+
+                    // คัดสินค้าที่เป็นหมวดหมู่อื่นๆ และไม่ใช่ชิ้นที่เปิดดูอยู่
+                    const otherCategoryProducts = products.filter(p => p.category !== activeCategory && p.id !== excludeId);
+                    
+                    // จัดกลุ่มสินค้าตามหมวดหมู่เพื่อการสุ่มเฉดสีอย่างทั่วถึง
+                    const categoryGroups = {};
+                    otherCategoryProducts.forEach(p => {
+                        if (!categoryGroups[p.category]) {
+                            categoryGroups[p.category] = [];
+                        }
+                        categoryGroups[p.category].push(p);
+                    });
+
+                    // สำหรับแต่ละหมวดหมู่ ให้สุ่มเลือกมาเพียงหมวดละ 1 เฉดสีเพื่อคละความหลากหลาย
+                    const recommendedCandidates = [];
+                    for (const categoryKey in categoryGroups) {
+                        const itemsInGroup = categoryGroups[categoryKey];
+                        const randomProduct = itemsInGroup[Math.floor(Math.random() * itemsInGroup.length)];
+                        recommendedCandidates.push(randomProduct);
+                    }
+
+                    // ทำการสับเปลี่ยนตำแหน่ง (Shuffle) รายการหมวดหมู่อีกรอบเพื่อให้การจัดวางเป็นแบบสุ่มอย่างสมบูรณ์
+                    recommendedCandidates.sort(() => 0.5 - Math.random());
+
+                    // ดึงสินค้าแนะนำ 4 ชิ้นที่ต่างประเภทและคละเฉดสีแบบสุ่ม 100%
+                    finalRecommended = recommendedCandidates.slice(0, 4);
+
+                    // บันทึก ID สินค้าลงใน sessionStorage เพื่อล็อครายการเดิมไม่ให้เปลี่ยนเมื่อกดเปลี่ยนภาษาหรือโหลดซ้ำ
+                    const finalIds = finalRecommended.map(p => p.id);
+                    sessionStorage.setItem(cacheKey, JSON.stringify(finalIds));
+                }
+
+                recommendedGrid.innerHTML = finalRecommended.map(product => {
+                    const isFav = (JSON.parse(localStorage.getItem('klinklin_favorites')) || []).includes(product.id);
+                    const heartIcon = isFav ? 'fas fa-heart' : 'far fa-heart';
+                    const favClass = isFav ? 'fav-btn active' : 'fav-btn';
+                    
+                    const pName = currentLang === 'en' ? product.nameEN : product.name;
+                    const pSizeLabel = currentLang === 'en' ? `Size: ${product.size}` : `ขนาด: ${product.size}`;
+
+                    return `
+                        <div class="product-grid-card">
+                            <div class="card-image-box" style="position: relative;">
+                                <button class="${favClass}" data-id="${product.id}" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.1rem; cursor: pointer; z-index: 10;">
+                                    <i class="${heartIcon}" style="${isFav ? 'color: #ff3366;' : 'color: #888;'}"></i>
+                                </button>
+                                <a href="product-detail.html?id=${product.id}" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
+                                    <img src="${product.image}" alt="${product.nameEN}">
+                                </a>
+                            </div>
+                            <div class="card-info-box" style="padding: 10px 0;">
+                                <h3 class="card-product-name" style="font-size: 1.05rem; font-weight: 500; color: #111; margin-bottom: 5px; font-family: 'Google Sans Flex', sans-serif;">${pName}</h3>
+                                <p class="card-product-en" style="font-size: 0.8rem; color: #888; margin-bottom: 5px;">${product.nameEN}</p>
+                                <p class="card-product-size" style="font-size: 0.8rem; color: #aaa; margin-bottom: 8px;">${pSizeLabel}</p>
+                                <span class="card-product-price" style="font-size: 1.1rem; font-weight: 600; color: var(--primary-green); margin-bottom: 5px; display: block;">${product.price.toLocaleString()} ฿</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                // แนบลิสเซนเนอร์สำหรับการคลิกหัวใจ
+                attachRecommendedGridListeners();
+                initScrollAnimations();
+            }
+
+            function attachRecommendedGridListeners() {
+                const recommendedGrid = document.getElementById('recommended-grid-container');
+                if (!recommendedGrid) return;
+
+                // กดติดตามรายการโปรดในสินค้าแนะนำ
+                recommendedGrid.querySelectorAll('.fav-btn').forEach(btn => {
+                    btn.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        let favorites = JSON.parse(localStorage.getItem('klinklin_favorites')) || [];
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        const icon = btn.querySelector('i');
+
+                        if (favorites.includes(id)) {
+                            favorites = favorites.filter(favId => favId !== id);
+                            btn.classList.remove('active');
+                            icon.className = 'far fa-heart';
+                            icon.style.color = '#888';
+                        } else {
+                            favorites.push(id);
+                            btn.classList.add('active');
+                            icon.className = 'fas fa-heart';
+                            icon.style.color = '#ff3366';
+                        }
+
+                        localStorage.setItem('klinklin_favorites', JSON.stringify(favorites));
+                        updateBadges();
+                    };
+                });
+            }
+
+            // ฟังก์ชันเพิ่มระดับแอนิเมชั่นเลื่อนขึ้นเมื่อผู้ใช้เลื่อนลงมาถึงรายการแนะนำสินค้า
+            function initScrollAnimations() {
+                const cards = document.querySelectorAll('.product-grid-card');
+                
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px 0px -60px 0px', // ทำงานล่วงหน้าก่อนถึงขอบขอบล่าง 60px
+                    threshold: 0.05
+                };
+
+                const observer = new IntersectionObserver((entries, observer) => {
+                    let delay = 0;
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const card = entry.target;
+                            card.style.transitionDelay = `${delay}s`;
+                            card.classList.add('revealed');
+                            observer.unobserve(card);
+                            delay += 0.08; // ยืดเวลาสลับทีละ 80ms ให้แสดงผลไล่ระดับสายตาสวยงาม
+                        }
+                    });
+                }, observerOptions);
+
+                cards.forEach(card => {
+                    observer.observe(card);
+                });
+            }
+
+            // --- Product Reviews Section Logic ---
+            const reviewsMockData = {
+                "default": [
+                    {
+                        author: "คุณ ณิชาภัทร S.",
+                        authorEN: "Nichapat S.",
+                        rating: 5,
+                        date: "12 May 2026",
+                        body: "ไม้นวดน่ารักและดีไซน์ประณีตมากค่ะ วางไว้บนโต๊ะทำงานกลมกลืนเหมือนของตกแต่งชิ้นนึงเลย ผิวไม้เนียนลื่นไม่มีเสี้ยน น้ำหนักพอเหมาะมือ ใช้คลึงบรรเทาความเมื่อยล้าได้ดีมากค่ะ!",
+                        bodyEN: "Very cute and delicate design! It looks like a decorative piece on my office desk. The wood is super smooth without any splinters. Great weight and perfect for relieving fatigue!"
+                    },
+                    {
+                        author: "คุณ ธนพล K.",
+                        authorEN: "Thanapon K.",
+                        rating: 5,
+                        date: "09 May 2026",
+                        body: "คุณภาพวัสดุดีมากครับ ไม้เนื้อดีไม่มีสารเคมี ปลอดภัยต่อผิวแพ้ง่ายแน่นอน แฟนผมชอบมากๆ ครับ จัดส่งรวดเร็วและบริการดีเยี่ยม",
+                        bodyEN: "Excellent material quality. The wood has no chemical smell, completely safe for sensitive skin. My partner loves it! Super fast delivery and great service."
+                    },
+                    {
+                        author: "คุณ พิมลวรรณ A.",
+                        authorEN: "Pimonwan A.",
+                        rating: 4,
+                        date: "04 May 2026",
+                        body: "ใช้งานได้จริง ขนาดกำลังพอดีพกพาสะดวกค่ะ สีสันพาสเทลสวยงามตรงปกเลยค่ะ แนะนำร้านนี้เลยค่ะ",
+                        bodyEN: "Very functional and perfectly portable size. The pastel colors are lovely and look exactly like the pictures. Highly recommend!"
+                    }
+                ],
+                "foot-massage-roller": [
+                    {
+                        author: "คุณ ศิริพร M.",
+                        authorEN: "Siriporn M.",
+                        rating: 5,
+                        date: "11 May 2026",
+                        body: "ไม้นวดเท้าลูกกลิ้งหมุนได้ลื่นไหลดีมากค่ะ ไม่มีเสียงรบกวนเลย ตัวสีฟ้าอ่อนพาสเทลสวยงามสบายตามาก นวดกระตุ้นใต้ฝ่าเท้าตอนนั่งทำงานช่วยแก้ปวดเมื่อยขาได้ดีมากค่ะ!",
+                        bodyEN: "The foot massage roller rolls very smoothly! No squeaking noise at all. The pastel light blue color is very soothing. Rolling my feet while working has drastically improved my leg fatigue!"
+                    },
+                    {
+                        author: "คุณ วรวุฒิ P.",
+                        authorEN: "Worawut P.",
+                        rating: 5,
+                        date: "08 May 2026",
+                        body: "ชอบความประณีตในการขัดไม้ครับ กลมมนไม่บาดฝ่าเท้า สีพาสเทลสวยงามวางในห้องนั่งเล่นแล้วดูโมเดิร์นเข้ากับเฟอร์นิเจอร์อื่นได้ดีมากครับ คุณพ่อคุณแม่ปลื้มสุดๆ",
+                        bodyEN: "I love how carefully polished the wood is. No rough edges to scratch your feet. The pastel shade looks modern and blends in perfectly with our living room furniture. My parents absolutely love it."
+                    }
+                ],
+                "bird-massager": [
+                    {
+                        author: "คุณ ดนัย T.",
+                        authorEN: "Danai T.",
+                        rating: 5,
+                        date: "10 May 2026",
+                        body: "ไม้นวดลูกนกสีเหลืองน่ารักตะมุตะมิมากครับ หยิบจับนวดตรงคอและไหล่ได้กระชับถนัดมือดีมาก ความเนียนของตัวไม้ดีสมราคา ออกแบบมาดีมากครับ",
+                        bodyEN: "The yellow bird massager is incredibly cute! Very comfortable to hold and fits perfectly in the hand when massaging my neck and shoulders. The smooth wood quality justifies the price."
+                    },
+                    {
+                        author: "คุณ ปรียาภรณ์ K.",
+                        authorEN: "Preeyaporn K.",
+                        rating: 5,
+                        date: "05 May 2026",
+                        body: "ดีไซน์นกน่ารักจนต้องพกติดกระเป๋าไปทำงานทุกวันเลยค่ะ เวลาเครียดๆ ปวดขมับก็หยิบมาปาดๆ นวดๆ ผ่อนคลายหัวใจและกล้ามเนื้อได้ดีมาก สีพาสเทลสวยงามมากๆ ค่ะ",
+                        bodyEN: "The bird design is so cute that I keep it in my bag for work every day. When stressed or headachy, rolling it on my temples is instant relief. Beautiful pastel colors!"
+                    }
+                ],
+                "3-leg-massager": [
+                    {
+                        author: "คุณ อรวรรณ C.",
+                        authorEN: "Orawan C.",
+                        rating: 5,
+                        date: "11 May 2026",
+                        body: "ไม้นวดสามขากดจุดส้นเท้าและไหล่ได้ลึกสะใจมากค่ะ! งานไม้ดีจริง ไม่มีเหลี่ยมแหลมที่ทำให้เจ็บผิว ผ่อนคลายดีมากค่ะ แนะนำพกไว้ติดโต๊ะทำงานเลย",
+                        bodyEN: "The 3-leg massager presses deep into my heels and shoulders perfectly! The wood craftsmanship is smooth with no sharp points. So relaxing, highly recommended for desk workers."
+                    }
+                ],
+                "4-wheel-roller": [
+                    {
+                        author: "คุณ สุรชัย B.",
+                        authorEN: "Surachai B.",
+                        rating: 5,
+                        date: "09 May 2026",
+                        body: "ไม้นวดลูกกลิ้ง 4 ลูกกลิ้งคลึงหน้าขาและบ่าหลังได้ลื่นและเบาแรงดีมากครับ ขนาดกระทัดรัด น้ำหนักพอดี จับกระชับมือดีเยี่ยมครับ",
+                        bodyEN: "The 4-wheel roller glides so smoothly over thighs and shoulders with very little effort. Compact size, perfect weight, and excellent ergonomic grip."
+                    }
+                ],
+                "premium-box-set": [
+                    {
+                        author: "คุณ พิชชาภา L.",
+                        authorEN: "Pitchapa L.",
+                        rating: 5,
+                        date: "11 May 2026",
+                        body: "ซื้อเซ็ต Premium Box Set เป็นของขวัญวันแม่ปีนี้ แม่ดีใจและชอบมากค่ะ แพคเกจกล่องดีไซน์เรียบหรูดูพรีเมียมมาก ไม้นวดทุกชิ้นทำออกมาได้เรียบเนียน ปลอดภัย กลิ่นไขผึ้งธรรมชาติหอมอ่อนๆ ประทับใจมากค่ะ!",
+                        bodyEN: "Bought the Premium Box Set for Mother's Day. Mom was absolutely thrilled! The packaging is sleek, elegant and looks incredibly premium. Each massager is beautifully polished and safe. Highly impressed!"
+                    },
+                    {
+                        author: "คุณ สิทธิพงศ์ R.",
+                        authorEN: "Sittipong R.",
+                        rating: 5,
+                        date: "07 May 2026",
+                        body: "งานพรีเมียมคุ้มค่าคุ้มราคามากครับ ห่อของขวัญมาเรียบร้อยสวยงามมาก ไม้นวดด้านในคุณภาพดีทุกชิ้น ขัดเงาแบบซาตินลื่นสัมผัสดีงามมากครับ ซื้อให้ผู้ใหญ่รับรองประทับใจแน่นอน",
+                        bodyEN: "Premium craftsmanship, absolutely worth the price. The gift wrapping is beautiful and neat. Each massager inside is top quality with a satin finish that feels luxurious. Great gift choice!"
+                    }
+                ]
+            };
+
+            function renderProductReviews(pId) {
+                const feedContainer = document.getElementById('reviews-feed-container');
+                if (!feedContainer) return;
+
+                const activeProd = products.find(p => p.id === pId);
+                if (!activeProd) return;
+
+                // Load reviews mock data based on category
+                let key = activeProd.category;
+                if (!reviewsMockData[key]) {
+                    key = "default";
+                }
+
+                const mockReviews = reviewsMockData[key];
+                const userReviews = JSON.parse(localStorage.getItem(`klinklin_user_reviews_${pId}`)) || [];
+
+                // Combine user submitted reviews and mock reviews
+                const allReviews = [...userReviews, ...mockReviews];
+
+                // Render Summary Score Card
+                const totalCount = 142 + allReviews.length;
+                const reviewsCountLabel = document.getElementById('reviews-count-label');
+                if (reviewsCountLabel) {
+                    reviewsCountLabel.textContent = currentLang === 'en' 
+                        ? `Based on ${totalCount} verified reviews` 
+                        : `อิงจากรีวิวจริงทั้งหมด ${totalCount} รายการ`;
+                }
+
+                // Render reviews feed
+                feedContainer.innerHTML = allReviews.map(rev => {
+                    const authorName = currentLang === 'en' && rev.authorEN ? rev.authorEN : rev.author;
+                    const reviewText = currentLang === 'en' && rev.bodyEN ? rev.bodyEN : rev.body;
+                    const starsHTML = Array.from({ length: 5 }, (_, idx) => 
+                        `<i class="${idx < rev.rating ? 'fas' : 'far'} fa-star"></i>`
+                    ).join('');
+
+                    const initial = authorName.replace("คุณ ", "").substring(0, 1);
+                    const verifiedBadgeHTML = `<span class="verified-badge"><i class="fas fa-check-circle"></i> ${currentLang === 'en' ? 'Verified Buyer' : 'ยืนยันการซื้อจริง'}</span>`;
+
+                    return `
+                        <div class="review-card">
+                            <div class="review-card-header">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-avatar">${initial}</div>
+                                    <div class="reviewer-meta">
+                                        <h4>${authorName} ${verifiedBadgeHTML}</h4>
+                                        <div class="reviewer-date">${rev.date}</div>
+                                    </div>
+                                </div>
+                                <div class="review-stars">
+                                    ${starsHTML}
+                                </div>
+                            </div>
+                            <p class="review-body">${reviewText}</p>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            window.renderProductReviews = renderProductReviews; // Expose to language switcher
+
+            function setupReviewsHandler(pId) {
+                const toggleBtn = document.getElementById('write-review-btn-toggle');
+                const formWrapper = document.getElementById('review-form-wrapper');
+                const toggleText = document.getElementById('write-review-btn-text');
+                const newForm = document.getElementById('new-review-form');
+
+                if (!toggleBtn || !formWrapper) return;
+
+                toggleBtn.onclick = () => {
+                    if (formWrapper.style.display === 'none') {
+                        formWrapper.style.display = 'block';
+                        toggleBtn.style.backgroundColor = '#8c9690';
+                        toggleText.textContent = currentLang === 'en' ? 'Cancel' : 'ยกเลิก';
+                    } else {
+                        formWrapper.style.display = 'none';
+                        toggleBtn.style.backgroundColor = '#111111';
+                        toggleText.textContent = currentLang === 'en' ? 'Write a Review' : 'เขียนรีวิวใหม่';
+                    }
+                };
+
+                // Star selector interactivity
+                const stars = document.querySelectorAll('.rating-star');
+                const selectedRatingInput = document.getElementById('selected-rating');
+                stars.forEach(star => {
+                    star.onclick = () => {
+                        const rating = parseInt(star.getAttribute('data-rating'));
+                        selectedRatingInput.value = rating;
+                        stars.forEach((s, idx) => {
+                            if (idx < rating) {
+                                s.classList.add('active');
+                            } else {
+                                s.classList.remove('active');
+                            }
+                        });
+                    };
+                });
+
+                // Submit Form
+                if (newForm) {
+                    newForm.onsubmit = (e) => {
+                        e.preventDefault();
+
+                        const isLoggedIn = localStorage.getItem('klinklin_logged_in') === 'true';
+                        if (!isLoggedIn) {
+                            showLoginPromptModal('rating');
+                            return;
+                        }
+
+                        const rating = parseInt(selectedRatingInput.value);
+                        const author = document.getElementById('review-author').value;
+                        const body = document.getElementById('review-body-text').value;
+
+                        const dateStr = new Date().toLocaleDateString('th-TH', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric'
+                        }).replace("พ.ศ. ", "");
+
+                        const newReview = {
+                            author: author,
+                            authorEN: author,
+                            rating: rating,
+                            date: dateStr,
+                            body: body,
+                            bodyEN: body
+                        };
+
+                        const userReviews = JSON.parse(localStorage.getItem(`klinklin_user_reviews_${pId}`)) || [];
+                        userReviews.unshift(newReview);
+                        localStorage.setItem(`klinklin_user_reviews_${pId}`, JSON.stringify(userReviews));
+
+                        // Clear and close
+                        newForm.reset();
+                        formWrapper.style.display = 'none';
+                        toggleBtn.style.backgroundColor = '#111111';
+                        toggleText.textContent = currentLang === 'en' ? 'Write a Review' : 'เขียนรีวิวใหม่';
+
+                        // Show success
+                        showToast(currentLang === 'en' ? 'Thank you for your valuable review! ⭐' : 'ขอบพระคุณสำหรับคำรีวิวที่มีค่าของคุณครับ! ⭐');
+
+                        // Refresh feed
+                        renderProductReviews(pId);
+                    };
+                }
+            }
+
+            // Initial render
+            renderDetailView(product);
+            renderRecommendedProducts(product.id); // โหลดโซนสินค้าแนะนำแบบไดนามิกโดยไม่แนะนำตัวสินค้าหลักเอง
+            renderProductReviews(product.id);
+            setupReviewsHandler(product.id);
+            updateBadges();
+
+            // ฟังก์ชันสร้างป๊อปอัปสไตล์โมดอลสวยงามกรณีลืมล็อกอินตามขอ
+            function showLoginPromptModal(context = 'favorite') {
+                if (document.getElementById('login-prompt-modal')) return;
+
+                const styleId = 'login-prompt-style';
+                if (!document.getElementById(styleId)) {
+                    const style = document.createElement('style');
+                    style.id = styleId;
+                    style.innerHTML = `
+                        .login-prompt-overlay {
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100vw;
+                            height: 100vh;
+                            background-color: rgba(17, 17, 17, 0.6);
+                            backdrop-filter: blur(8px);
+                            -webkit-backdrop-filter: blur(8px);
+                            z-index: 1000000;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            opacity: 0;
+                            pointer-events: none;
+                            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+                        }
+                        .login-prompt-overlay.active {
+                            opacity: 1;
+                            pointer-events: auto;
+                        }
+                        .login-prompt-card {
+                            background-color: #ffffff;
+                            width: 100%;
+                            max-width: 400px;
+                            padding: 40px;
+                            border-radius: 12px;
+                            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+                            position: relative;
+                            text-align: center;
+                            transform: scale(0.92);
+                            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+                            margin: 20px;
+                        }
+                        .login-prompt-overlay.active .login-prompt-card {
+                            transform: scale(1);
+                        }
+                        .login-prompt-close {
+                            position: absolute;
+                            top: 15px;
+                            right: 15px;
+                            background-color: #f5f4f0;
+                            border: none;
+                            color: #555555;
+                            font-size: 0.9rem;
+                            cursor: pointer;
+                            width: 32px;
+                            height: 32px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            border-radius: 50%;
+                            transition: all 0.25s;
+                        }
+                        .login-prompt-close:hover {
+                            background-color: #ff3366;
+                            color: #ffffff;
+                            transform: rotate(90deg);
+                        }
+                        .login-prompt-icon {
+                            width: 64px;
+                            height: 64px;
+                            font-size: 1.6rem;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            border-radius: 50%;
+                            margin: 0 auto 20px auto;
+                        }
+                        .login-prompt-title {
+                            font-family: 'Google Sans Flex', sans-serif;
+                            font-size: 1.4rem;
+                            font-weight: 600;
+                            color: #111111;
+                            margin-bottom: 12px;
+                        }
+                        .login-prompt-desc {
+                            font-size: 0.92rem;
+                            color: #666666;
+                            line-height: 1.6;
+                            margin-bottom: 30px;
+                        }
+                        .login-prompt-btn {
+                            display: block;
+                            width: 100%;
+                            background-color: var(--primary-green, #7cc954);
+                            color: #ffffff;
+                            text-decoration: none;
+                            font-size: 0.95rem;
+                            font-weight: 600;
+                            padding: 14px 0;
+                            border-radius: 6px;
+                            box-shadow: 0 4px 15px rgba(124, 201, 84, 0.3);
+                            transition: all 0.25s;
+                            border: none;
+                            cursor: pointer;
+                            text-align: center;
+                        }
+                        .login-prompt-btn:hover {
+                            background-color: #111111;
+                            box-shadow: 0 4px 15px rgba(17, 17, 17, 0.25);
+                        }
+                        .login-prompt-cancel {
+                            display: inline-block;
+                            margin-top: 15px;
+                            font-size: 0.88rem;
+                            color: #888888;
+                            text-decoration: none;
+                            cursor: pointer;
+                            transition: color 0.2s;
+                        }
+                        .login-prompt-cancel:hover {
+                            color: #111111;
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+
+                const overlay = document.createElement('div');
+                overlay.id = 'login-prompt-modal';
+                overlay.className = 'login-prompt-overlay';
+                
+                // ตั้งค่ารูปแบบตาม context ของการใช้งาน
+                const isRating = context === 'rating';
+                const isCart = context === 'cart';
+                
+                let iconClass = 'fas fa-heart';
+                let iconBg = '#fff0f3';
+                let iconColor = '#ff3366';
+                let iconShadow = '0 8px 20px rgba(255, 51, 102, 0.15)';
+                
+                if (isRating) {
+                    iconClass = 'fas fa-star';
+                    iconBg = '#fffbeb';
+                    iconColor = '#ffbc0b';
+                    iconShadow = '0 8px 20px rgba(255, 188, 11, 0.15)';
+                } else if (isCart) {
+                    iconClass = 'fas fa-shopping-basket';
+                    iconBg = '#f0fff4';
+                    iconColor = 'var(--primary-green, #7cc954)';
+                    iconShadow = '0 8px 20px rgba(124, 201, 84, 0.15)';
+                }
+
+                const modalTitle = currentLang === 'en' ? 'Please Sign In' : 'กรุณาลงชื่อเข้าใช้งาน';
+                
+                let modalDesc = '';
+                if (isRating) {
+                    modalDesc = currentLang === 'en' ? 'Please sign in to your account before rating this item.' : 'กรุณาลงชื่อเข้าสู่ระบบก่อนทำการให้คะแนนสินค้าชิ้นนี้';
+                } else if (isCart) {
+                    modalDesc = currentLang === 'en' ? 'Please sign in to your account before adding items to your shopping cart.' : 'กรุณาลงชื่อเข้าสู่ระบบก่อนทำการหยิบสินค้าใส่ตะกร้า';
+                } else {
+                    modalDesc = currentLang === 'en' ? 'Please sign in to your account before adding items to your favorites.' : 'กรุณาลงชื่อเข้าสู่ระบบก่อนทำการกดเพิ่มสินค้าในรายการโปรด';
+                }
+                
+                const modalBtn = currentLang === 'en' ? 'Go to Sign-In Page' : 'ไปหน้าลงชื่อเข้าใช้งาน';
+                const modalCancel = currentLang === 'en' ? 'Maybe Later' : 'ไว้ทีหลัง';
+
+                overlay.innerHTML = `
+                    <div class="login-prompt-card">
+                        <div class="login-prompt-icon" style="background-color: ${iconBg}; color: ${iconColor}; box-shadow: ${iconShadow};">
+                            <i class="${iconClass}"></i>
+                        </div>
+                        <h3 class="login-prompt-title">${modalTitle}</h3>
+                        <p class="login-prompt-desc">${modalDesc}</p>
+                        <a href="profile.html" class="login-prompt-btn">${modalBtn}</a>
+                        <span class="login-prompt-cancel" id="login-prompt-cancel-btn">${modalCancel}</span>
+                    </div>
+                `;
+
+                document.body.appendChild(overlay);
+
+                setTimeout(() => {
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }, 10);
+
+                const dismissModal = () => {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                    setTimeout(() => {
+                        overlay.remove();
+                    }, 350);
+                };
+
+                document.getElementById('login-prompt-cancel-btn').onclick = dismissModal;
+                overlay.onclick = (e) => {
+                    if (e.target === overlay) dismissModal();
+                };
+                
+                const handleEsc = (e) => {
+                    if (e.key === 'Escape') {
+                        dismissModal();
+                        document.removeEventListener('keydown', handleEsc);
+                    }
+                };
+                document.addEventListener('keydown', handleEsc);
+            }
+        });
+    </script>
+
+    <!-- Back to Top Button Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (!document.getElementById('back-to-top')) {
+                const backToTopBtn = document.createElement('button');
+                backToTopBtn.id = 'back-to-top';
+                backToTopBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
+                document.body.appendChild(backToTopBtn);
+
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 400) {
+                        backToTopBtn.classList.add('visible');
+                    } else {
+                        backToTopBtn.classList.remove('visible');
+                    }
+                });
+
+                backToTopBtn.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlinKlin - About Us</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./:assets/logo klinklin.png">
+    <!-- เชื่อมต่อ CSS -->
+    <link rel="stylesheet" href="./:assets/style.css">
+    <!-- Font Awesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Playwrite+IE:wght@100..400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Entrance Animations for the Centered About Us Background Illustration */
+        /* Entrance Animations for the Three Centered About Us Hands matched to Photo */
+        .about-hand-img {
+            position: absolute;
+            z-index: 1;
+            height: auto;
+            opacity: 0;
+            transform: translateY(180px);
+            animation: bounceUp 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.1s;
+            /* ลอยขึ้นพร้อมกับหัวข้อคำว่า เกี่ยวกับเรา */
+            pointer-events: none;
+            transition: all 0.4s ease;
+        }
+
+        .hand-left {
+            left: -1%;
+            bottom: -100px;
+            width: 26%;
+            max-width: 500px;
+        }
+
+        .hand-middle {
+            left: 37%;
+            bottom: -60px;
+            width: 26%;
+            max-width: 400px;
+        }
+
+        .hand-right {
+            right: -2.5%;
+            bottom: 40px;
+            width: 26%;
+            max-width: 450px;
+        }
+
+        /* Responsive Overrides */
+        @media (max-width: 1024px) {
+            .hand-left {
+                left: 0;
+                bottom: -15px;
+                width: 28%;
+            }
+
+            .hand-middle {
+                left: 36%;
+                bottom: -30px;
+                width: 28%;
+            }
+
+            .hand-right {
+                right: 0;
+                bottom: 30px;
+                width: 28%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hand-left {
+                left: 0;
+                bottom: -10px;
+                width: 30%;
+            }
+
+            .hand-middle {
+                left: 35%;
+                bottom: -20px;
+                width: 30%;
+            }
+
+            .hand-right {
+                right: 0;
+                bottom: 20px;
+                width: 30%;
+            }
+        }
+
+        /* About Us Content Layouts */
+        .about-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 150px 20px;
+            font-family: 'Google Sans Flex', sans-serif;
+        }
+
+        .about-card {
+            background-color: #ffffff;
+            border: 1px solid #f0edf0;
+            border-radius: 16px;
+            padding: 50px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.03);
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .about-card h2 {
+            font-family: 'Google Sans Flex', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 300; /* ตัวบางพรีเมียม */
+            color: #111111;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+        }
+
+        .about-card p {
+            font-size: 1.15rem;
+            color: #555555;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-item {
+            background-color: #ffffff;
+            border: 1px solid #f0edf0;
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.01);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .feature-item:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .feature-item:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .feature-item:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05);
+            border-color: rgba(83, 161, 229, 0.2);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #fcfbf7;
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 25px auto;
+            border: 1px solid #f0edf0;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover .feature-icon {
+            background-color: var(--primary-green);
+            color: white;
+            border-color: var(--primary-green);
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111111;
+            margin-bottom: 15px;
+        }
+
+        .feature-desc {
+            font-size: 0.95rem;
+            color: #666666;
+            line-height: 1.6;
+        }
+
+        /* Keyframes */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Overrides */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-card {
+                padding: 35px 25px;
+            }
+
+            .about-card h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Custom Horizontal Journal Styles */
+        .journal-container {
+            max-width: 1100px;
+            margin: 40px auto 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        .journal-row {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "image title"
+                "image body"
+                "image button";
+            background-color: #ededed;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Centered vertical grid layout on expansion (Matches user's mock sketch) */
+        .journal-row.expanded-layout {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto auto auto;
+            grid-template-areas:
+                "title"
+                "image"
+                "body"
+                "button";
+        }
+
+        .journal-row:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .journal-image {
+            grid-area: image;
+            width: 350px;
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .journal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .journal-row:hover .journal-image img {
+            transform: scale(1.06);
+        }
+
+        /* Image styling on expansion (Matches centered square picture) */
+        .journal-row.expanded-layout .journal-image {
+            width: 350px;
+            height: 350px;
+            justify-self: center;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+
+        .journal-row-title {
+            grid-area: title;
+            font-family: 'Google Sans Flex', 'Noto Sans Thai', sans-serif;
+            font-size: 1.6rem;
+            color: #111111;
+            font-weight: 700;
+            border-left: 4px solid var(--primary-green);
+            padding: 40px 40px 15px 40px;
+            margin: 0;
+            line-height: 1.3;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Centered title on expansion */
+        .journal-row.expanded-layout .journal-row-title {
+            text-align: center;
+            border-left: none;
+            padding: 45px 40px 20px 40px;
+            font-size: 1.8rem;
+        }
+
+        .journal-row-body {
+            grid-area: body;
+            font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+            position: relative;
+            max-height: 110px; /* Clamped height when collapsed */
+            overflow: hidden;
+            transition: max-height 0.8s cubic-bezier(0.16, 1, 0.3, 1), padding 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: justify;
+            text-justify: inter-word;
+            padding: 0 40px;
+        }
+
+        .journal-row-body.expanded {
+            max-height: 1200px; /* Fully expanded height */
+        }
+
+        /* Generous side padding for expanded body */
+        .journal-row.expanded-layout .journal-row-body {
+            padding: 0 60px;
+        }
+
+        /* Beautiful gradient fade indicating collapsed state */
+        .journal-row-body::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(to top, #ededed 20%, rgba(237, 237, 237, 0));
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            pointer-events: none;
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .journal-row-body.expanded::after {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .journal-row-body p {
+            margin-bottom: 15px;
+        }
+
+        .journal-row-body p:first-of-type {
+            font-size: 1.02rem;
+            font-weight: 500;
+            color: #111111;
+            line-height: 1.7;
+        }
+
+        .journal-row-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .journal-row-body ul {
+            margin: 10px 0 15px 20px;
+            padding: 0;
+        }
+
+        .journal-row-body li {
+            margin-bottom: 8px;
+            position: relative;
+            list-style-type: none;
+            padding-left: 15px;
+            line-height: 1.7;
+        }
+
+        .journal-row-body li::before {
+            content: "•";
+            color: var(--primary-green);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+
+
+        /* Cinematic Staggered Entrance Animations for Expanded Layout */
+        @keyframes premiumFadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+                filter: blur(4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes premiumFadeIn {
+            from {
+                opacity: 0.5;
+                filter: blur(2px);
+            }
+            to {
+                opacity: 1;
+                filter: blur(0);
+            }
+        }
+
+        /* Apply staggered entrance on expansion */
+        .journal-row.expanded-layout .journal-row-title,
+        .journal-row.expanded-layout .journal-image,
+        .journal-row.expanded-layout .journal-row-body,
+        .journal-row.expanded-layout .read-more-journal-btn {
+            animation: premiumFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .journal-row.expanded-layout .journal-row-title { animation-delay: 0.04s; }
+        .journal-row.expanded-layout .journal-image { animation-delay: 0.12s; }
+        .journal-row.expanded-layout .journal-row-body { animation-delay: 0.20s; }
+        .journal-row.expanded-layout .read-more-journal-btn { animation-delay: 0.28s; }
+
+        /* Soft fade entry when returning back to collapsed row */
+        .journal-row:not(.expanded-layout) .journal-row-title,
+        .journal-row:not(.expanded-layout) .journal-image,
+        .journal-row:not(.expanded-layout) .journal-row-body,
+        .journal-row:not(.expanded-layout) .read-more-journal-btn {
+            animation: premiumFadeIn 0.6s ease both;
+        }
+
+        /* Responsive Overrides (Collapses into vertical single column) */
+        @media (max-width: 900px) {
+            .journal-row, .journal-row.expanded-layout {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto auto;
+                grid-template-areas:
+                    "title"
+                    "image"
+                    "body"
+                    "button";
+            }
+
+            .journal-image, .journal-row.expanded-layout .journal-image {
+                width: 100% !important;
+                height: 250px !important;
+                border-radius: 0;
+                margin-bottom: 20px;
+            }
+
+            .journal-row-title, .journal-row.expanded-layout .journal-row-title {
+                text-align: center !important;
+                border-left: none !important;
+                padding: 30px 20px 15px 20px !important;
+                font-size: 1.4rem !important;
+            }
+
+            .journal-row-body, .journal-row.expanded-layout .journal-row-body {
+                padding: 0 20px !important;
+            }
+
+            .read-more-journal-btn, .journal-row.expanded-layout .read-more-journal-btn {
+                margin: 10px 20px 30px 20px !important;
+                justify-self: center !important;
+            }
+        }
+
+        /* Scroll Reveal Animation Styles */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-on-scroll.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.15s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.3s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.45s;
+        }
+    </style>
+</head>
+
+<body class="about-page">
+
+    <!-- Top Background Wrapper (เหมือนหน้าสินค้า/หน้าแรก) -->
+    <div class="top-bg-wrapper">
+
+        <!-- Header (แถบเมนูด้านบน) -->
+        <header class="header">
+            <div class="header-container">
+                <!-- 1. โลโก้ (ซ้ายสุด) -->
+                <div class="logo">
+                    <a href="index.html"><img src="./:assets/logo klinklin.png" alt="Klin Klin Logo"
+                            class="logo-img"></a>
+                </div>
+
+                <!-- 2. เมนูนำทาง (ตรงกลาง) -->
+                <nav class="nav-links">
+                    <a href="index.html">HOME</a>
+                    <a href="products.html">PRODUCTS</a>
+                    <a href="about.html" class="active" style="color: var(--primary-green); font-weight: 600;">ABOUT</a>
+                    <a href="contact.html">CONTACT</a>
+                    <a href="tracking.html">TRACKING</a>
+                </nav>
+
+                <!-- 3. ส่วนตัวช่วย (ขวาสุด) -->
+                <div class="nav-utils">
+                    <div class="search-box">
+
+                        <input type="text" placeholder="ค้นหา..." class="search-input" id="global-search-input" onkeydown="if(event.key === 'Enter') { window.location.href='products.html?search='+encodeURIComponent(this.value); }">
+
+                        <a href="#" class="search-icon" onclick="const val = document.getElementById('global-search-input').value; window.location.href='products.html?search='+encodeURIComponent(val); return false;"><i class="fas fa-search"></i></a>
+
+                    </div>
+                    <a href="favorites.html" class="favorites-link" style="position: relative; margin-right: 5px;"><i
+                            class="far fa-heart"></i><span class="fav-badge" id="fav-badge"
+                            style="position: absolute; top: -8px; right: -8px; background-color: #ff3366; color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+                    <a href="profile.html" class="profile-link"><i class="fas fa-user-circle"></i></a>
+                    <a href="cart.html" class="cart-link" style="position: relative;"><i
+                            class="fas fa-shopping-cart"></i><span class="cart-badge" id="cart-badge"
+                            style="position: absolute; top: -8px; right: -8px; background-color: var(--primary-green); color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Text -->
+        <div class="hero-text-container"
+            style="margin: 0; display: flex; justify-content: center; align-items: center;">
+            <h1 class="hero-main-text" id="about-banner-title" style="margin: 0;">เกี่ยวกับเรา</h1>
+        </div>
+
+        <!-- Decorative Background Element (Three Hands matched to Attached Photo) -->
+        <img src="./:assets/bg-about/8.png" alt="About Us Left Hand (Green)" class="about-hand-img hand-left">
+        <img src="./:assets/bg-about/7.png" alt="About Us Middle Hand (Yellow)" class="about-hand-img hand-middle">
+        <img src="./:assets/bg-about/6.png" alt="About Us Right Hand (Red)" class="about-hand-img hand-right">
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content" style="background-color: #fcfbf7; min-height: 50vh;">
+        <div class="about-section">
+
+            <!-- Core Story Card -->
+            <div class="about-card reveal-on-scroll">
+                <h2 id="about-story-title">เรื่องราวของ Klin Klin</h2>
+                <p id="about-story-desc">
+                    เราเชื่อว่า ความผ่อนคลายที่แท้จริงไม่ใช่เรื่องไกลตัว แต่อยู่ที่การสัมผัสและการดูแลตัวเองในทุกๆ วัน
+                    ผลิตภัณฑ์ของเราคัดสรรด้วยความใส่ใจจากวัสดุไม้ธรรมชาติคุณภาพสูง มีความแข็งแรงทนทาน
+                    เพื่อมอบช่วงเวลาพักผ่อนที่ดีที่สุดให้กับคุณและคนที่คุณรักในทุกชั่วโมงของการใช้ชีวิต
+                </p>
+            </div>
+
+            <!-- Core Philosophy Pillars -->
+            <div class="features-grid">
+                <!-- Pillar 1 -->
+                <div class="feature-item reveal-on-scroll reveal-delay-1">
+                    <div class="feature-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div class="feature-title" id="pillar1-title">ธรรมชาติ 100%</div>
+                    <div class="feature-desc" id="pillar1-desc">ผลิตจากไม้ธรรมชาติแท้ แข็งแรงทนทาน
+                        ผิวสัมผัสเรียบเนียนเป็นมิตรต่อร่างกายและสิ่งแวดล้อม</div>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="feature-item reveal-on-scroll reveal-delay-2">
+                    <div class="feature-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <div class="feature-title" id="pillar2-title">การออกแบบตามสรีระ</div>
+                    <div class="feature-desc" id="pillar2-desc">ทุกชิ้นส่วนได้รับการออกแบบตามศาสตร์การนวดกดจุด
+                        เพื่อบรรเทาอาการเมื่อยล้าได้อย่างตรงจุด</div>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="feature-item reveal-on-scroll reveal-delay-3">
+                    <div class="feature-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <div class="feature-title" id="pillar3-title">ผ่อนคลายอย่างสมบูรณ์</div>
+                    <div class="feature-desc" id="pillar3-desc">ช่วยกระตุ้นการไหลเวียนโลหิต คืนความสดชื่นกระปรี้กระเปร่า
+                        และผ่อนคลายความเหนื่อยล้าสะสม</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- NEWS & ARTICLES SECTION (KLINKLIN JOURNAL) -->
+        <section class="news-section about-journal-section" id="klinklin-journal">
+            <div class="news-section-header reveal-on-scroll">
+                <h2 class="section-title" id="news-section-title">KLINKLIN JOURNAL</h2>
+                <p class="news-section-tagline">เรื่องราว ความรู้ และแรงบันดาลใจจาก klin-klin.</p>
+            </div>
+
+            <div class="about-journal-list">
+
+                <!-- Journal Article 1 -->
+                <article class="about-journal-card reveal-on-scroll" id="journal-card-1">
+                    <div class="about-journal-image">
+                        <img src="./:assets/pic-JOURNAL/Water-Based Wood Colors.png" alt="Safety and Colors">
+                        <span class="about-journal-category">SAFETY &amp; CRAFT</span>
+                    </div>
+                    <div class="about-journal-content">
+                        <span class="news-card-date">10 MAY 2026</span>
+                        <h3 class="about-journal-title" id="journal-title-1">ปลอดภัยไหม? เบื้องหลังสีสันย้อมไม้สูตรน้ำที่เป็นมิตรต่อผิว</h3>
+                        <div class="about-journal-body" id="journal-body-1">
+                            <p><strong>"ปลอดภัยไหม?"</strong> หรือ <strong>"ใช้ไปนานๆ จะมีสารเคมีติดมือหรือเปล่า?"</strong> วันนี้เราจะพาไปดูเบื้องหลังการเลือกสีและเทคนิคการย้อมไม้ที่เราใส่ใจเป็นพิเศษ เพื่อให้คุณใช้งานได้อย่างสบายใจที่สุด</p>
+                            <p>หัวใจสำคัญของ <strong>klin-klin.</strong> คือความปลอดภัย เราเลือกใช้สีประเภท <strong>Water-based (สูตรน้ำ)</strong> ที่ได้รับการรับรองมาตรฐานความปลอดภัย (เช่น EN71-3 ที่ใช้กับของเล่นเด็ก)</p>
+                            <ul>
+                               <li><strong>No Lead:</strong> ไม่มีส่วนผสมของตะกั่ว</li>
+                               <li><strong>No Mercury:</strong> ปลอดสารปรอท</li>
+                               <li><strong>Odorless:</strong> ไม่มีกลิ่นฉุนกวนใจขณะนวด</li>
+                            </ul>
+                            <p>เราไม่ใช้วิธีการพ่นสีหนาๆ เพื่อปิดทับผิวไม้ แต่ใช้เทคนิคการ <strong>Staining (การย้อมสีลงในเนื้อไม้)</strong> เพื่อให้เนื้อไม้ยังสามารถ "หายใจ" ได้ และยังคงสัมผัสที่อบอุ่นของงานไม้อยู่ สีจะซึมลึกเข้าไป ไม่หลุดลอกเป็นแผ่นๆ เมื่อใช้งานไปนานๆ</p>
+                            <p>ขั้นตอนสุดท้ายที่ทำให้เครื่องนวดของเรา <em>Simply comfy.</em> คือการเคลือบผิวด้วย <strong>Beeswax (ไขผึ้งธรรมชาติ)</strong> หรือ Mineral Oil เกรดที่สัมผัสอาหารได้ เพื่อทำให้ผิวไม้ลื่นละมุน (Satin Finish) ไม่บาดผิว และป้องกันความชื้นสะสมภายในเนื้อไม้</p>
+                            <p>เพราะเราเชื่อว่า "นวัตกรรมที่ดี ต้องมาพร้อมกับความปลอดภัยสูงสุด" ทุกชิ้นงานไม้ของเราจึงผ่านการคัดสรรวัสดุที่ไม่ก่อให้เกิดการระคายเคือง แม้ผู้ที่มีผิวแพ้ง่าย</p>
+                        </div>
+                        <button class="read-more-journal-btn" id="journal-btn-1">อ่านต่อ <i class="fas fa-chevron-down"></i></button>
+                    </div>
+                </article>
+
+                <!-- Journal Article 2 -->
+                <article class="about-journal-card reveal-on-scroll" id="journal-card-2">
+                    <div class="about-journal-image">
+                        <img src="./:assets/pic-JOURNAL/Pushing Soft Power and Supporting Local Artisans.png" alt="Soft Power">
+                        <span class="about-journal-category">CULTURE &amp; DESIGN</span>
+                    </div>
+                    <div class="about-journal-content">
+                        <span class="news-card-date">08 MAY 2026</span>
+                        <h3 class="about-journal-title" id="journal-title-2">จากสรีระสู่ดีไซน์น่ารัก: พลิกโฉมไม้นวดไทยโบราณสู่ Must-have Item</h3>
+                        <div class="about-journal-body" id="journal-body-2">
+                            <p>คำว่า "นวดไทย" คือมรดกโลกที่ใครๆ ก็รู้จัก แต่ <strong>klin-klin.</strong> อยากนำเสนอในมุมที่ "เข้าถึงง่าย" และ "น่ารัก" เพื่อเปลี่ยนภาพจำของเครื่องไม้นวดไทยแบบโบราณให้กลายเป็น Must-have Item บนโต๊ะทำงานของคนรุ่นใหม่</p>
+                            <p>เราขับเคลื่อนความเป็นไทยด้วยการผสมผสานศาสตร์ดั้งเดิมเข้ากับดีไซน์ร่วมสมัยและการสื่อสารระดับสากล:</p>
+                            <ul>
+                               <li><strong>Rethink Tradition:</strong> เปลี่ยนไม้นวดทรงเดิมๆ ให้เป็น Must-have Item ที่กล้าใช้นอกบ้านและวางบนโต๊ะทำงาน</li>
+                               <li><strong>Digital Communication:</strong> ในฐานะนิสิตเอกนวัตกรรมคอมพิวเตอร์ฯ เราใช้เทคโนโลยีบอกเล่าเรื่องราว "ภูมิปัญญาไทย" ให้สนุกและเป็นสากล</li>
+                               <li><strong>Global Standard:</strong> ดีไซน์ร่วมสมัยผสานฝีมือไทยแท้ สร้างสรรค์ให้เป็น Lifestyle Brand ที่ครองใจชาวต่างชาติ</li>
+                            </ul>
+                        </div>
+                        <button class="read-more-journal-btn" id="journal-btn-2">อ่านต่อ <i class="fas fa-chevron-down"></i></button>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col-brand">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="footer-logo-img">
+                </a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-service">บริการลูกค้า</h4>
+                <ul class="footer-col-list">
+                    <li><a href="contact.html#faq-section" id="footer-link-faq">คำถามที่พบบ่อย</a></li>
+                    <li><a href="404.html" id="footer-link-404">หน้า 404</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-news">รับข่าวสารจากเรา</h4>
+                <ul class="footer-col-list">
+                    <li><a href="privacy-policy.html" id="footer-link-privacy">ความเป็นส่วนตัวและความปลอดภัย</a></li>
+                    <li><a href="terms.html" id="footer-link-terms">ข้อกำหนดและประกาศจากเว็บไซต์</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-contact">ติดต่อเรา</h4>
+                <div class="footer-social-icons">
+                    <a href="#" class="social-icon-btn"><i class="fab fa-line"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fas fa-phone-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./:js/script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- ระบบควบคุมและเปลี่ยนภาษา ( BILINGUAL SWITCHER ) ---
+            const currentLang = localStorage.getItem('klinklin_lang') || 'th';
+
+            function initLanguageSwitcher() {
+                const navUtils = document.querySelector('.nav-utils');
+                if (navUtils && !document.getElementById('header-lang-switch')) {
+                    const switchDiv = document.createElement('div');
+                    switchDiv.id = 'header-lang-switch';
+                    switchDiv.style.cssText = 'display: flex; gap: 5px; font-size: 0.82rem; font-weight: 700; color: #111; cursor: pointer; align-items: center; margin-right: 15px; user-select: none; font-family: "Google Sans Flex", sans-serif;';
+                    switchDiv.innerHTML = `
+                        <span id="lang-th" style="color: ${currentLang === 'th' ? 'var(--primary-green)' : '#888'};">TH</span>
+                        <span style="color: #e0dee0; font-weight: 400;">|</span>
+                        <span id="lang-en" style="color: ${currentLang === 'en' ? 'var(--primary-green)' : '#888'};">EN</span>
+                    `;
+
+                    const favLink = navUtils.querySelector('.favorites-link');
+                    if (favLink) {
+                        navUtils.insertBefore(switchDiv, favLink);
+                    } else {
+                        navUtils.appendChild(switchDiv);
+                    }
+
+                    document.getElementById('lang-th').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (localStorage.getItem('klinklin_lang') !== 'th') {
+                            localStorage.setItem('klinklin_lang', 'th');
+                            window.location.reload();
+                        }
+                    });
+
+                    document.getElementById('lang-en').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (localStorage.getItem('klinklin_lang') !== 'en') {
+                            localStorage.setItem('klinklin_lang', 'en');
+                            window.location.reload();
+                        }
+                    });
+                }
+            }
+
+            function localizeAboutPage() {
+                // แปลเมนูนำทาง
+                const navLinks = document.querySelectorAll('.nav-links a');
+                if (navLinks.length >= 5) {
+                    if (currentLang === 'en') {
+                        navLinks[0].textContent = 'HOME';
+                        navLinks[1].textContent = 'PRODUCTS';
+                        navLinks[2].textContent = 'ABOUT';
+                        navLinks[3].textContent = 'CONTACT';
+                        navLinks[4].textContent = 'TRACKING';
+                    } else {
+                        navLinks[0].textContent = 'หน้าแรก';
+                        navLinks[1].textContent = 'สินค้า';
+                        navLinks[2].textContent = 'เกี่ยวกับเรา';
+                        navLinks[3].textContent = 'ติดต่อเรา';
+                        navLinks[4].textContent = 'เช็คสถานะพัสดุ';
+                    }
+                } else if (navLinks.length >= 4) {
+                    if (currentLang === 'en') {
+                        navLinks[0].textContent = 'HOME';
+                        navLinks[1].textContent = 'PRODUCTS';
+                        navLinks[2].textContent = 'ABOUT';
+                        navLinks[3].textContent = 'CONTACT';
+                    } else {
+                        navLinks[0].textContent = 'หน้าแรก';
+                        navLinks[1].textContent = 'สินค้า';
+                        navLinks[2].textContent = 'เกี่ยวกับเรา';
+                        navLinks[3].textContent = 'ติดต่อเรา';
+                    }
+                }
+
+                // แปลส่วนท้าย (Footer)
+                const colService = document.getElementById('footer-col-service');
+                const linkFaq = document.getElementById('footer-link-faq');
+                const link404 = document.getElementById('footer-link-404');
+                const colNews = document.getElementById('footer-col-news');
+                const linkPrivacy = document.getElementById('footer-link-privacy');
+                const linkTerms = document.getElementById('footer-link-terms');
+                const colContact = document.getElementById('footer-col-contact');
+
+                if (currentLang === 'en') {
+                    if (colService) colService.textContent = 'Customer Service';
+                    if (linkFaq) linkFaq.textContent = 'FAQs';
+                    if (link404) link404.textContent = '404 Page';
+                    if (colNews) colNews.textContent = 'Subscribe';
+                    if (linkPrivacy) linkPrivacy.textContent = 'Privacy & Security';
+                    if (linkTerms) linkTerms.textContent = 'Terms & Announcements';
+                    if (colContact) colContact.textContent = 'Contact Us';
+                } else {
+                    if (colService) colService.textContent = 'บริการลูกค้า';
+                    if (linkFaq) linkFaq.textContent = 'คำถามที่พบบ่อย';
+                    if (link404) link404.textContent = 'หน้า 404';
+                    if (colNews) colNews.textContent = 'รับข่าวสารจากเรา';
+                    if (linkPrivacy) linkPrivacy.textContent = 'ความเป็นส่วนตัวและความปลอดภัย';
+                    if (linkTerms) linkTerms.textContent = 'ข้อกำหนดและประกาศจากเว็บไซต์';
+                    if (colContact) colContact.textContent = 'ติดต่อเรา';
+                }
+
+                // Placeholder ช่องค้นหา
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.placeholder = currentLang === 'en' ? 'Search...' : 'ค้นหา...';
+                }
+
+                // แปลเนื้อหาหน้า About
+                const bannerTitle = document.getElementById('about-banner-title');
+                const storyTitle = document.getElementById('about-story-title');
+                const storyDesc = document.getElementById('about-story-desc');
+                const p1Title = document.getElementById('pillar1-title');
+                const p1Desc = document.getElementById('pillar1-desc');
+                const p2Title = document.getElementById('pillar2-title');
+                const p2Desc = document.getElementById('pillar2-desc');
+                const p3Title = document.getElementById('pillar3-title');
+                const p3Desc = document.getElementById('pillar3-desc');
+
+                // News Section Localization Elements
+                const newsSectionTitle = document.getElementById('news-section-title');
+                const journalTitle1 = document.getElementById('journal-title-1');
+                const journalBody1 = document.getElementById('journal-body-1');
+                const journalTitle2 = document.getElementById('journal-title-2');
+                const journalBody2 = document.getElementById('journal-body-2');
+                
+                if (currentLang === 'en') {
+                    if (bannerTitle) bannerTitle.textContent = 'ABOUT US';
+                    if (storyTitle) storyTitle.textContent = 'The Story of Klin Klin';
+                    if (storyDesc) storyDesc.textContent = 'We believe that true relaxation is never far away; it lies in the touch and care we give ourselves every day. Meticulously selected from high-quality natural wood materials, our massagers deliver the ultimate moments of relaxation for you and your loved ones in every single hour of life.';
+                    if (p1Title) p1Title.textContent = '100% Natural';
+                    if (p1Desc) p1Desc.textContent = 'Crafted from authentic, solid natural wood with ultra-smooth textures that are body and eco-friendly.';
+                    if (p2Title) p2Title.textContent = 'Ergonomic Design';
+                    if (p2Desc) p2Desc.textContent = 'Every product is designed based on traditional acupressure maps to alleviate muscle tightness accurately.';
+                    if (p3Title) p3Title.textContent = 'Deep Relaxation';
+                    if (p3Desc) p3Desc.textContent = 'Boosts blood circulation, restores physical vitality, and dissolves mental stress built up throughout your day.';
+
+                    // News (EN)
+                    if (newsSectionTitle) newsSectionTitle.textContent = 'KlinKlin Journal';
+                    if (journalTitle1) journalTitle1.textContent = 'Is It Safe? Behind Skin-Friendly Water-Based Wood Colors';
+                    if (journalBody1) {
+                        journalBody1.innerHTML = `
+                            <p><strong>"Is it safe?"</strong> or <strong>"Will there be chemicals on my hands after long use?"</strong> Today, we will take you behind the scenes of our color choices and wood dyeing techniques that we care for especially, so you can use them with absolute peace of mind.</p>
+                            <p>The heart of <strong>klin-klin.</strong> is safety. We select <strong>Water-based colors</strong> that are certified to safety standards (such as EN71-3 used for children's toys).</p>
+                            <ul>
+                               <li><strong>No Lead:</strong> Lead-free</li>
+                               <li><strong>No Mercury:</strong> Mercury-free</li>
+                               <li><strong>Odorless:</strong> No pungent smell during massage</li>
+                            </ul>
+                            <p>We do not use thick paint spraying to cover the wood surface but instead use the <strong>Staining technique (dyeing color into the wood grains)</strong>. Why? To let the wood "breathe" and retain the warm touch of wood. The colors seep deep inside, not peeling or flaking when used for a long time.</p>
+                            <p>The final step that makes our massager <em>Simply comfy.</em> is surface finishing. We select <strong>Beeswax (natural beeswax)</strong> or food-grade Mineral Oil to make the wood surface silky-smooth (Satin Finish), avoiding scratching the skin and preventing moisture build-up inside the wood.</p>
+                            <p>Because we believe that "good innovation must come with the highest safety," every piece of our woodwork undergoes material selection that does not cause irritation, even for sensitive skin.</p>
+                        `;
+                    }
+                    if (journalTitle2) journalTitle2.textContent = 'From Anatomy to Cute Design: Transforming Traditional Thai Massagers';
+                    if (journalBody2) {
+                        journalBody2.innerHTML = `
+                            <p>The words "Thai Massage" represent a world heritage known to everyone. But <strong>klin-klin.</strong> wants to present it in an "approachable" and "lovely" light, transforming traditional wooden tools into modern must-have items for the younger generation.</p>
+                            <p>We push Thai Soft Power by blending traditional science with friendly contemporary designs:</p>
+                            <ul>
+                               <li><strong>Rethink Tradition:</strong> We transform traditional, old-fashioned Thai massagers into Must-have Items that the younger generation is proud to display on their office desks or pack for travel.</li>
+                               <li><strong>Digital Communication:</strong> As computer innovation students, we utilize communication technology to share stories of "Thai Wisdom" through engaging and global-minded content.</li>
+                               <li><strong>Global Standard:</strong> When modern design meets Thai craftsmanship, our product is not just a souvenir, but a Lifestyle Brand that international audiences will fall in love with.</li>
+                            </ul>
+                        `;
+                    }
+                } else {
+                    if (bannerTitle) bannerTitle.textContent = 'เกี่ยวกับเรา';
+                    if (storyTitle) storyTitle.textContent = 'เรื่องราวของ Klin Klin';
+                    if (storyDesc) storyDesc.textContent = 'เราเชื่อว่า ความผ่อนคลายที่แท้จริงไม่ใช่เรื่องไกลตัว แต่อยู่ที่การสัมผัสและการดูแลตัวเองในทุกๆ วัน ผลิตภัณฑ์ของเราคัดสรรด้วยความใส่ใจจากวัสดุไม้ธรรมชาติคุณภาพสูง มีความแข็งแรงทนทาน เพื่อมอบช่วงเวลาพักผ่อนที่ดีที่สุดให้กับคุณและคนที่คุณรักในทุกชั่วโมงของการใช้ชีวิต';
+                    if (p1Title) p1Title.textContent = 'ธรรมชาติ 100%';
+                    if (p1Desc) p1Desc.textContent = 'ผลิตจากไม้ธรรมชาติแท้ แข็งแรงทนทาน ผิวสัมผัสเรียบเนียนเป็นมิตรต่อร่างกายและสิ่งแวดล้อม';
+                    if (p2Title) p2Title.textContent = 'การออกแบบตามสรีระ';
+                    if (p2Desc) p2Desc.textContent = 'ทุกชิ้นส่วนได้รับการออกแบบตามศาสตร์การนวดกดจุด เพื่อบรรเทาอาการเมื่อยล้าได้อย่างตรงจุด';
+                    if (p3Title) p3Title.textContent = 'ผ่อนคลายอย่างสมบูรณ์';
+                    if (p3Desc) p3Desc.textContent = 'ช่วยกระตุ้นการไหลเวียนโลหิต คืนความสดชื่นกระปรี้กระเปร่า และผ่อนคลายความเหนื่อยล้าสะสม';
+
+                    // News (TH)
+                    if (newsSectionTitle) newsSectionTitle.textContent = 'KLINKLIN JOURNAL';
+                    if (journalTitle1) journalTitle1.textContent = 'ปลอดภัยไหม? เบื้องหลังสีสันย้อมไม้สูตรน้ำที่เป็นมิตรต่อผิว';
+                    if (journalBody1) {
+                        journalBody1.innerHTML = `
+                            <p><strong>"ปลอดภัยไหม?"</strong> หรือ <strong>"ใช้ไปนานๆ จะมีสารเคมีติดมือหรือเปล่า?"</strong> วันนี้เราจะพาไปดูเบื้องหลังการเลือกสีและเทคนิคการย้อมไม้ที่เราใส่ใจเป็นพิเศษ เพื่อให้คุณใช้งานได้อย่างสบายใจที่สุด</p>
+                            <p>หัวใจสำคัญของ <strong>klin-klin.</strong> คือความปลอดภัย เราเลือกใช้สีประเภท <strong>Water-based (สูตรน้ำ)</strong> ที่ได้รับการรับรองมาตรฐานความปลอดภัย (เช่น EN71-3 ที่ใช้กับของเล่นเด็ก)</p>
+                            <ul>
+                               <li><strong>No Lead:</strong> ไม่มีส่วนผสมของตะกั่ว</li>
+                               <li><strong>No Mercury:</strong> ปลอดสารปรอท</li>
+                               <li><strong>Odorless:</strong> ไม่มีกลิ่นฉุนกวนใจขณะนวด</li>
+                            </ul>
+                            <p>เราไม่ใช้วิธีการพ่นสีหนาๆ เพื่อปิดทับผิวไม้ แต่ใช้เทคนิคการ <strong>Staining (การย้อมสีลงในเนื้อไม้)</strong> เพื่อให้เนื้อไม้ยังสามารถ "หายใจ" ได้ และยังคงสัมผัสที่อบอุ่นของงานไม้อยู่ สีจะซึมลึกเข้าไป ไม่หลุดลอกเป็นแผ่นๆ เมื่อใช้งานไปนานๆ</p>
+                            <p>ขั้นตอนสุดท้ายที่ทำให้เครื่องนวดของเรา <em>Simply comfy.</em> คือการเคลือบผิวด้วย <strong>Beeswax (ไขผึ้งธรรมชาติ)</strong> หรือ Mineral Oil เกรดที่สัมผัสอาหารได้ เพื่อทำให้ผิวไม้ลื่นละมุน (Satin Finish) ไม่บาดผิว และป้องกันความชื้นสะสมภายในเนื้อไม้</p>
+                            <p>เพราะเราเชื่อว่า "นวัตกรรมที่ดี ต้องมาพร้อมกับความปลอดภัยสูงสุด" ทุกชิ้นงานไม้ของเราจึงผ่านการคัดสรรวัสดุที่ไม่ก่อให้เกิดการระคายเคือง แม้ผู้ที่มีผิวแพ้ง่าย</p>
+                        `;
+                    }
+                    if (journalTitle2) journalTitle2.textContent = 'จากสรีระสู่ดีไซน์น่ารัก: พลิกโฉมไม้นวดไทยโบราณสู่ Must-have Item';
+                    if (journalBody2) {
+                        journalBody2.innerHTML = `
+                            <p>คำว่า "นวดไทย" คือมรดกโลกที่ใครๆ ก็รู้จัก แต่ <strong>klin-klin.</strong> อยากนำเสนอในมุมที่ "เข้าถึงง่าย" และ "น่ารัก" เพื่อเปลี่ยนภาพจำของเครื่องไม้นวดไทยแบบโบราณให้กลายเป็น Must-have Item บนโต๊ะทำงานของคนรุ่นใหม่</p>
+                            <p>เราขับเคลื่อนความเป็นไทยด้วยการผสมผสานศาสตร์ดั้งเดิมเข้ากับดีไซน์ร่วมสมัยและการสื่อสารระดับสากล:</p>
+                            <ul>
+                               <li><strong>Rethink Tradition:</strong> เปลี่ยนไม้นวดทรงเดิมๆ ให้เป็น Must-have Item ที่กล้าใช้นอกบ้านและวางบนโต๊ะทำงาน</li>
+                               <li><strong>Digital Communication:</strong> ในฐานะนิสิตเอกนวัตกรรมคอมพิวเตอร์ฯ เราใช้เทคโนโลยีบอกเล่าเรื่องราว "ภูมิปัญญาไทย" ให้สนุกและเป็นสากล</li>
+                               <li><strong>Global Standard:</strong> ดีไซน์ร่วมสมัยผสานฝีมือไทยแท้ สร้างสรรค์ให้เป็น Lifestyle Brand ที่ครองใจชาวต่างชาติ</li>
+                            </ul>
+                        `;
+                    }
+                }
+
+                // Localize Read More buttons according to current collapse state
+                const btn1 = document.getElementById('journal-btn-1');
+                const btn2 = document.getElementById('journal-btn-2');
+                if (btn1 && journalBody1) {
+                    const isExp = journalBody1.classList.contains('expanded');
+                    if (currentLang === 'en') {
+                        btn1.innerHTML = isExp ? 'Show Less <i class="fas fa-chevron-up"></i>' : 'Read More <i class="fas fa-chevron-down"></i>';
+                    } else {
+                        btn1.innerHTML = isExp ? 'ย่อกลับ <i class="fas fa-chevron-up"></i>' : 'อ่านต่อ <i class="fas fa-chevron-down"></i>';
+                    }
+                }
+                if (btn2 && journalBody2) {
+                    const isExp = journalBody2.classList.contains('expanded');
+                    if (currentLang === 'en') {
+                        btn2.innerHTML = isExp ? 'Show Less <i class="fas fa-chevron-up"></i>' : 'Read More <i class="fas fa-chevron-down"></i>';
+                    } else {
+                        btn2.innerHTML = isExp ? 'ย่อกลับ <i class="fas fa-chevron-up"></i>' : 'อ่านต่อ <i class="fas fa-chevron-down"></i>';
+                    }
+                }
+            }
+
+            // Register toggle click event listeners for the collapsible journal blocks
+            // Uses exact scrollHeight for perfectly smooth expand/collapse animation
+            const COLLAPSED_HEIGHT = '5.04em'; // ~3 lines of text visible
+
+            document.querySelectorAll('.about-journal-card').forEach(card => {
+                const body = card.querySelector('.about-journal-body');
+                const btn  = card.querySelector('.read-more-journal-btn');
+                if (!body || !btn) return;
+
+                // Set initial collapsed height in pixels so transition works correctly
+                const setCollapsed = () => {
+                    // Convert em to px for consistent transition
+                    const collapsedPx = parseFloat(getComputedStyle(body).fontSize) * 5;
+                    body.style.height = collapsedPx + 'px';
+                };
+                setCollapsed();
+
+                btn.addEventListener('click', function () {
+                    const isExpanded = body.classList.contains('expanded');
+                    const lang = localStorage.getItem('klinklin_lang') || 'th';
+
+                    if (!isExpanded) {
+                        // EXPAND: animate from current px height → full scrollHeight
+                        const fullHeight = body.scrollHeight;
+                        body.style.height = fullHeight + 'px';
+                        body.classList.add('expanded');
+                        this.classList.add('active');
+
+                        // After transition ends, set to 'auto' so it reflows correctly
+                        body.addEventListener('transitionend', function onEnd(e) {
+                            if (e.propertyName === 'height') {
+                                body.style.height = 'auto';
+                                body.removeEventListener('transitionend', onEnd);
+                            }
+                        });
+
+                        this.innerHTML = lang === 'en'
+                            ? 'Show Less <i class="fas fa-chevron-down"></i>'
+                            : 'ย่อกลับ <i class="fas fa-chevron-down"></i>';
+                    } else {
+                        // COLLAPSE: pin to scrollHeight first (needed if height was 'auto'),
+                        // then animate down to collapsed px height
+                        body.style.height = body.scrollHeight + 'px';
+                        // Force reflow so transition fires from the pinned height
+                        void body.offsetHeight;
+
+                        const collapsedPx = parseFloat(getComputedStyle(body).fontSize) * 5;
+                        body.style.height = collapsedPx + 'px';
+                        body.classList.remove('expanded');
+                        this.classList.remove('active');
+
+                        this.innerHTML = lang === 'en'
+                            ? 'Read More <i class="fas fa-chevron-down"></i>'
+                            : 'อ่านต่อ <i class="fas fa-chevron-down"></i>';
+                    }
+                });
+            });
+
+            initLanguageSwitcher();
+            localizeAboutPage();
+
+            // ฟังก์ชันคุมไอคอนตราประทับจำนวนสินค้า
+            function updateBadges() {
+                const cart = JSON.parse(localStorage.getItem('klinklin_cart')) || [];
+                const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+                const cartBadge = document.getElementById('cart-badge');
+                if (cartBadge) {
+                    if (cartCount > 0) {
+                        cartBadge.textContent = cartCount;
+                        cartBadge.style.opacity = '1';
+                    } else {
+                        cartBadge.style.opacity = '0';
+                    }
+                }
+
+                const favorites = JSON.parse(localStorage.getItem('klinklin_favorites')) || [];
+                const favCount = favorites.length;
+                const favBadge = document.getElementById('fav-badge');
+                if (favBadge) {
+                    if (favCount > 0) {
+                        favBadge.textContent = favCount;
+                        favBadge.style.opacity = '1';
+                    } else {
+                        favBadge.style.opacity = '0';
+                    }
+                }
+            }
+            updateBadges();
+
+            // --- Journal Card Scroll-Triggered Entrance Animation ---
+            // Cards start invisible until they scroll into view, then animate in
+            const journalCards = document.querySelectorAll('.about-journal-card');
+
+            // Initially pause the CSS animation so cards wait for scroll
+            journalCards.forEach(card => {
+                card.style.animationPlayState = 'paused';
+            });
+
+            const journalObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        journalObserver.unobserve(entry.target); // only fire once
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            journalCards.forEach(card => journalObserver.observe(card));
+
+            // --- Scroll Reveal Animation Observer ---
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            revealElements.forEach(el => revealObserver.observe(el));
+        });
+    </script>
+</body>
+
+</html>

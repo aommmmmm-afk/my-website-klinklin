@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlinKlin - Register Now</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./:assets/logo klinklin.png">
+    <!-- เชื่อมต่อ CSS -->
+    <link rel="stylesheet" href="./:assets/style.css">
+    <!-- Font Awesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Playwrite+IE:wght@100..400&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Header (แถบเมนูด้านบน) -->
+    <header class="header scrolled" style="position: sticky; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+        <div class="header-container">
+            <!-- 1. โลโก้ (ซ้ายสุด) -->
+            <div class="logo">
+                <a href="index.html"><img src="./:assets/logo klinklin.png" alt="Klin Klin Logo"
+                        class="logo-img"></a>
+            </div>
+
+            <!-- 2. เมนูนำทาง (ตรงกลาง) -->
+            <nav class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="products.html">PRODUCTS</a>
+                <a href="about.html">ABOUT</a>
+                <a href="contact.html">CONTACT</a>
+                <a href="tracking.html">TRACKING</a>
+            </nav>
+
+            <!-- 3. ส่วนตัวช่วย (ขวาสุด) -->
+            <div class="nav-utils">
+                <div class="search-box">
+
+                    <input type="text" placeholder="ค้นหา..." class="search-input" id="global-search-input" onkeydown="if(event.key === 'Enter') { window.location.href='products.html?search='+encodeURIComponent(this.value); }">
+
+                    <a href="#" class="search-icon" onclick="const val = document.getElementById('global-search-input').value; window.location.href='products.html?search='+encodeURIComponent(val); return false;"><i class="fas fa-search"></i></a>
+
+                </div>
+                <a href="favorites.html" class="favorites-link" style="position: relative; margin-right: 5px;"><i
+                        class="far fa-heart"></i><span class="fav-badge" id="fav-badge"
+                        style="position: absolute; top: -8px; right: -8px; background-color: #ff3366; color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+                <a href="profile.html" class="profile-link" style="color: var(--primary-green);"><i
+                        class="fas fa-user-circle"></i></a>
+                <a href="cart.html" class="cart-link" style="position: relative;"><i
+                        class="fas fa-shopping-cart"></i><span class="cart-badge" id="cart-badge"
+                        style="position: absolute; top: -8px; right: -8px; background-color: var(--primary-green); color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Main Content Container -->
+    <main class="main-content"
+        style="padding: 60px 0; min-height: calc(100vh - 460px); display: flex; align-items: center; justify-content: center; background-color: #fcfbf7;">
+
+        <!-- Register Card Wrapper -->
+        <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+            <div class="auth-container"
+                style="max-width: 580px !important; margin-top: 40px !important; margin-bottom: 40px !important; box-shadow: 0 15px 45px rgba(44, 92, 61, 0.08) !important;">
+                <h2 id="register-title" class="auth-title" style="margin-bottom: 8px; font-weight: 400;">สร้างบัญชี</h2>
+                <p class="auth-form-required-label" id="register-required"
+                    style="margin-bottom: 25px; font-size: 0.9rem; color: #4a544e; font-family: 'Google Sans Flex', sans-serif;">
+                    *จำเป็น</p>
+
+                <form id="register-form"
+                    style="display: flex; flex-direction: column; gap: 4px; text-align: left; margin-top: 15px;">
+                    <div class="auth-input-group">
+                        <input type="text" class="auth-input-field" id="reg-firstname" placeholder="ชื่อ*" required>
+                    </div>
+                    <div class="auth-input-group">
+                        <input type="text" class="auth-input-field" id="reg-lastname" placeholder="นามสกุล*" required>
+                    </div>
+                    <div class="auth-input-group">
+                        <input type="tel" class="auth-input-field" id="reg-phone" placeholder="เบอร์โทร*" required>
+                    </div>
+                    <div class="auth-input-group">
+                        <input type="email" class="auth-input-field" id="reg-email" placeholder="e-mail*" required>
+                    </div>
+
+                    <!-- Password Requirements Bullet List -->
+                    <div style="margin: 20px 0; text-align: left; font-family: 'Google Sans Flex', sans-serif;">
+                        <span
+                            style="font-weight: 600; font-size: 0.92rem; color: #1b3c25; display: block; margin-bottom: 10px;">Password
+                            Requirements:</span>
+                        <ul class="auth-bullet-list" style="margin-bottom: 0;">
+                            <li id="req-len">รหัสผ่านต้องมีความยาว 8 ตัวอักษร</li>
+                            <li id="req-spec">รหัสผ่านต้องมีอักษรพิเศษอย่างน้อย 1 ตัวอักษร</li>
+                            <li id="req-case">รหัสผ่านต้องมีทั้งตัวอักษรตัวพิมพ์เล็ก และตัวอักษรตัวพิมพ์ใหญ่</li>
+                            <li id="req-num">รหัสผ่านต้องมีตัวเลข</li>
+                        </ul>
+                    </div>
+
+                    <div class="auth-input-group">
+                        <input type="password" class="auth-input-field" id="reg-password" placeholder="password"
+                            style="padding-right: 50px;" required>
+                        <i class="far fa-eye-slash auth-eye-btn" id="toggle-password"></i>
+                    </div>
+                    <div class="auth-input-group">
+                        <input type="password" class="auth-input-field" id="reg-confirm-password"
+                            placeholder="enter password" style="padding-right: 50px;" required>
+                        <i class="far fa-eye-slash auth-eye-btn" id="toggle-confirm-password"></i>
+                    </div>
+
+                    <!-- Terms and Conditions Checkbox -->
+                    <div style="margin: 15px 0 25px 0; font-family: 'Google Sans Flex', sans-serif; display: flex; align-items: flex-start; gap: 10px; cursor: pointer; user-select: none;">
+                        <input type="checkbox" id="reg-terms-checkbox" required style="width: 18px; height: 18px; accent-color: var(--primary-green); cursor: pointer; margin-top: 2px;">
+                        <label for="reg-terms-checkbox" id="reg-terms-label" style="font-size: 0.88rem; color: #4a544e; line-height: 1.4; cursor: pointer;">
+                            ฉันยอมรับ <a href="terms.html" target="_blank" style="color: var(--primary-green); font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(44, 92, 61, 0.3);">ข้อตกลงและเงื่อนไขการใช้งาน</a> และ <a href="privacy-policy.html" target="_blank" style="color: var(--primary-green); font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(44, 92, 61, 0.3);">นโยบายความเป็นส่วนตัว</a> ของเว็บไซต์
+                        </label>
+                    </div>
+
+                    <button type="submit" class="auth-btn" id="reg-submit-btn">สร้างบัญชีผู้ใช้</button>
+                </form>
+                <p
+                    style="font-size: 0.9rem; color: #4a544e; margin-top: 35px; text-align: center; font-family: 'Google Sans Flex', sans-serif;">
+                    <span id="reg-has-account">มีบัญชีอยู่แล้ว?</span> <a href="profile.html" id="reg-signin-link"
+                        style="color: var(--primary-green); font-weight: 600; text-decoration: none; margin-left: 3px; border-bottom: 1px solid rgba(44, 92, 61, 0.3); transition: all 0.25s ease;">,
+                        login</a>
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer (ส่วนท้าย) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col-brand">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="footer-logo-img">
+                </a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-service">บริการลูกค้า</h4>
+                <ul class="footer-col-list">
+                    <li><a href="contact.html#faq-section" id="footer-link-faq">คำถามที่พบบ่อย</a></li>
+                    <li><a href="404.html" id="footer-link-404">หน้า 404</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-news">รับข่าวสารจากเรา</h4>
+                <ul class="footer-col-list">
+                    <li><a href="privacy-policy.html" id="footer-link-privacy">ความเป็นส่วนตัวและความปลอดภัย</a></li>
+                    <li><a href="terms.html" id="footer-link-terms">ข้อกำหนดและประกาศจากเว็บไซต์</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-contact">ติดต่อเรา</h4>
+                <div class="footer-social-icons">
+                    <a href="#" class="social-icon-btn"><i class="fab fa-line"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fas fa-phone-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./:js/script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- ระบบควบคุมและเปลี่ยนภาษา ( BILINGUAL SWITCHER ) ---
+            const currentLang = localStorage.getItem('klinklin_lang') || 'th';
+
+            function initLanguageSwitcher() {
+                const navUtils = document.querySelector('.nav-utils');
+                if (navUtils && !document.getElementById('header-lang-switch')) {
+                    const switchDiv = document.createElement('div');
+                    switchDiv.id = 'header-lang-switch';
+                    switchDiv.style.cssText = 'display: flex; gap: 5px; font-size: 0.82rem; font-weight: 700; color: #111; cursor: pointer; align-items: center; margin-right: 15px; user-select: none; font-family: "Google Sans Flex", sans-serif;';
+                    switchDiv.innerHTML = `
+                        <span id="lang-th" style="color: ${currentLang === 'th' ? 'var(--primary-green)' : '#888'};">TH</span>
+                        <span style="color: #e0dee0; font-weight: 400;">|</span>
+                        <span id="lang-en" style="color: ${currentLang === 'en' ? 'var(--primary-green)' : '#888'};">EN</span>
+                    `;
+
+                    const favLink = navUtils.querySelector('.favorites-link');
+                    if (favLink) {
+                        navUtils.insertBefore(switchDiv, favLink);
+                    } else {
+                        navUtils.appendChild(switchDiv);
+                    }
+
+                    document.getElementById('lang-th').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (localStorage.getItem('klinklin_lang') !== 'th') {
+                            localStorage.setItem('klinklin_lang', 'th');
+                            window.location.reload();
+                        }
+                    });
+
+                    document.getElementById('lang-en').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (localStorage.getItem('klinklin_lang') !== 'en') {
+                            localStorage.setItem('klinklin_lang', 'en');
+                            window.location.reload();
+                        }
+                    });
+                }
+            }
+
+            function localizeRegisterPage() {
+                // แปลเมนูนำทาง
+                const navLinks = document.querySelectorAll('.nav-links a');
+                if (navLinks.length >= 5) {
+                    if (currentLang === 'en') {
+                        navLinks[0].textContent = 'HOME';
+                        navLinks[1].textContent = 'PRODUCTS';
+                        navLinks[2].textContent = 'ABOUT';
+                        navLinks[3].textContent = 'CONTACT';
+                        navLinks[4].textContent = 'TRACKING';
+                    } else {
+                        navLinks[0].textContent = 'หน้าแรก';
+                        navLinks[1].textContent = 'สินค้า';
+                        navLinks[2].textContent = 'เกี่ยวกับเรา';
+                        navLinks[3].textContent = 'ติดต่อเรา';
+                        navLinks[4].textContent = 'เช็คสถานะพัสดุ';
+                    }
+                } else if (navLinks.length >= 4) {
+                    if (currentLang === 'en') {
+                        navLinks[0].textContent = 'HOME';
+                        navLinks[1].textContent = 'PRODUCTS';
+                        navLinks[2].textContent = 'ABOUT';
+                        navLinks[3].textContent = 'CONTACT';
+                    } else {
+                        navLinks[0].textContent = 'หน้าแรก';
+                        navLinks[1].textContent = 'สินค้า';
+                        navLinks[2].textContent = 'เกี่ยวกับเรา';
+                        navLinks[3].textContent = 'ติดต่อเรา';
+                    }
+                }
+
+                // แปลส่วนท้าย (Footer)
+                const colService = document.getElementById('footer-col-service');
+                const linkFaq = document.getElementById('footer-link-faq');
+                const link404 = document.getElementById('footer-link-404');
+                const colNews = document.getElementById('footer-col-news');
+                const linkPrivacy = document.getElementById('footer-link-privacy');
+                const linkTerms = document.getElementById('footer-link-terms');
+                const colContact = document.getElementById('footer-col-contact');
+
+                if (currentLang === 'en') {
+                    if (colService) colService.textContent = 'Customer Service';
+                    if (linkFaq) linkFaq.textContent = 'FAQs';
+                    if (link404) link404.textContent = '404 Page';
+                    if (colNews) colNews.textContent = 'Subscribe';
+                    if (linkPrivacy) linkPrivacy.textContent = 'Privacy & Security';
+                    if (linkTerms) linkTerms.textContent = 'Terms & Announcements';
+                    if (colContact) colContact.textContent = 'Contact Us';
+                } else {
+                    if (colService) colService.textContent = 'บริการลูกค้า';
+                    if (linkFaq) linkFaq.textContent = 'คำถามที่พบบ่อย';
+                    if (link404) link404.textContent = 'หน้า 404';
+                    if (colNews) colNews.textContent = 'รับข่าวสารจากเรา';
+                    if (linkPrivacy) linkPrivacy.textContent = 'ความเป็นส่วนตัวและความปลอดภัย';
+                    if (linkTerms) linkTerms.textContent = 'ข้อกำหนดและประกาศจากเว็บไซต์';
+                    if (colContact) colContact.textContent = 'ติดต่อเรา';
+                }
+
+                // Placeholder ช่องค้นหา
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.placeholder = currentLang === 'en' ? 'Search...' : 'ค้นหา...';
+                }
+
+                // แปลฟอร์มลงทะเบียน
+                const title = document.getElementById('register-title');
+                const requiredLabel = document.getElementById('register-required');
+                
+                const firstNameInp = document.getElementById('reg-firstname');
+                const lastNameInp = document.getElementById('reg-lastname');
+                const phoneInp = document.getElementById('reg-phone');
+                const emailInp = document.getElementById('reg-email');
+                
+                const reqHeader = document.getElementById('password-req-header');
+                const reqLen = document.getElementById('req-len');
+                const reqSpec = document.getElementById('req-spec');
+                const reqCase = document.getElementById('req-case');
+                const reqNum = document.getElementById('req-num');
+                
+                const passInp = document.getElementById('reg-password');
+                const confirmInp = document.getElementById('reg-confirm-password');
+                const privacyLink = document.getElementById('reg-privacy-link');
+                const submitBtn = document.getElementById('reg-submit-btn');
+                const hasAccount = document.getElementById('reg-has-account');
+                const signInLink = document.getElementById('reg-signin-link');
+
+                if (currentLang === 'en') {
+                    if (title) title.textContent = 'Register Now';
+                    if (requiredLabel) requiredLabel.textContent = '*Required';
+                    
+                    if (firstNameInp) firstNameInp.placeholder = 'First Name*';
+                    if (lastNameInp) lastNameInp.placeholder = 'Last Name*';
+                    if (phoneInp) phoneInp.placeholder = 'Phone Number*';
+                    if (emailInp) emailInp.placeholder = 'Email Address*';
+                    
+                    if (reqHeader) reqHeader.textContent = 'Password Requirements:';
+                    if (reqLen) reqLen.textContent = 'Password must be at least 8 characters long';
+                    if (reqSpec) reqSpec.textContent = 'Password must contain at least 1 special character';
+                    if (reqCase) reqCase.textContent = 'Password must contain both uppercase and lowercase letters';
+                    if (reqNum) reqNum.textContent = 'Password must contain a number';
+                    
+                    if (passInp) passInp.placeholder = 'Password';
+                    if (confirmInp) confirmInp.placeholder = 'Confirm Password';
+                    const termsLabel = document.getElementById('reg-terms-label');
+                    if (termsLabel) {
+                        termsLabel.innerHTML = `I accept the <a href="terms.html" target="_blank" style="color: var(--primary-green); font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(44, 92, 61, 0.3);">Terms & Conditions</a> and <a href="privacy-policy.html" target="_blank" style="color: var(--primary-green); font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(44, 92, 61, 0.3);">Privacy Policy</a> of the website`;
+                    }
+                    if (submitBtn) submitBtn.textContent = 'Create Account';
+                    if (hasAccount) hasAccount.textContent = 'Already have an account?';
+                    if (signInLink) signInLink.textContent = 'Log In';
+                } else {
+                    if (title) title.textContent = 'สร้างบัญชี';
+                    if (requiredLabel) requiredLabel.textContent = '*จำเป็น';
+                    
+                    if (firstNameInp) firstNameInp.placeholder = 'ชื่อ*';
+                    if (lastNameInp) lastNameInp.placeholder = 'นามสกุล*';
+                    if (phoneInp) phoneInp.placeholder = 'เบอร์โทร*';
+                    if (emailInp) emailInp.placeholder = 'e-mail*';
+                    
+                    if (reqHeader) reqHeader.textContent = 'เงื่อนไขรหัสผ่าน:';
+                    if (reqLen) reqLen.textContent = 'รหัสผ่านต้องมีความยาว 8 ตัวอักษร';
+                    if (reqSpec) reqSpec.textContent = 'รหัสผ่านต้องมีอักษรพิเศษอย่างน้อย 1 ตัวอักษร';
+                    if (reqCase) reqCase.textContent = 'รหัสผ่านต้องมีทั้งตัวอักษรตัวพิมพ์เล็ก และตัวอักษรตัวพิมพ์ใหญ่';
+                    if (reqNum) reqNum.textContent = 'รหัสผ่านต้องมีตัวเลข';
+                    
+                    if (passInp) passInp.placeholder = 'รหัสผ่าน';
+                    if (confirmInp) confirmInp.placeholder = 'ยืนยันรหัสผ่าน';
+                    const termsLabel = document.getElementById('reg-terms-label');
+                    if (termsLabel) {
+                        termsLabel.innerHTML = `ฉันยอมรับ <a href="terms.html" target="_blank" style="color: var(--primary-green); font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(44, 92, 61, 0.3);">ข้อตกลงและเงื่อนไขการใช้งาน</a> และ <a href="privacy-policy.html" target="_blank" style="color: var(--primary-green); font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(44, 92, 61, 0.3);">นโยบายความเป็นส่วนตัว</a> ของเว็บไซต์`;
+                    }
+                    if (submitBtn) submitBtn.textContent = 'สร้างบัญชีผู้ใช้';
+                    if (hasAccount) hasAccount.textContent = 'มีบัญชีอยู่แล้ว?';
+                    if (signInLink) signInLink.textContent = 'เข้าสู่ระบบ';
+                }
+            }
+
+            initLanguageSwitcher();
+            localizeRegisterPage();
+
+            // ฟังก์ชันคุมไอคอนตราประทับจำนวนสินค้า
+            function updateBadges() {
+                const cart = JSON.parse(localStorage.getItem('klinklin_cart')) || [];
+                const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+                const cartBadge = document.getElementById('cart-badge');
+                if (cartBadge) {
+                    if (cartCount > 0) {
+                        cartBadge.textContent = cartCount;
+                        cartBadge.style.opacity = '1';
+                    } else {
+                        cartBadge.style.opacity = '0';
+                    }
+                }
+
+                const favorites = JSON.parse(localStorage.getItem('klinklin_favorites')) || [];
+                const favCount = favorites.length;
+                const favBadge = document.getElementById('fav-badge');
+                if (favBadge) {
+                    if (favCount > 0) {
+                        favBadge.textContent = favCount;
+                        favBadge.style.opacity = '1';
+                    } else {
+                        favBadge.style.opacity = '0';
+                    }
+                }
+            }
+            updateBadges();
+
+            // Toggle เปิดปิดการแสดงรหัสผ่าน
+            const togglePassword = document.getElementById('toggle-password');
+            const passwordField = document.getElementById('reg-password');
+            if (togglePassword && passwordField) {
+                togglePassword.addEventListener('click', () => {
+                    const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordField.setAttribute('type', type);
+                    togglePassword.className = type === 'text' ? 'far fa-eye auth-eye-btn' : 'far fa-eye-slash auth-eye-btn';
+                });
+            }
+
+            // ระบบตรวจจับรหัสผ่านแบบ Real-time (Password Requirements Checkmarks)
+            if (passwordField) {
+                const reqLen = document.getElementById('req-len');
+                const reqSpec = document.getElementById('req-spec');
+                const reqCase = document.getElementById('req-case');
+                const reqNum = document.getElementById('req-num');
+
+                passwordField.addEventListener('input', () => {
+                    const val = passwordField.value;
+
+                    // 1. ตรวจสอบความยาว 8 ตัวอักษร
+                    if (val.length >= 8) {
+                        reqLen.classList.add('valid');
+                    } else {
+                        reqLen.classList.remove('valid');
+                    }
+
+                    // 2. ตรวจสอบอักษรพิเศษอย่างน้อย 1 ตัวอักษร
+                    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>_+\-\[\]]/.test(val);
+                    if (hasSpecialChar) {
+                        reqSpec.classList.add('valid');
+                    } else {
+                        reqSpec.classList.remove('valid');
+                    }
+
+                    // 3. ตรวจสอบอักษรตัวพิมพ์เล็กและตัวพิมพ์ใหญ่
+                    const hasUpperLower = /[a-z]/.test(val) && /[A-Z]/.test(val);
+                    if (hasUpperLower) {
+                        reqCase.classList.add('valid');
+                    } else {
+                        reqCase.classList.remove('valid');
+                    }
+
+                    // 4. ตรวจสอบตัวเลข
+                    const hasNumber = /[0-9]/.test(val);
+                    if (hasNumber) {
+                        reqNum.classList.add('valid');
+                    } else {
+                        reqNum.classList.remove('valid');
+                    }
+                });
+            }
+
+            const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
+            const confirmPasswordField = document.getElementById('reg-confirm-password');
+            if (toggleConfirmPassword && confirmPasswordField) {
+                toggleConfirmPassword.addEventListener('click', () => {
+                    const type = confirmPasswordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                    confirmPasswordField.setAttribute('type', type);
+                    toggleConfirmPassword.className = type === 'text' ? 'far fa-eye auth-eye-btn' : 'far fa-eye-slash auth-eye-btn';
+                });
+            }
+
+            // ระบบแจ้งเตือนขนมปังปิ้งสุดหรู (Toast Notifications)
+            function showToast(message) {
+                const toastContainer = document.getElementById('toast-container');
+                if (!toastContainer) return;
+
+                const toast = document.createElement('div');
+                toast.className = 'toast-alert';
+                toast.style.cssText = 'background-color: #111111; color: #ffffff; padding: 14px 24px; border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); margin-bottom: 12px; font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; justify-content: space-between; min-width: 280px; transform: translateY(20px); opacity: 0; transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1); font-family: "Google Sans Flex", sans-serif;';
+                toast.innerHTML = `
+                    <span>${message}</span>
+                    <i class="fas fa-times" style="margin-left: 15px; cursor: pointer; color: #888;" id="close-toast-btn"></i>
+                `;
+
+                toastContainer.appendChild(toast);
+
+                // ทริกเกอร์แอนิเมชันเปิดขึ้นมา
+                setTimeout(() => {
+                    toast.style.transform = 'translateY(0)';
+                    toast.style.opacity = '1';
+                }, 10);
+
+                const dismissToast = () => {
+                    toast.style.transform = 'translateY(-20px)';
+                    toast.style.opacity = '0';
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 350);
+                };
+
+                const closeBtn = toast.querySelector('#close-toast-btn');
+                if (closeBtn) {
+                    closeBtn.onclick = dismissToast;
+                }
+
+                // ปิดอัตโนมัติใน 4 วินาที
+                setTimeout(dismissToast, 4000);
+            }
+
+            // จัดการพฤติกรรมการสมัครสมาชิก
+            const regForm = document.getElementById('register-form');
+            if (regForm) {
+                regForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    // ตรวจสอบความถูกต้องของการติ๊กยอมรับเงื่อนไข
+                    const termsCheckbox = document.getElementById('reg-terms-checkbox');
+                    if (termsCheckbox && !termsCheckbox.checked) {
+                        const errMsg = currentLang === 'en' 
+                            ? 'You must accept the terms & conditions to proceed!' 
+                            : 'คุณต้องยอมรับข้อตกลงและเงื่อนไขการใช้งานเพื่อดำเนินการสมัครสมาชิก!';
+                        showToast(errMsg);
+                        return;
+                    }
+
+                    const firstname = document.getElementById('reg-firstname').value.trim();
+                    const lastname = document.getElementById('reg-lastname').value.trim();
+                    const fullName = `${firstname} ${lastname}`;
+                    const email = document.getElementById('reg-email').value.trim();
+                    const phone = document.getElementById('reg-phone').value.trim();
+                    const password = document.getElementById('reg-password').value;
+                    const confirmPassword = document.getElementById('reg-confirm-password').value;
+
+                    // 1. ตรวจสอบว่ารหัสผ่านและยืนยันรหัสผ่านตรงกันหรือไม่
+                    if (password !== confirmPassword) {
+                        const errMsg = currentLang === 'en' ? 'Passwords do not match!' : 'รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน!';
+                        showToast(errMsg);
+                        return;
+                    }
+
+                    // 2. ตรวจสอบเงื่อนไขรหัสผ่าน (Password Requirements)
+                    const hasMinLength = password.length >= 8;
+                    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>_+\-\[\]]/.test(password);
+                    const hasUpperLower = /[a-z]/.test(password) && /[A-Z]/.test(password);
+                    const hasNumber = /[0-9]/.test(password);
+
+                    if (!hasMinLength) {
+                        showToast(currentLang === 'en' ? 'Password must be at least 8 characters long!' : 'รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัวอักษร!');
+                        return;
+                    }
+                    if (!hasSpecialChar) {
+                        showToast(currentLang === 'en' ? 'Password must contain at least 1 special character!' : 'รหัสผ่านต้องมีอักษรพิเศษอย่างน้อย 1 ตัวอักษร!');
+                        return;
+                    }
+                    if (!hasUpperLower) {
+                        showToast(currentLang === 'en' ? 'Password must contain both uppercase and lowercase letters!' : 'รหัสผ่านต้องมีทั้งตัวอักษรตัวพิมพ์เล็กและตัวพิมพ์ใหญ่!');
+                        return;
+                    }
+                    if (!hasNumber) {
+                        showToast(currentLang === 'en' ? 'Password must contain at least 1 number!' : 'รหัสผ่านต้องมีตัวเลข!');
+                        return;
+                    }
+
+                    // บันทึกรายละเอียดลงใน LocalStorage (การจำลองฐานข้อมูลฝั่งไคลเอนต์แบบพรีเมียม)
+                    const newUser = {
+                        name: fullName,
+                        firstname,
+                        lastname,
+                        email,
+                        phone,
+                        password
+                    };
+                    localStorage.setItem('klinklin_registered_user', JSON.stringify(newUser));
+
+                    const successMsg = currentLang === 'en'
+                        ? 'Registration successful! Redirecting to login...'
+                        : 'สมัครสมาชิกเสร็จสมบูรณ์! กำลังพาท่านไปหน้าลงชื่อเข้าใช้งาน...';
+
+                    showToast(successMsg);
+
+                    // ย้ายหน้าไปยังหน้าล็อกอินภายใน 1.8 วินาที
+                    setTimeout(() => {
+                        window.location.href = 'profile.html?registered=true&email=' + encodeURIComponent(email);
+                    }, 1800);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlinKlin - Order Complete</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./:assets/logo klinklin.png">
+    <!-- เชื่อมต่อ CSS -->
+    <link rel="stylesheet" href="./:assets/style.css">
+    <!-- Font Awesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Playwrite+IE:wght@100..400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom Animations and Success Styles */
+        .success-checkmark-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0 25px 0;
+        }
+
+        .success-circle-icon {
+            font-size: 5.5rem;
+            color: #53a1e5;
+            animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+            filter: drop-shadow(0 8px 24px rgba(83, 161, 229, 0.25));
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+            70% {
+                transform: scale(0.9);
+                opacity: 0.9;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .receipt-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e1dd;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+            max-width: 680px;
+            margin: 0 auto 50px auto;
+            padding: 40px;
+            font-family: 'Google Sans Flex', sans-serif;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .receipt-header {
+            border-bottom: 1px dashed #e2e1dd;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .receipt-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #111111;
+            margin: 0 0 5px 0;
+        }
+
+        .receipt-meta {
+            font-size: 0.88rem;
+            color: #777777;
+            margin: 0;
+        }
+
+        .receipt-order-no {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #53a1e5;
+            background: rgba(83, 161, 229, 0.08);
+            padding: 6px 14px;
+            border-radius: 30px;
+            text-transform: uppercase;
+        }
+
+        .receipt-section-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #111111;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .receipt-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .receipt-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .receipt-item-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .receipt-item-img {
+            width: 54px;
+            height: 54px;
+            object-fit: contain;
+            border-radius: 10px;
+            background-color: #fcfbf7;
+            border: 1px solid #f0edf0;
+            padding: 4px;
+        }
+
+        .receipt-item-details h4 {
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: #111111;
+            margin: 0 0 4px 0;
+        }
+
+        .receipt-item-details p {
+            font-size: 0.82rem;
+            color: #777777;
+            margin: 0;
+        }
+
+        .receipt-item-price {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #111111;
+            text-align: right;
+        }
+
+        .receipt-divider {
+            border-top: 1px solid #f0edf0;
+            margin: 25px 0;
+        }
+
+        .receipt-pricing-block {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .receipt-price-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #555555;
+        }
+
+        .receipt-price-row.grand-total {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #111111;
+            border-top: 1px solid #e2e1dd;
+            padding-top: 15px;
+            margin-top: 5px;
+        }
+
+        .receipt-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 576px) {
+            .receipt-info-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .info-card-box {
+            background-color: #fcfbf7;
+            border: 1px solid #f0edf0;
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .info-card-text {
+            font-size: 0.88rem;
+            color: #555555;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .payment-instruction-box {
+            background: linear-gradient(135deg, rgba(83, 161, 229, 0.03) 0%, rgba(83, 161, 229, 0.08) 100%);
+            border: 1px solid rgba(83, 161, 229, 0.15);
+            border-radius: 18px;
+            padding: 25px;
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        @media (max-width: 576px) {
+            .payment-instruction-box {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        .qr-mockup-img {
+            width: 110px;
+            height: 110px;
+            background: white;
+            border: 4px solid white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .success-buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        @media (max-width: 480px) {
+            .success-buttons-container {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .success-buttons-container .add-to-cart-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body class="products-page">
+
+    <!-- Header (แถบเมนูด้านบน) -->
+    <header class="header scrolled" style="position: sticky; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html"><img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="logo-img"></a>
+            </div>
+
+            <nav class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="products.html">PRODUCTS</a>
+                <a href="about.html">ABOUT</a>
+                <a href="contact.html">CONTACT</a>
+                <a href="tracking.html">TRACKING</a>
+            </nav>
+
+            <div class="nav-utils">
+                <div class="search-box">
+                    <input type="text" placeholder="ค้นหา..." class="search-input" id="global-search-input" onkeydown="if(event.key === 'Enter') { window.location.href='products.html?search='+encodeURIComponent(this.value); }">
+                    <a href="#" class="search-icon" onclick="const val = document.getElementById('global-search-input').value; window.location.href='products.html?search='+encodeURIComponent(val); return false;"><i class="fas fa-search"></i></a>
+                </div>
+                <a href="favorites.html" class="favorites-link" style="position: relative; margin-right: 5px;"><i class="far fa-heart"></i><span class="fav-badge" id="fav-badge" style="position: absolute; top: -8px; right: -8px; background-color: #ff3366; color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0;">0</span></a>
+                <a href="profile.html" class="profile-link"><i class="fas fa-user-circle"></i></a>
+                <a href="cart.html" class="cart-link" style="position: relative;"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cart-badge" style="position: absolute; top: -8px; right: -8px; background-color: var(--primary-green); color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0;">0</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content" style="padding-top: 40px; min-height: 85vh; background-color: #fcfbf7;">
+        <div class="products-container" style="max-width: 1400px; margin: 0 auto; padding: 0 20px 100px 20px; text-align: center;">
+            
+            <!-- Success Icon with Pulse -->
+            <div class="success-checkmark-wrapper">
+                <i class="fas fa-check-circle success-circle-icon"></i>
+            </div>
+
+            <!-- Page Title Header -->
+            <div style="margin-bottom: 40px;">
+                <h1 id="success-title" style="font-size: 2.2rem; font-weight: 500; color: #111; margin: 0 0 10px 0; font-family: 'Google Sans Flex', sans-serif;">การสั่งซื้อสินค้าเสร็จสิ้น!</h1>
+                <p id="success-subtitle" style="color: #666; font-size: 1.05rem; margin: 0;">ขอบคุณที่เลือกช็อปปิ้งผลิตภัณฑ์เพื่อสุขภาพกับ Klin Klin ทางเราจะรีบแพ็กของส่งให้เร็วที่สุดค่ะ</p>
+            </div>
+
+            <!-- Order Receipt Card (Dynamically Rendered) -->
+            <div class="receipt-card" id="receipt-card-container" style="display: none;">
+                <div class="receipt-header">
+                    <div>
+                        <h2 class="receipt-title" id="receipt-order-label">คำสั่งซื้อของคุณ</h2>
+                        <p class="receipt-meta" id="receipt-date-label">วันที่สั่งซื้อ: <span id="order-date-val">-</span></p>
+                    </div>
+                    <div class="receipt-order-no" id="order-id-val">#KLN-000000</div>
+                </div>
+
+                <!-- Products Summary -->
+                <h3 class="receipt-section-title"><i class="fas fa-shopping-bag" style="color: #53a1e5;"></i> <span id="receipt-items-label">รายการสินค้าคัดสรร</span></h3>
+                <div class="receipt-items-list" id="receipt-products-list">
+                    <!-- Products will be appended here -->
+                </div>
+
+                <div class="receipt-divider"></div>
+
+                <!-- Pricing Summary -->
+                <div class="receipt-pricing-block">
+                    <div class="receipt-price-row">
+                        <span id="receipt-subtotal-label">ยอดรวมสินค้า</span>
+                        <span id="order-subtotal-val">0 ฿</span>
+                    </div>
+                    <div class="receipt-price-row">
+                        <span id="receipt-shipping-label">ค่าจัดส่ง</span>
+                        <span id="order-shipping-val">0 ฿</span>
+                    </div>
+                    <div class="receipt-price-row grand-total">
+                        <span id="receipt-total-label">ยอดชำระสุทธิ</span>
+                        <span id="order-total-val" style="color: #53a1e5;">0 ฿</span>
+                    </div>
+                </div>
+
+                <div class="receipt-divider"></div>
+
+                <!-- Shipping & Payment Information Grid -->
+                <div class="receipt-info-grid">
+                    <!-- Shipping Info Card -->
+                    <div class="info-card-box">
+                        <h4 class="receipt-section-title" style="font-size: 0.88rem; margin-bottom: 12px;"><i class="fas fa-map-marker-alt" style="color: #53a1e5;"></i> <span id="receipt-shipping-info-label">ที่อยู่จัดส่งพัสดุ</span></h4>
+                        <p class="info-card-text" style="font-weight: 600; color: #111; margin-bottom: 5px;" id="order-receiver-val">-</p>
+                        <p class="info-card-text" id="order-address-val" style="margin-bottom: 8px;">-</p>
+                        <p class="info-card-text" style="font-size: 0.82rem; color: #888;"><i class="fas fa-phone-alt"></i> <span id="order-phone-val">-</span></p>
+                    </div>
+
+                    <!-- Payment Info Card -->
+                    <div class="info-card-box">
+                        <h4 class="receipt-section-title" style="font-size: 0.88rem; margin-bottom: 12px;"><i class="fas fa-credit-card" style="color: #53a1e5;"></i> <span id="receipt-payment-info-label">ช่องทางชำระเงิน</span></h4>
+                        <p class="info-card-text" style="font-weight: 600; color: #111; margin-bottom: 8px;" id="order-payment-method-val">-</p>
+                        <p class="info-card-text" id="order-payment-status-label" style="font-size: 0.85rem; color: #2ecc71;"><i class="fas fa-check"></i> ดำเนินการเสร็จสมบูรณ์</p>
+                    </div>
+                </div>
+
+                <!-- Custom Payment Instruction (PromptPay or Bank) -->
+                <div class="payment-instruction-box" id="payment-instruction-block" style="display: none;">
+                    <div class="qr-mockup-img" id="qr-code-svg-box">
+                        <!-- Custom Stylized QR Code SVG -->
+                        <svg width="76" height="76" viewBox="0 0 100 100" style="color: #1b3c25;">
+                            <!-- QR Code borders -->
+                            <rect x="0" y="0" width="25" height="25" fill="currentColor" />
+                            <rect x="3" y="3" width="19" height="19" fill="white" />
+                            <rect x="7" y="7" width="11" height="11" fill="currentColor" />
+                            
+                            <rect x="75" y="0" width="25" height="25" fill="currentColor" />
+                            <rect x="78" y="3" width="19" height="19" fill="white" />
+                            <rect x="82" y="7" width="11" height="11" fill="currentColor" />
+
+                            <rect x="0" y="75" width="25" height="25" fill="currentColor" />
+                            <rect x="3" y="75" width="19" height="19" fill="white" />
+                            <rect x="7" y="79" width="11" height="11" fill="currentColor" />
+
+                            <!-- Random mock QR pixel dots -->
+                            <rect x="35" y="5" width="8" height="8" fill="currentColor"/>
+                            <rect x="50" y="12" width="12" height="6" fill="currentColor"/>
+                            <rect x="42" y="24" width="6" height="10" fill="currentColor"/>
+                            <rect x="12" y="38" width="10" height="8" fill="currentColor"/>
+                            <rect x="62" y="42" width="12" height="12" fill="currentColor"/>
+                            <rect x="32" y="52" width="18" height="6" fill="currentColor"/>
+                            <rect x="52" y="68" width="10" height="14" fill="currentColor"/>
+                            <rect x="72" y="60" width="12" height="8" fill="currentColor"/>
+                            <rect x="84" y="38" width="8" height="12" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div style="text-align: left; flex: 1;">
+                        <h4 style="margin: 0 0 6px 0; font-size: 1rem; font-weight: 600; color: #111;" id="instruction-title">สแกนชำระเงินผ่านพร้อมเพย์</h4>
+                        <p style="margin: 0 0 4px 0; font-size: 0.88rem; color: #555;" id="instruction-details">หมายเลขพร้อมเพย์: 081-234-5678 (บจก. กลิ่นกลิ่น)</p>
+                        <p style="margin: 0; font-size: 0.8rem; color: #888;" id="instruction-sub">หลังโอนเงินเสร็จสิ้น ระบบจะแพ็กพัสดุและจัดเตรียมจัดส่งทันที</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Sleek Success Buttons -->
+            <div class="success-buttons-container">
+                <a href="tracking.html" class="add-to-cart-btn" style="background-color: #111111; color: white; width: auto; padding: 14px 35px; border-radius: 30px; font-size: 0.95rem; border: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease;">
+                    <i class="fas fa-truck-fast"></i> <span id="btn-track-label">เช็คสถานะพัสดุ</span>
+                </a>
+                <a href="products.html" class="add-to-cart-btn" style="background-color: #53a1e5; color: white; width: auto; padding: 14px 35px; border-radius: 30px; font-size: 0.95rem; border: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease;">
+                    <i class="fas fa-shopping-cart"></i> <span id="btn-browse-label">ช็อปปิ้งสินค้าต่อ</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer (ส่วนท้าย) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col-brand">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="footer-logo-img">
+                </a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-service">บริการลูกค้า</h4>
+                <ul class="footer-col-list">
+                    <li><a href="contact.html#faq-section" id="footer-link-faq">คำถามที่พบบ่อย</a></li>
+                    <li><a href="404.html" id="footer-link-404">หน้า 404</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-news">รับข่าวสารจากเรา</h4>
+                <ul class="footer-col-list">
+                    <li><a href="privacy-policy.html" id="footer-link-privacy">ความเป็นส่วนตัวและความปลอดภัย</a></li>
+                    <li><a href="terms.html" id="footer-link-terms">ข้อกำหนดและประกาศจากเว็บไซต์</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-contact">ติดต่อเรา</h4>
+                <div class="footer-social-icons">
+                    <a href="#" class="social-icon-btn"><i class="fab fa-line"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fas fa-phone-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts Core -->
+    <script src="./:js/products-data.js"></script>
+    <script src="./:js/script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const currentLang = localStorage.getItem('klinklin_lang') || 'th';
+
+            // --- BILINGUAL TEXT MAPPINGS ---
+            function initLanguageSwitcher() {
+                const navUtils = document.querySelector('.nav-utils');
+                if (navUtils && !document.getElementById('header-lang-switch')) {
+                    const switchDiv = document.createElement('div');
+                    switchDiv.id = 'header-lang-switch';
+                    switchDiv.style.cssText = 'display: flex; gap: 5px; font-size: 0.82rem; font-weight: 700; color: #111; cursor: pointer; align-items: center; margin-right: 15px; user-select: none; font-family: "Google Sans Flex", sans-serif;';
+                    switchDiv.innerHTML = `
+                        <span id="lang-th" style="color: ${currentLang === 'th' ? 'var(--primary-green)' : '#888'};">TH</span>
+                        <span style="color: #e0dee0; font-weight: 400;">|</span>
+                        <span id="lang-en" style="color: ${currentLang === 'en' ? 'var(--primary-green)' : '#888'};">EN</span>
+                    `;
+                    
+                    const favLink = navUtils.querySelector('.favorites-link');
+                    if (favLink) {
+                        navUtils.insertBefore(switchDiv, favLink);
+                    } else {
+                        navUtils.appendChild(switchDiv);
+                    }
+
+                    document.getElementById('lang-th').onclick = () => {
+                        if (currentLang !== 'th') {
+                            localStorage.setItem('klinklin_lang', 'th');
+                            window.location.reload();
+                        }
+                    };
+                    document.getElementById('lang-en').onclick = () => {
+                        if (currentLang !== 'en') {
+                            localStorage.setItem('klinklin_lang', 'en');
+                            window.location.reload();
+                        }
+                    };
+                }
+
+                // Header Translation
+                const navLinks = document.querySelectorAll('.nav-links a');
+                if (navLinks.length >= 5) {
+                    if (currentLang === 'en') {
+                        navLinks[0].textContent = 'HOME';
+                        navLinks[1].textContent = 'PRODUCTS';
+                        navLinks[2].textContent = 'ABOUT';
+                        navLinks[3].textContent = 'CONTACT';
+                        navLinks[4].textContent = 'TRACKING';
+                    } else {
+                        navLinks[0].textContent = 'หน้าแรก';
+                        navLinks[1].textContent = 'สินค้า';
+                        navLinks[2].textContent = 'เกี่ยวกับเรา';
+                        navLinks[3].textContent = 'ติดต่อเรา';
+                        navLinks[4].textContent = 'เช็คสถานะพัสดุ';
+                    }
+                }
+
+                const globalSearch = document.getElementById('global-search-input');
+                if (globalSearch) {
+                    globalSearch.placeholder = currentLang === 'en' ? 'Search...' : 'ค้นหา...';
+                }
+
+                // Footer Translation
+                const colService = document.getElementById('footer-col-service');
+                const linkFaq = document.getElementById('footer-link-faq');
+                const link404 = document.getElementById('footer-link-404');
+                const colNews = document.getElementById('footer-col-news');
+                const linkPrivacy = document.getElementById('footer-link-privacy');
+                const linkTerms = document.getElementById('footer-link-terms');
+                const colContact = document.getElementById('footer-col-contact');
+
+                if (currentLang === 'en') {
+                    if (colService) colService.textContent = 'Customer Service';
+                    if (linkFaq) linkFaq.textContent = 'FAQs';
+                    if (link404) link404.textContent = '404 Page';
+                    if (colNews) colNews.textContent = 'Subscribe';
+                    if (linkPrivacy) linkPrivacy.textContent = 'Privacy & Security';
+                    if (linkTerms) linkTerms.textContent = 'Terms & Announcements';
+                    if (colContact) colContact.textContent = 'Contact Us';
+                } else {
+                    if (colService) colService.textContent = 'บริการลูกค้า';
+                    if (linkFaq) linkFaq.textContent = 'คำถามที่พบบ่อย';
+                    if (link404) link404.textContent = 'หน้า 404';
+                    if (colNews) colNews.textContent = 'รับข่าวสารจากเรา';
+                    if (linkPrivacy) linkPrivacy.textContent = 'ความเป็นส่วนตัวและความปลอดภัย';
+                    if (linkTerms) linkTerms.textContent = 'ข้อกำหนดและประกาศจากเว็บไซต์';
+                    if (colContact) colContact.textContent = 'ติดต่อเรา';
+                }
+
+                // Page translations
+                const successTitle = document.getElementById('success-title');
+                const successSubtitle = document.getElementById('success-subtitle');
+                const receiptOrderLabel = document.getElementById('receipt-order-label');
+                const receiptDateLabel = document.getElementById('receipt-date-label');
+                const receiptItemsLabel = document.getElementById('receipt-items-label');
+                const receiptSubtotalLabel = document.getElementById('receipt-subtotal-label');
+                const receiptShippingLabel = document.getElementById('receipt-shipping-label');
+                const receiptTotalLabel = document.getElementById('receipt-total-label');
+                const receiptShippingInfoLabel = document.getElementById('receipt-shipping-info-label');
+                const receiptPaymentInfoLabel = document.getElementById('receipt-payment-info-label');
+                const receiptPaymentStatusLabel = document.getElementById('order-payment-status-label');
+                const btnTrackLabel = document.getElementById('btn-track-label');
+                const btnBrowseLabel = document.getElementById('btn-browse-label');
+
+                if (currentLang === 'en') {
+                    if (successTitle) successTitle.textContent = 'Order Complete!';
+                    if (successSubtitle) successSubtitle.textContent = 'Thank you for shopping with Klin Klin. We will pack your products and deliver them to you as quickly as possible.';
+                    if (receiptOrderLabel) receiptOrderLabel.textContent = 'Your Receipt';
+                    if (receiptDateLabel) receiptDateLabel.innerHTML = 'Order Date: <span id="order-date-val">-</span>';
+                    if (receiptItemsLabel) receiptItemsLabel.textContent = 'Purchased Items';
+                    if (receiptSubtotalLabel) receiptSubtotalLabel.textContent = 'Subtotal';
+                    if (receiptShippingLabel) receiptShippingLabel.textContent = 'Shipping Cost';
+                    if (receiptTotalLabel) receiptTotalLabel.textContent = 'Grand Total';
+                    if (receiptShippingInfoLabel) receiptShippingInfoLabel.textContent = 'Shipping Address';
+                    if (receiptPaymentInfoLabel) receiptPaymentInfoLabel.textContent = 'Payment Details';
+                    if (receiptPaymentStatusLabel) receiptPaymentStatusLabel.innerHTML = '<i class="fas fa-check"></i> Processed Successfully';
+                    if (btnTrackLabel) btnTrackLabel.textContent = 'Track Shipment';
+                    if (btnBrowseLabel) btnBrowseLabel.textContent = 'Continue Shopping';
+                }
+            }
+
+            // Sync Header Badges
+            function updateBadges() {
+                const favBadge = document.getElementById('fav-badge');
+                const cartBadge = document.getElementById('cart-badge');
+                const cartList = JSON.parse(localStorage.getItem('klinklin_cart')) || [];
+                const favList = JSON.parse(localStorage.getItem('klinklin_favorites')) || [];
+
+                if (favBadge) {
+                    favBadge.textContent = favList.length;
+                    favBadge.style.opacity = favList.length > 0 ? '1' : '0';
+                    favBadge.style.transform = favList.length > 0 ? 'scale(1)' : 'scale(0)';
+                }
+                if (cartBadge) {
+                    const totalQty = cartList.reduce((sum, item) => sum + item.quantity, 0);
+                    cartBadge.textContent = totalQty;
+                    cartBadge.style.opacity = totalQty > 0 ? '1' : '0';
+                    cartBadge.style.transform = totalQty > 0 ? 'scale(1)' : 'scale(0)';
+                }
+            }
+
+            // --- LOAD AND RENDER LAST ORDER DETAILS ---
+            function renderLastOrder() {
+                const orderData = JSON.parse(localStorage.getItem('klinklin_last_order'));
+                const cardContainer = document.getElementById('receipt-card-container');
+                
+                if (!orderData) {
+                    // No order session found, redirect back
+                    window.location.href = 'products.html';
+                    return;
+                }
+
+                cardContainer.style.display = 'block';
+
+                // Fill simple text labels
+                document.getElementById('order-date-val').textContent = orderData.date || '';
+                document.getElementById('order-id-val').textContent = orderData.orderId || '#KLN-000000';
+                
+                const freeShippingText = currentLang === 'en' ? 'Free Shipping' : 'ส่งฟรี';
+                document.getElementById('order-subtotal-val').textContent = `${orderData.subtotal} ฿`;
+                document.getElementById('order-shipping-val').textContent = orderData.shippingCost === 0 ? freeShippingText : `${orderData.shippingCost} ฿`;
+                if (orderData.shippingCost === 0) {
+                    document.getElementById('order-shipping-val').style.color = '#2ecc71';
+                    document.getElementById('order-shipping-val').style.fontWeight = '600';
+                }
+                document.getElementById('order-total-val').textContent = `${orderData.total} ฿`;
+                
+                document.getElementById('order-receiver-val').textContent = orderData.receiver || '';
+                document.getElementById('order-address-val').textContent = orderData.address || '';
+                document.getElementById('order-phone-val').textContent = orderData.phone || '';
+
+                // Translate payment methods
+                const paymentMethod = orderData.paymentMethod || 'cod';
+                let paymentLabel = '';
+                if (paymentMethod === 'cod') {
+                    paymentLabel = currentLang === 'en' ? 'Cash on Delivery (COD)' : 'ชำระเงินปลายทาง (COD)';
+                } else if (paymentMethod === 'promptpay') {
+                    paymentLabel = currentLang === 'en' ? 'Transfer via PromptPay' : 'โอนผ่านพร้อมเพย์ (PromptPay)';
+                } else if (paymentMethod === 'bank') {
+                    paymentLabel = currentLang === 'en' ? 'Bank Transfer' : 'โอนเงินผ่านบัญชีธนาคาร';
+                }
+                document.getElementById('order-payment-method-val').textContent = paymentLabel;
+
+                // Render products list inside receipt
+                const listContainer = document.getElementById('receipt-products-list');
+                listContainer.innerHTML = '';
+
+                if (orderData.items && orderData.items.length > 0) {
+                    orderData.items.forEach(item => {
+                        const prod = products.find(p => p.id === item.id);
+                        if (prod) {
+                            const nameString = currentLang === 'en' ? prod.nameEN : prod.name;
+                            const colorString = currentLang === 'en' ? prod.colorEN : prod.color;
+                            const qtyString = currentLang === 'en' ? `Qty: ${item.quantity}` : `จำนวน: ${item.quantity}`;
+                            
+                            const row = document.createElement('div');
+                            row.className = 'receipt-item-row';
+                            row.innerHTML = `
+                                <div class="receipt-item-info">
+                                    <img src="${prod.image}" alt="${nameString}" class="receipt-item-img">
+                                    <div class="receipt-item-details">
+                                        <h4>${nameString}</h4>
+                                        <p style="margin-bottom: 2px;">${currentLang === 'en' ? 'Color' : 'สี'}: ${colorString}</p>
+                                        <p style="font-size: 0.8rem; color: #999;">${qtyString}</p>
+                                    </div>
+                                </div>
+                                <div class="receipt-item-price">${prod.price * item.quantity} ฿</div>
+                            `;
+                            listContainer.appendChild(row);
+                        }
+                    });
+                }
+
+                // Show instruction box for PromptPay or Bank Transfer
+                const instructionBlock = document.getElementById('payment-instruction-block');
+                const instTitle = document.getElementById('instruction-title');
+                const instDetails = document.getElementById('instruction-details');
+                const instSub = document.getElementById('instruction-sub');
+
+                if (paymentMethod === 'promptpay' || paymentMethod === 'bank') {
+                    instructionBlock.style.display = 'flex';
+                    if (paymentMethod === 'promptpay') {
+                        instTitle.textContent = currentLang === 'en' ? 'Scan & Pay via PromptPay' : 'สแกนชำระเงินผ่านพร้อมเพย์';
+                        instDetails.innerHTML = currentLang === 'en' 
+                            ? '<strong>PromptPay ID:</strong> 081-234-5678 (Klin Klin Co., Ltd.)' 
+                            : '<strong>หมายเลขพร้อมเพย์:</strong> 081-234-5678 (บจก. กลิ่นกลิ่น)';
+                    } else {
+                        // Bank transfer
+                        instTitle.textContent = currentLang === 'en' ? 'Transfer to Bank Account' : 'โอนเงินเข้าบัญชีธนาคาร';
+                        instDetails.innerHTML = currentLang === 'en' 
+                            ? '<strong>KBank:</strong> 123-4-56789-0 (Klin Klin Co., Ltd.)' 
+                            : '<strong>ธ.กสิกรไทย (KBank):</strong> 123-4-56789-0 (บจก. กลิ่นกลิ่น)';
+                    }
+
+                    if (instSub) {
+                        instSub.textContent = currentLang === 'en' 
+                            ? 'Once transfer is complete, we will verify and prepare your shipment immediately.' 
+                            : 'หลังจากทำรายการโอนเสร็จสิ้น ทางร้านจะรีบตรวจสอบและสไลด์เข้าสู่กระบวนการจัดส่งทันทีค่ะ';
+                    }
+                } else {
+                    instructionBlock.style.display = 'none';
+                }
+            }
+
+            initLanguageSwitcher();
+            updateBadges();
+            renderLastOrder();
+        });
+    </script>
+</body>
+
+</html>

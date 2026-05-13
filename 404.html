@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlinKlin - 404 Page Not Found</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./:assets/logo klinklin.png">
+    <!-- เชื่อมต่อ CSS -->
+    <link rel="stylesheet" href="./:assets/style.css">
+    <!-- Font Awesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Playwrite+IE:wght@100..400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Floating animations for 404 elements */
+        @keyframes gentle-float {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(3deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 10px 35px rgba(44, 92, 61, 0.03);
+            }
+
+            50% {
+                box-shadow: 0 15px 45px rgba(44, 92, 61, 0.08);
+            }
+
+            100% {
+                box-shadow: 0 10px 35px rgba(44, 92, 61, 0.03);
+            }
+        }
+
+        .error-num-container {
+            font-family: 'Google Sans Flex', sans-serif;
+            font-size: 8rem;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(135deg, #1b3c25 0%, var(--primary-green) 50%, #cca43b 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+            display: inline-block;
+            animation: gentle-float 6s ease-in-out infinite;
+        }
+
+        .error-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(229, 224, 218, 0.8);
+            border-radius: 24px;
+            padding: 60px 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+
+        .btn-error-home {
+            background-color: #111111;
+            color: white !important;
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 8px 25px rgba(17, 17, 17, 0.08);
+        }
+
+        .btn-error-home:hover {
+            background-color: var(--primary-green);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(83, 161, 229, 0.35);
+        }
+
+        .btn-error-home:active {
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header (แถบเมนูด้านบน) -->
+    <header class="header"
+        style="background-color: rgba(255, 255, 255, 0.98); box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+        <div class="header-container">
+            <!-- 1. โลโก้ (ซ้ายสุด) -->
+            <div class="logo">
+                <a href="index.html"><img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="logo-img"></a>
+            </div>
+
+            <!-- 2. เมนูนำทาง (ตรงกลาง) -->
+            <nav class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="products.html">PRODUCTS</a>
+                <a href="about.html">ABOUT</a>
+                <a href="contact.html">CONTACT</a>
+                <a href="tracking.html">TRACKING</a>
+            </nav>
+
+            <!-- 3. ส่วนตัวช่วย (ขวาสุด) -->
+            <div class="nav-utils">
+                <div class="search-box">
+
+                    <input type="text" placeholder="ค้นหา..." class="search-input" id="global-search-input"
+                        onkeydown="if(event.key === 'Enter') { window.location.href='products.html?search='+encodeURIComponent(this.value); }">
+
+                    <a href="#" class="search-icon"
+                        onclick="const val = document.getElementById('global-search-input').value; window.location.href='products.html?search='+encodeURIComponent(val); return false;"><i
+                            class="fas fa-search"></i></a>
+
+                </div>
+                <a href="favorites.html" class="favorites-link" style="position: relative; margin-right: 5px;"><i
+                        class="far fa-heart"></i><span class="fav-badge" id="fav-badge"
+                        style="position: absolute; top: -8px; right: -8px; background-color: #ff3366; color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+                <a href="profile.html" class="profile-link"><i class="fas fa-user-circle"></i></a>
+                <a href="cart.html" class="cart-link" style="position: relative;"><i
+                        class="fas fa-shopping-cart"></i><span class="cart-badge" id="cart-badge"
+                        style="position: absolute; top: -8px; right: -8px; background-color: var(--primary-green); color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; opacity: 0; transition: all 0.3s ease;">0</span></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container (ปรับดีไซน์ให้โปร่งหรูหรากึ่งกลางหน้าจอพอดี) -->
+    <main class="main-content"
+        style="padding: 200px 0 100px 0; min-height: calc(100vh - 460px); display: flex; align-items: center; justify-content: center; background-color: #fcfbf7; font-family: 'Google Sans Flex', sans-serif; position: relative; overflow: hidden;">
+
+        <div
+            style="max-width: 900px; width: 100%; margin: 0 auto; padding: 0 24px; display: flex; justify-content: center; align-items: center; position: relative;">
+
+            <!-- Error Card -->
+            <div class="error-card">
+                <div class="error-num-container">404</div>
+
+                <h1 style="font-family: 'Google Sans Flex', sans-serif; font-size: 1.8rem; font-weight: 700; color: #1b3c25; margin: 0 0 15px 0;"
+                    id="error-title">ไม่พบหน้านี้</h1>
+
+                <p style="color: #65736b; font-size: 1.05rem; line-height: 1.7; margin: 0 auto 35px auto; max-width: 440px;"
+                    id="error-desc">
+                    ขออภัยด้วยนะคะ หน้าเว็บที่คุณกำลังตามหาอาจไม่มีอยู่จริง ถูกย้าย หรือถูกเปลี่ยนเส้นทางไปแล้ว
+                </p>
+
+                <a href="index.html" class="btn-error-home">
+                    <i class="fas fa-arrow-left"></i>
+                    <span id="error-btn-text">กลับสู่หน้าแรก</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer (ส่วนท้าย) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col-brand">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="./:assets/logo klinklin.png" alt="Klin Klin Logo" class="footer-logo-img">
+                </a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-service">บริการลูกค้า</h4>
+                <ul class="footer-col-list">
+                    <li><a href="#" id="footer-link-faq">คำถามที่พบบ่อย</a></li>
+                    <li><a href="404.html" id="footer-link-404">หน้า 404</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-news">รับข่าวสารจากเรา</h4>
+                <ul class="footer-col-list">
+                    <li><a href="privacy-policy.html" id="footer-link-privacy">ความเป็นส่วนตัวและความปลอดภัย</a></li>
+                    <li><a href="terms.html" id="footer-link-terms">ข้อกำหนดและประกาศจากเว็บไซต์</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" id="footer-col-contact">ติดต่อเรา</h4>
+                <div class="footer-social-icons">
+                    <a href="#" class="social-icon-btn"><i class="fab fa-line"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="fas fa-phone-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./:js/script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- ระบบควบคุมและเปลี่ยนภาษา ( BILINGUAL SWITCHER ) ---
+            const currentLang = localStorage.getItem('klinklin_lang') || 'th';
+
+            function initLanguageSwitcher() {
+                const navUtils = document.querySelector('.nav-utils');
+                if (navUtils && !document.getElementById('header-lang-switch')) {
+                    const switchDiv = document.createElement('div');
+                    switchDiv.id = 'header-lang-switch';
+                    switchDiv.style.cssText = 'display: flex; gap: 5px; font-size: 0.82rem; font-weight: 700; color: #111; cursor: pointer; align-items: center; margin-right: 15px; user-select: none; font-family: "Google Sans Flex", sans-serif;';
+                    switchDiv.innerHTML = `
+                        <span id="lang-th" style="color: ${currentLang === 'th' ? 'var(--primary-green)' : '#888'};">TH</span>
+                        <span style="color: #e0dee0; font-weight: 400;">|</span>
+                        <span id="lang-en" style="color: ${currentLang === 'en' ? 'var(--primary-green)' : '#888'};">EN</span>
+                    `;
+
+                    const favLink = navUtils.querySelector('.favorites-link');
+                    if (favLink) {
+                        navUtils.insertBefore(switchDiv, favLink);
+                    } else {
+                        navUtils.appendChild(switchDiv);
+                    }
+
+                    document.getElementById('lang-th').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (localStorage.getItem('klinklin_lang') !== 'th') {
+                            localStorage.setItem('klinklin_lang', 'th');
+                            window.location.reload();
+                        }
+                    });
+
+                    document.getElementById('lang-en').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (localStorage.getItem('klinklin_lang') !== 'en') {
+                            localStorage.setItem('klinklin_lang', 'en');
+                            window.location.reload();
+                        }
+                    });
+                }
+            }
+
+            const pageData = {
+                th: {
+                    title: "ไม่พบหน้านี้",
+                    desc: "ขออภัยด้วยนะคะ หน้าเว็บที่คุณกำลังตามหาอาจไม่มีอยู่จริง ถูกย้าย หรือถูกเปลี่ยนเส้นทางไปแล้ว",
+                    btnText: "กลับสู่หน้าแรก",
+                    navHome: "หน้าแรก",
+                    navProducts: "สินค้า",
+                    navAbout: "เกี่ยวกับเรา",
+                    navContact: "ติดต่อเรา",
+                    colService: "บริการลูกค้า",
+                    linkFaq: "คำถามที่พบบ่อย",
+                    link404: "หน้า 404",
+                    colNews: "รับข่าวสารจากเรา",
+                    linkPrivacy: "ความเป็นส่วนตัวและความปลอดภัย",
+                    linkTerms: "ข้อกำหนดและประกาศจากเว็บไซต์",
+                    colContact: "ติดต่อเรา",
+                    searchPlaceholder: "ค้นหา..."
+                },
+                en: {
+                    title: "Page Not Found",
+                    desc: "We are sorry, but the page you are looking for does not exist, has been removed, or has been temporarily redirected.",
+                    btnText: "Back to Home",
+                    navHome: "HOME",
+                    navProducts: "PRODUCTS",
+                    navAbout: "ABOUT",
+                    navContact: "CONTACT",
+                    colService: "Customer Service",
+                    linkFaq: "FAQs",
+                    link404: "404 Page",
+                    colNews: "Subscribe",
+                    linkPrivacy: "Privacy & Security",
+                    linkTerms: "Terms & Announcements",
+                    colContact: "Contact Us",
+                    searchPlaceholder: "Search..."
+                }
+            };
+
+            function localizePage() {
+                const data = pageData[currentLang] || pageData.th;
+
+                // Main card localized
+                const eTitle = document.getElementById('error-title');
+                const eDesc = document.getElementById('error-desc');
+                const eBtn = document.getElementById('error-btn-text');
+
+                if (eTitle) eTitle.textContent = data.title;
+                if (eDesc) eDesc.textContent = data.desc;
+                if (eBtn) eBtn.textContent = data.btnText;
+
+                // Navigation Links
+                const navLinks = document.querySelectorAll('.nav-links a');
+                if (navLinks.length >= 5) {
+                    navLinks[0].textContent = data.navHome;
+                    navLinks[1].textContent = data.navProducts;
+                    navLinks[2].textContent = data.navAbout;
+                    navLinks[3].textContent = data.navContact;
+                    navLinks[4].textContent = currentLang === 'en' ? 'TRACKING' : 'เช็คสถานะพัสดุ';
+                } else if (navLinks.length >= 4) {
+                    navLinks[0].textContent = data.navHome;
+                    navLinks[1].textContent = data.navProducts;
+                    navLinks[2].textContent = data.navAbout;
+                    navLinks[3].textContent = data.navContact;
+                }
+
+                // Footer Translations
+                const colService = document.getElementById('footer-col-service');
+                const linkFaq = document.getElementById('footer-link-faq');
+                const link404 = document.getElementById('footer-link-404');
+                const colNews = document.getElementById('footer-col-news');
+                const linkPrivacy = document.getElementById('footer-link-privacy');
+                const linkTerms = document.getElementById('footer-link-terms');
+                const colContact = document.getElementById('footer-col-contact');
+
+                if (colService) colService.textContent = data.colService;
+                if (linkFaq) linkFaq.textContent = data.linkFaq;
+                if (link404) link404.textContent = data.link404;
+                if (colNews) colNews.textContent = data.colNews;
+                if (linkPrivacy) linkPrivacy.textContent = data.linkPrivacy;
+                if (linkTerms) linkTerms.textContent = data.linkTerms;
+                if (colContact) colContact.textContent = data.colContact;
+
+                // Search Input
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.placeholder = data.searchPlaceholder;
+                }
+            }
+
+            initLanguageSwitcher();
+            localizePage();
+
+            // Badge System update
+            function updateBadges() {
+                const cart = JSON.parse(localStorage.getItem('klinklin_cart')) || [];
+                const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+                const cartBadge = document.getElementById('cart-badge');
+                if (cartBadge) {
+                    if (cartCount > 0) {
+                        cartBadge.textContent = cartCount;
+                        cartBadge.style.opacity = '1';
+                    } else {
+                        cartBadge.style.opacity = '0';
+                    }
+                }
+
+                const favorites = JSON.parse(localStorage.getItem('klinklin_favorites')) || [];
+                const favCount = favorites.length;
+                const favBadge = document.getElementById('fav-badge');
+                if (favBadge) {
+                    if (favCount > 0) {
+                        favBadge.textContent = favCount;
+                        favBadge.style.opacity = '1';
+                    } else {
+                        favBadge.style.opacity = '0';
+                    }
+                }
+            }
+            updateBadges();
+        });
+    </script>
+</body>
+
+</html>
